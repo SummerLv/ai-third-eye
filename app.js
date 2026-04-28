@@ -1,7 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
+ * 版本: v1.0.3
  * 实现全双工实时音视频对话
  */
+
+const APP_VERSION = 'v1.0.3';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -473,6 +476,9 @@ class UIController {
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('stopBtn').addEventListener('click', () => this.stop());
         
+        // Global keyboard shortcuts
+        document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+        
         // Mode buttons
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -510,7 +516,47 @@ class UIController {
         
         this.loadSettings();
         this.initAudioVisualizer();
+        this.showWelcomeTip();
     }
+    
+    handleKeyboard(e) {
+        // Escape - 关闭设置面板
+        if (e.key === 'Escape') {
+            document.getElementById('settingsPanel').classList.remove('show');
+        }
+        // Space - 开始/结束对话（需要焦点不在输入框）
+        if (e.key === ' ' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            if (this.client && this.client.isConnected) {
+                this.stop();
+            } else {
+                this.start();
+            }
+        }
+        // S - 截图
+        if (e.key === 's' && e.ctrlKey && this.client && this.client.isConnected) {
+            e.preventDefault();
+            this.takeScreenshot();
+        }
+        // C - 设置面板
+        if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
+            const panel = document.getElementById('settingsPanel');
+            panel.classList.toggle('show');
+            if (panel.classList.contains('show')) {
+                this.loadPersonalityGrid();
+            }
+        }
+    }
+    
+    showWelcomeTip() {
+        // 首次访问显示使用提示
+        const hasVisited = localStorage.getItem('ai-third-eye-visited');
+        if (!hasVisited) {
+            setTimeout(() => {
+                this.addMessage('system', '💡 使用提示: 空格键快速开始/结束对话，S截图，Esc关闭面板');
+                localStorage.setItem('ai-third-eye-visited', 'true');
+            }, 1500);
+        }
     
     loadPersonalityGrid() {
         const grid = document.getElementById('personalityGrid');
