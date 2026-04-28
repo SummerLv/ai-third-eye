@@ -310,10 +310,13 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(26,26,46,0.95);
+            background: rgba(26,26,46,0.98);
             border-radius: 12px;
             padding: 25px;
-            width: 400px;
+            width: 450px;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow-y: auto;
             z-index: 100;
             display: none;
             border: 1px solid rgba(255,255,255,0.1);
@@ -519,6 +522,7 @@
                 <button class="btn btn-primary" id="startBtn">▶️ 开始对话</button>
                 <button class="btn btn-secondary" id="muteBtn" style="display:none;">🔇 静音</button>
                 <button class="btn btn-secondary" id="interruptBtn" style="display:none;">⏸️ 打断</button>
+                <button class="btn btn-secondary" id="screenshotBtn" style="display:none;">📸 截图</button>
                 <button class="btn btn-danger" id="stopBtn" style="display:none;">⏹️ 结束对话</button>
             </div>
         </div>
@@ -527,6 +531,16 @@
     <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-title">⚙️ 设置</div>
+        
+        <div class="setting-item">
+            <div class="setting-label">🎭 选择 AI 人设</div>
+            <div id="personalityGrid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px;">
+                <!-- Personalities will be loaded dynamically -->
+            </div>
+            <button class="btn btn-secondary" id="randomPersonalityBtn" style="width: 100%; margin-top: 10px; padding: 10px;">
+                🎲 随机选择
+            </button>
+        </div>
         
         <div class="setting-item">
             <div class="setting-label">AI 人设提示词</div>
@@ -538,18 +552,14 @@
             <input class="setting-input" id="apiEndpoint" value="wss://minicpmo45.modelbest.cn/v1/realtime">
         </div>
         
-        <div class="setting-item">
-            <div class="setting-label">语音风格（可选，留空使用默认）</div>
-            <input class="setting-input" id="voiceStyle" placeholder="如：温柔、活泼、沉稳">
-        </div>
-        
         <div style="display:flex;gap:10px;margin-top:20px;">
             <button class="btn btn-primary" id="saveSettings">保存</button>
             <button class="btn btn-secondary" id="closeSettings">取消</button>
         </div>
     </div>
     
-    <!-- Core Script -->
+    <!-- Core Scripts -->
+    <script src="personalities.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

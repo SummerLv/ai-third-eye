@@ -485,6 +485,7 @@ class UIController {
         // Settings
         document.getElementById('settingsBtn').addEventListener('click', () => {
             document.getElementById('settingsPanel').classList.add('show');
+            this.loadPersonalityGrid();
         });
         
         document.getElementById('closeSettings').addEventListener('click', () => {
@@ -496,8 +497,65 @@ class UIController {
             document.getElementById('settingsPanel').classList.remove('show');
         });
         
+        // Random personality button
+        document.getElementById('randomPersonalityBtn')?.addEventListener('click', () => {
+            const personality = getRandomPersonality();
+            this.selectPersonality(personality.key);
+        });
+        
+        // Screenshot button
+        document.getElementById('screenshotBtn')?.addEventListener('click', () => {
+            this.takeScreenshot();
+        });
+        
         this.loadSettings();
         this.initAudioVisualizer();
+    }
+    
+    loadPersonalityGrid() {
+        const grid = document.getElementById('personalityGrid');
+        if (!grid) return;
+        
+        grid.innerHTML = '';
+        const personalities = getAllPersonalities();
+        const savedPersonality = localStorage.getItem('ai-third-eye-personality');
+        
+        for (const [key, personality] of Object.entries(personalities)) {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-secondary';
+            btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left;';
+            btn.dataset.personality = key;
+            btn.innerHTML = `${personality.name}<br><span style="color:#888">${personality.description}</span>`;
+            
+            if (savedPersonality === key) {
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
+            }
+            
+            btn.addEventListener('click', () => this.selectPersonality(key));
+            grid.appendChild(btn);
+        }
+    }
+    
+    selectPersonality(key) {
+        const personality = getAllPersonalities()[key];
+        if (!personality) return;
+        
+        localStorage.setItem('ai-third-eye-personality', key);
+        document.getElementById('systemPrompt').value = personality.prompt;
+        
+        // Update grid buttons
+        const grid = document.getElementById('personalityGrid');
+        grid.querySelectorAll('button').forEach(btn => {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-secondary');
+            if (btn.dataset.personality === key) {
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
+            }
+        });
+        
+        this.addMessage('system', `🎭 已切换到 ${personality.name} 人设`);
     }
     
     loadSettings() {
@@ -506,6 +564,13 @@ class UIController {
             const settings = JSON.parse(saved);
             document.getElementById('systemPrompt').value = settings.systemPrompt || '';
             document.getElementById('apiEndpoint').value = settings.apiEndpoint || '';
+        }
+        
+        // Load saved personality
+        const savedPersonality = localStorage.getItem('ai-third-eye-personality');
+        if (savedPersonality && getAllPersonalities()[savedPersonality]) {
+            const personality = getAllPersonalities()[savedPersonality];
+            document.getElementById('systemPrompt').value = personality.prompt;
         }
     }
     
@@ -530,6 +595,9 @@ class UIController {
     async start() {
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const interruptBtn = document.getElementById('interruptBtn');
+        const screenshotBtn = document.getElementById('screenshotBtn');
         const loadingOverlay = document.getElementById('loadingOverlay');
         
         startBtn.disabled = true;
@@ -552,6 +620,9 @@ class UIController {
             
             startBtn.style.display = 'none';
             stopBtn.style.display = 'inline-flex';
+            muteBtn.style.display = 'inline-flex';
+            interruptBtn.style.display = 'inline-flex';
+            screenshotBtn.style.display = 'inline-flex';
             loadingOverlay.classList.remove('show');
             
         } catch (e) {
@@ -569,6 +640,9 @@ class UIController {
         document.getElementById('startBtn').style.display = 'inline-flex';
         document.getElementById('startBtn').disabled = false;
         document.getElementById('stopBtn').style.display = 'none';
+        document.getElementById('muteBtn').style.display = 'none';
+        document.getElementById('interruptBtn').style.display = 'none';
+        document.getElementById('screenshotBtn').style.display = 'none';
         
         this.addMessage('system', '👋 对话已结束');
     }
@@ -680,6 +754,37 @@ class UIController {
         }
         
         this.addMessage('system', message);
+    }
+    
+    takeScreenshot() {
+        const video = document.getElementById('localVideo');
+        if (!video) return;
+        
+        // Create canvas
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        
+        // Draw video frame (mirrored)
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0);
+        
+        // Get image data
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        // Create download link
+        const a = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        a.href = dataUrl;
+        a.download = `ai-third-eye-${timestamp}.png`;
+        a.click();
+        
+        this.addMessage('system', '📸 截图已保存！');
+        
+        // Clean up
+        canvas.remove();
     }
 }
 
