@@ -408,6 +408,51 @@
                 min-height: 300px;
             }
         }
+        
+        /* Mobile optimized */
+        @media (max-width: 600px) {
+            .app-container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+            }
+            
+            .chat-section {
+                width: 100%;
+                max-height: 250px;
+            }
+            
+            .control-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .mode-selector {
+                flex-wrap: wrap;
+            }
+            
+            .mode-btn {
+                flex: 1;
+                min-width: 80px;
+            }
+            
+            .settings-panel {
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -472,6 +517,8 @@
             
             <div class="control-buttons">
                 <button class="btn btn-primary" id="startBtn">▶️ 开始对话</button>
+                <button class="btn btn-secondary" id="muteBtn" style="display:none;">🔇 静音</button>
+                <button class="btn btn-secondary" id="interruptBtn" style="display:none;">⏸️ 打断</button>
                 <button class="btn btn-danger" id="stopBtn" style="display:none;">⏹️ 结束对话</button>
             </div>
         </div>

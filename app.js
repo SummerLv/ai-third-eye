@@ -28,10 +28,17 @@ class MiniCPMClient {
         this.frameInterval = null;
         this.fps = 1; // 1 frame per second
         
+        // Reconnection settings
+        this.reconnectAttempts = 0;
+        this.maxReconnectAttempts = 3;
+        this.reconnectDelay = 2000;
+        this.autoReconnect = options.autoReconnect || true;
+        
         // Callbacks
         this.onMessage = options.onMessage || (() => {});
         this.onStatusChange = options.onStatusChange || (() => {});
         this.onError = options.onError || (() => {});
+        this.onReconnect = options.onReconnect || (() => {});
     }
     
     async connect() {
@@ -68,9 +75,29 @@ class MiniCPMClient {
                 
                 this.ws.onclose = (event) => {
                     console.log('WebSocket closed:', event);
+                    const wasConnected = this.isConnected;
                     this.isConnected = false;
-                    this.onStatusChange('disconnected', '连接已断开');
-                    this.cleanup();
+                    
+                    // Try to reconnect if was connected and auto reconnect enabled
+                    if (wasConnected && this.autoReconnect && this.reconnectAttempts < this.maxReconnectAttempts) {
+                        this.reconnectAttempts++;
+                        const delay = this.reconnectDelay * this.reconnectAttempts;
+                        this.onStatusChange('reconnecting', `连接断开，${delay/1000}秒后重试 (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+                        this.onMessage('system', `⚠️ 连接断开，正在重连... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+                        
+                        setTimeout(async () => {
+                            try {
+                                await this.connect();
+                                this.reconnectAttempts = 0;
+                                this.onReconnect();
+                            } catch (e) {
+                                console.error('Reconnect failed:', e);
+                            }
+                        }, delay);
+                    } else {
+                        this.onStatusChange('disconnected', '连接已断开');
+                        this.cleanup();
+                    }
                 };
                 
             } catch (e) {
@@ -310,7 +337,43 @@ class MiniCPMClient {
         this.ws.send(JSON.stringify(msg));
     }
     
+    // Audio playback queue to prevent overlapping
+    audioPlaybackQueue = [];
+    audioPlaybackContext = null;
+    isAudioPlaying = false;
+    
     async playAudio(audioBase64) {
+        try {
+            // Add to queue
+            this.audioPlaybackQueue.push(audioBase64);
+            
+            // Process queue if not already playing
+            if (!this.isAudioPlaying) {
+                await this.processAudioQueue();
+            }
+        } catch (e) {
+            console.error('Audio playback error:', e);
+        }
+    }
+    
+    async processAudioQueue() {
+        if (this.audioPlaybackQueue.length === 0) {
+            this.isAudioPlaying = false;
+            return;
+        }
+        
+        this.isAudioPlaying = true;
+        this.updateAIStatus('speaking', '正在说话...');
+        
+        // Initialize audio context once
+        if (!this.audioPlaybackContext) {
+            this.audioPlaybackContext = new (window.AudioContext || window.webkitAudioContext)({
+                sampleRate: 24000
+            });
+        }
+        
+        const audioBase64 = this.audioPlaybackQueue.shift();
+        
         try {
             // Decode base64 to float32 PCM
             const binaryString = atob(audioBase64);
@@ -322,29 +385,24 @@ class MiniCPMClient {
             const float32View = new Float32Array(bytes.buffer);
             
             // Create audio buffer
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)({
-                sampleRate: 24000 // Output is 24kHz
-            });
-            
-            const audioBuffer = audioCtx.createBuffer(1, float32View.length, 24000);
+            const audioBuffer = this.audioPlaybackContext.createBuffer(1, float32View.length, 24000);
             audioBuffer.getChannelData(0).set(float32View);
             
             // Play
-            const source = audioCtx.createBufferSource();
+            const source = this.audioPlaybackContext.createBufferSource();
             source.buffer = audioBuffer;
-            source.connect(audioCtx.destination);
-            source.start(0);
+            source.connect(this.audioPlaybackContext.destination);
             
-            this.isPlaying = true;
-            this.updateAIStatus('speaking', '正在说话...');
-            
-            source.onended = () => {
-                audioCtx.close();
-            };
-            
+            await new Promise(resolve => {
+                source.onended = resolve;
+                source.start(0);
+            });
         } catch (e) {
-            console.error('Audio playback error:', e);
+            console.error('Audio decode error:', e);
         }
+        
+        // Process next item in queue
+        await this.processAudioQueue();
     }
     
     updateAIStatus(status, text) {
@@ -585,7 +643,43 @@ class UIController {
     
     showError(error) {
         console.error('Error:', error);
-        this.addMessage('system', `⚠️ 错误: ${error.message || error}`);
+        
+        let message = '⚠️ 发生错误';
+        
+        if (error && error.code) {
+            switch (error.code) {
+                case 'not_ready':
+                    message = '⚠️ 会话未建立，请稍后再试';
+                    break;
+                case 'unknown_event':
+                    message = '⚠️ 发送了无效消息';
+                    break;
+                case 'missing_field':
+                    message = '⚠️ 数据缺失: ' + (error.message || '');
+                    break;
+                case 'invalid_payload':
+                    message = '⚠️ 音频/视频格式错误';
+                    break;
+                case 'service_unavailable':
+                    message = '⚠️ 服务暂时不可用，请稍后重试';
+                    break;
+                case 'queue_full':
+                    message = '⚠️ 排队已满，请稍后重试';
+                    break;
+                case 'worker_busy':
+                    message = '⚠️ 服务器繁忙，请稍后重试';
+                    break;
+                case 'inference_error':
+                    message = '⚠️ AI 推理出错，继续尝试...';
+                    break;
+                default:
+                    message = '⚠️ 错误: ' + (error.message || error.code);
+            }
+        } else if (error && error.message) {
+            message = '⚠️ ' + error.message;
+        }
+        
+        this.addMessage('system', message);
     }
 }
 
