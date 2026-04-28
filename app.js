@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.3
+ * 版本: v1.0.4
  * 实现全双工实时音视频对话
  */
 
-const APP_VERSION = 'v1.0.3';
+const APP_VERSION = 'v1.0.4';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -557,6 +557,7 @@ class UIController {
                 localStorage.setItem('ai-third-eye-visited', 'true');
             }, 1500);
         }
+    }
     
     loadPersonalityGrid() {
         const grid = document.getElementById('personalityGrid');

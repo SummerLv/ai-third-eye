@@ -134,6 +134,10 @@ MiniCPM-o Realtime API 采用 WebSocket 全双工协议：
 
 ## 📝 开发日志
 
+### v1.0.4 (2026-04-29)
+- 🐛 修复 showWelcomeTip() 方法缺失闭合大括号的语法错误
+- 🐛 修复 loadPersonalityGrid() 方法被错误嵌套的问题
+
 ### v1.0.3 (2026-04-28)
 - ✨ 新增键盘快捷键支持 (空格=开始/结束, Ctrl+S=截图, Esc=关闭设置)
 - ✨ 首次访问显示使用提示
