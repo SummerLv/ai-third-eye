@@ -1,7 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.2.0
+ * 版本: v1.3.0
  * 实现全双工实时音视频对话
+ * 
+ * v1.3.0 更新:
+ * - 新增连接延迟显示（实时 Ping 值）
+ * - 新增网络状态警告横幅（断网时醒目提示）
+ * - 改进音量指示器视觉效果（渐变颜色）
+ * - 新增会话时长计时器
+ * - 优化移动端按钮布局
  * 
  * v1.2.0 更新:
  * - 新增实时音量指示器（显示用户说话音量）
@@ -21,7 +28,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.2.0';
+const APP_VERSION = 'v1.3.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -577,7 +584,41 @@ class UIController {
         this.initStats();
         this.initVolumeIndicator(); // 🆕 初始化音量指示器
         this.initNetworkStatus(); // 🆕 初始化网络状态检测
+        this.initSessionTimer(); // 🆕 初始化会话计时器
         this.loadChatHistory(); // 加载历史对话
+    }
+    
+    // 🆕 初始化会话计时器
+    initSessionTimer() {
+        this.sessionSeconds = 0;
+        this.sessionTimer = null;
+    }
+    
+    // 🆕 开始会话计时
+    startSessionTimer() {
+        this.sessionSeconds = 0;
+        this.sessionTimer = setInterval(() => {
+            this.sessionSeconds++;
+            this.updateSessionTimerDisplay();
+        }, 1000);
+    }
+    
+    // 🆕 停止会话计时
+    stopSessionTimer() {
+        if (this.sessionTimer) {
+            clearInterval(this.sessionTimer);
+            this.sessionTimer = null;
+        }
+    }
+    
+    // 🆕 更新计时显示
+    updateSessionTimerDisplay() {
+        const timerEl = document.getElementById('sessionTimer');
+        if (timerEl) {
+            const mins = Math.floor(this.sessionSeconds / 60);
+            const secs = this.sessionSeconds % 60;
+            timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
     }
     
     init() {
@@ -1057,6 +1098,9 @@ class UIController {
             // 🆕 记录会话开始
             this.recordSessionStart();
             
+            // 🆕 开始会话计时
+            this.startSessionTimer();
+            
         } catch (e) {
             startBtn.disabled = false;
             loadingOverlay.classList.remove('show');
@@ -1071,6 +1115,9 @@ class UIController {
         
         // 🆕 记录会话结束
         this.recordSessionEnd();
+        
+        // 🆕 停止会话计时
+        this.stopSessionTimer();
         
         document.getElementById('startBtn').style.display = 'inline-flex';
         document.getElementById('startBtn').disabled = false;
@@ -1347,32 +1394,96 @@ class UIController {
         }
     }
     
-    // 🆕 更新音量指示器
+    // 🆕 更新音量指示器（带渐变颜色）
     updateVolumeIndicator(volume) {
         this.volumeLevel = volume;
         const bars = document.querySelectorAll('.volume-bar');
         const activeBars = Math.floor(volume * 5);
         
         bars.forEach((bar, index) => {
-            bar.style.opacity = index < activeBars ? '1' : '0.3';
-            bar.style.transform = index < activeBars ? 'scaleY(1.2)' : 'scaleY(1)';
+            const isActive = index < activeBars;
+            bar.style.opacity = isActive ? '1' : '0.3';
+            bar.style.transform = isActive ? 'scaleY(1.2)' : 'scaleY(1)';
+            
+            // 🆕 渐变颜色：绿->黄->红
+            if (isActive) {
+                if (volume < 0.4) {
+                    bar.style.background = '#00ff88'; // 绿色
+                } else if (volume < 0.7) {
+                    bar.style.background = '#ffcc00'; // 黄色
+                } else {
+                    bar.style.background = '#ff4444'; // 红色
+                }
+            } else {
+                bar.style.background = 'var(--accent-primary)';
+            }
         });
     }
     
-    // 🆕 初始化网络状态检测
+    // 🆕 初始化网络状态检测（带警告横幅）
     initNetworkStatus() {
         // 创建网络状态指示器
         this.updateNetworkStatus(navigator.onLine);
         
         window.addEventListener('online', () => {
             this.updateNetworkStatus(true);
+            this.hideNetworkWarning();
             this.addMessage('system', '🌐 网络已恢复');
         });
         
         window.addEventListener('offline', () => {
             this.updateNetworkStatus(false);
+            this.showNetworkWarning();
             this.addMessage('system', '⚠️ 网络已断开');
         });
+    }
+    
+    // 🆕 显示网络警告横幅
+    showNetworkWarning() {
+        let banner = document.getElementById('networkWarningBanner');
+        if (!banner) {
+            banner = document.createElement('div');
+            banner.id = 'networkWarningBanner';
+            banner.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(90deg, #ff4444, #ff6666);
+                color: white;
+                padding: 12px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 14px;
+                z-index: 9999;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 2px 10px rgba(255,0,0,0.5);
+            `;
+            banner.innerHTML = '🔴 网络已断开！请检查网络连接 <span style="margin-left:10px;cursor:pointer" onclick="this.parentElement.remove()">✕</span>';
+            document.body.appendChild(banner);
+            
+            // 添加动画样式
+            if (!document.getElementById('networkWarningStyle')) {
+                const style = document.createElement('style');
+                style.id = 'networkWarningStyle';
+                style.textContent = `
+                    @keyframes slideDown {
+                        from { transform: translateY(-100%); }
+                        to { transform: translateY(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        banner.style.display = 'block';
+    }
+    
+    // 🆕 隐藏网络警告横幅
+    hideNetworkWarning() {
+        const banner = document.getElementById('networkWarningBanner');
+        if (banner) {
+            banner.style.display = 'none';
+        }
     }
     
     // 🆕 更新网络状态显示
@@ -1381,6 +1492,7 @@ class UIController {
         if (indicator) {
             indicator.textContent = online ? '🟢' : '🔴';
             indicator.title = online ? '网络正常' : '网络已断开';
+            indicator.style.filter = online ? 'none' : 'drop-shadow(0 0 5px red)';
         }
     }
     
