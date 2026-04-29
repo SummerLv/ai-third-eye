@@ -1,11 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.0
+ * 版本: v1.7.1
  * 实现全双工实时音视频对话
  * 
- * v1.7.0 更新:
- * - 新增「跟随系统」主题选项 - 自动检测系统深色/浅色模式
- * - 主题系统扩展至 5 种选择（新增自动模式）
+ * v1.7.1 更新:
+ * - 新增首页智能推荐横幅 - 每天首次访问显示推荐人设
+ * - 优化推荐横幅交互体验
+ * - 支持一键使用推荐人设
  * 
  * v1.5.9 更新:
  * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
@@ -90,7 +91,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.0';
+const APP_VERSION = 'v1.7.1';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -899,6 +900,9 @@ class UIController {
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('stopBtn').addEventListener('click', () => this.stop());
         
+        // 🆕 v1.7.1: 显示首页推荐横幅
+        this.showHomepageRecommendation();
+        
         // 🆕 静音按钮
         const muteBtn = document.getElementById('muteBtn');
         if (muteBtn) {
@@ -1638,6 +1642,110 @@ class UIController {
             if (panel.classList.contains('show')) {
                 this.loadPersonalityGrid();
             }
+        }
+    }
+    
+    // 🆕 v1.7.1: 首页智能推荐横幅
+    showHomepageRecommendation() {
+        // 检查今天是否已显示过
+        const today = new Date().toDateString();
+        const lastShown = localStorage.getItem('ai-third-eye-banner-date');
+        const dismissed = localStorage.getItem('ai-third-eye-banner-dismissed');
+        
+        if (lastShown === today && dismissed === 'true') return;
+        
+        // 获取推荐人设
+        const recommended = getRecommendedPersonality();
+        
+        // 创建横幅
+        const banner = document.createElement('div');
+        banner.id = 'homeRecommendationBanner';
+        banner.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, rgba(0,212,255,0.95), rgba(0,255,136,0.95));
+            color: #000;
+            padding: 16px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,212,255,0.4);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            max-width: 90vw;
+            animation: bannerSlideIn 0.5s ease;
+        `;
+        
+        banner.innerHTML = `
+            <span style="font-size: 32px;">${recommended.name.split(' ')[0]}</span>
+            <div>
+                <div style="font-size: 14px; opacity: 0.8;">${recommended.timeDesc}，推荐人设</div>
+                <div style="font-size: 20px; font-weight: bold;">${recommended.name}</div>
+                <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">${recommended.description}</div>
+            </div>
+            <button id="useRecommendedPersonality" style="
+                background: #000;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 8px;
+                font-weight: bold;
+                cursor: pointer;
+                white-space: nowrap;
+            ">✨ 立即使用</button>
+            <button id="dismissBanner" style="
+                background: transparent;
+                border: none;
+                color: #000;
+                font-size: 20px;
+                cursor: pointer;
+                padding: 8px;
+            ">✕</button>
+        `;
+        
+        // 添加动画样式
+        if (!document.getElementById('bannerAnimStyles')) {
+            const style = document.createElement('style');
+            style.id = 'bannerAnimStyles';
+            style.textContent = `
+                @keyframes bannerSlideIn {
+                    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+                }
+                @keyframes bannerSlideOut {
+                    from { opacity: 1; transform: translateX(-50%) translateY(0); }
+                    to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(banner);
+        
+        // 绑定事件
+        document.getElementById('useRecommendedPersonality').addEventListener('click', () => {
+            this.selectPersonality(recommended.key);
+            this.removeBanner(banner);
+        });
+        
+        document.getElementById('dismissBanner').addEventListener('click', () => {
+            this.removeBanner(banner);
+            localStorage.setItem('ai-third-eye-banner-dismissed', 'true');
+            localStorage.setItem('ai-third-eye-banner-date', today);
+        });
+        
+        // 10秒后自动隐藏
+        setTimeout(() => {
+            this.removeBanner(banner);
+        }, 10000);
+    }
+    
+    removeBanner(banner) {
+        if (banner && banner.parentNode) {
+            banner.style.animation = 'bannerSlideOut 0.3s ease forwards';
+            setTimeout(() => banner.remove(), 300);
         }
     }
     
