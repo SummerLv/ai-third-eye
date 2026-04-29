@@ -1,8 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.9
+ * 版本: v1.1.0
  * 实现全双工实时音视频对话
  * 
+ * v1.1.0 更新:
+ * - 新增对话历史持久化（刷新页面后恢复对话）
+ * - 清空对话时同步清除本地存储
+ * - 修复 manifest.json 版本号同步问题
+ *
  * v1.0.9 更新:
  * - 新增 4 个实用型人设（学习助手、健身教练、美食家、面试官）
  * - 新增快捷键帮助面板
@@ -10,7 +15,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.0.9';
+const APP_VERSION = 'v1.1.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -531,6 +536,7 @@ class UIController {
         this.init();
         this.initTheme();
         this.initStats();
+        this.loadChatHistory(); // 加载历史对话
     }
     
     init() {
@@ -897,6 +903,37 @@ class UIController {
         this.addMessage('system', `🎭 已切换到 ${personality.name} 人设`);
     }
     
+    // 🆕 加载历史对话记录
+    loadChatHistory() {
+        const saved = localStorage.getItem('ai-third-eye-chat-history');
+        if (saved) {
+            try {
+                const history = JSON.parse(saved);
+                // 只加载最近 10 条消息
+                history.slice(-10).forEach(msg => {
+                    this.addMessage(msg.type, msg.text, false);
+                });
+            } catch (e) {
+                console.error('Failed to load chat history:', e);
+            }
+        }
+    }
+
+    // 🆕 保存对话历史
+    saveChatHistory() {
+        const container = document.getElementById('messagesContainer');
+        const messages = container.querySelectorAll('.message');
+        const history = [];
+        messages.forEach(msg => {
+            const text = msg.querySelector('p')?.textContent || '';
+            const type = msg.classList.contains('ai') ? 'ai' :
+                        msg.classList.contains('user') ? 'user' : 'system';
+            history.push({ type, text, time: new Date().toISOString() });
+        });
+        // 只保存最近 20 条
+        localStorage.setItem('ai-third-eye-chat-history', JSON.stringify(history.slice(-20)));
+    }
+
     loadSettings() {
         const saved = localStorage.getItem('ai-third-eye-settings');
         if (saved) {
@@ -1035,6 +1072,7 @@ class UIController {
         `;
         this.messages = [];
         this.partialMessage = '';
+        localStorage.removeItem('ai-third-eye-chat-history');
     }
     
     // 🆕 导出对话记录
@@ -1130,6 +1168,11 @@ class UIController {
         // Keep only last 50 messages
         while (container.children.length > 50) {
             container.removeChild(container.firstChild);
+        }
+        
+        // 🆕 保存对话历史（非 partial 消息）
+        if (!partial) {
+            this.saveChatHistory();
         }
     }
     
