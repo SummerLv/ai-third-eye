@@ -91,7 +91,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.6.2';
+const APP_VERSION = 'v1.6.3';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1157,6 +1157,30 @@ class UIController {
             return `${hours}时${mins}分`;
         };
         
+        // 🆕 v1.6.3: 获取人设使用统计
+        let personalityStatsHtml = '';
+        if (typeof getPersonalityUsageStats === 'function') {
+            const topPersonalities = getPersonalityUsageStats().slice(0, 5);
+            if (topPersonalities.length > 0) {
+                personalityStatsHtml = `
+                    <div style="margin-top:15px;padding:15px;background:rgba(0,0,0,0.2);border-radius:8px;">
+                        <div style="color:var(--text-secondary);font-size:12px;margin-bottom:10px;">🎭 最常使用的人设</div>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            ${topPersonalities.map((p, i) => `
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <div style="display:flex;align-items:center;gap:8px;">
+                                        <span style="color:var(--accent-secondary);font-size:12px;">#${i+1}</span>
+                                        <span style="color:var(--text-primary);font-size:13px;">${p.name || p.key}</span>
+                                    </div>
+                                    <span style="color:var(--accent-primary);font-size:12px;">${p.count}次</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
         content.innerHTML = `
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;">
                 <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
@@ -1176,6 +1200,7 @@ class UIController {
                     <div style="font-size:12px;color:var(--text-secondary);">总时长</div>
                 </div>
             </div>
+            ${personalityStatsHtml}
             <div style="margin-top:15px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px;font-size:12px;">
                 <div style="color:var(--text-secondary);">最后会话: ${this.stats.lastSession ? new Date(this.stats.lastSession).toLocaleString() : '暂无'}</div>
             </div>
@@ -2573,5 +2598,87 @@ class UIController {
     }
 }
 
+    // 🆕 v1.6.3: 显示首页推荐人设横幅
+    showRecommendedPersonalityBanner() {
+        if (typeof getRecommendedPersonality !== 'function') return;
+        
+        const recommended = getRecommendedPersonality();
+        if (!recommended) return;
+        
+        // 检查是否已显示过
+        if (localStorage.getItem('ai-third-eye-banner-shown') === new Date().toDateString()) return;
+        
+        // 创建推荐横幅
+        const existing = document.getElementById('recommendedBanner');
+        if (existing) existing.remove();
+        
+        const banner = document.createElement('div');
+        banner.id = 'recommendedBanner';
+        banner.style.cssText = `
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,255,136,0.2));
+            border: 1px solid rgba(0,212,255,0.4);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideDown 0.5s ease;
+        `;
+        
+        banner.innerHTML = `
+            <div style="display:flex;align-items:center;gap:12px;">
+                <span style="font-size:32px;">💡</span>
+                <div>
+                    <div style="color:var(--accent-primary);font-size:14px;font-weight:600;">${recommended.timeDesc}，推荐人设</div>
+                    <div style="color:var(--text-primary);font-size:12px;margin-top:2px;">${recommended.name} · ${recommended.description}</div>
+                </div>
+            </div>
+            <div style="display:flex;gap:8px;">
+                <button class="btn btn-primary" id="useRecommendedBtn" style="padding:8px 16px;font-size:12px;">使用</button>
+                <button class="btn btn-secondary" id="closeBannerBtn" style="padding:8px 12px;font-size:12px;min-width:auto;">×</button>
+            </div>
+        `;
+        
+        // 插入到消息容器之前
+        const messagesContainer = document.getElementById('messagesContainer');
+        if (messagesContainer && messagesContainer.parentElement) {
+            messagesContainer.parentElement.insertBefore(banner, messagesContainer);
+        }
+        
+        // 绑定事件
+        document.getElementById('useRecommendedBtn')?.addEventListener('click', () => {
+            this.selectPersonality(recommended.key);
+            banner.remove();
+            localStorage.setItem('ai-third-eye-banner-shown', new Date().toDateString());
+        });
+        
+        document.getElementById('closeBannerBtn')?.addEventListener('click', () => {
+            banner.remove();
+            localStorage.setItem('ai-third-eye-banner-shown', new Date().toDateString());
+        });
+        
+        // 添加动画样式
+        if (!document.getElementById('bannerStyles')) {
+            const style = document.createElement('style');
+            style.id = 'bannerStyles';
+            style.textContent = `
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateY(-20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+}
+
 // Initialize
 const app = new UIController();
+
+// 🆕 v1.6.3: 延迟显示推荐横幅
+setTimeout(() => {
+    if (app && typeof app.showRecommendedPersonalityBanner === 'function') {
+        app.showRecommendedPersonalityBanner();
+    }
+}, 1500);
