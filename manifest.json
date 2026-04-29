@@ -1,7 +1,7 @@
 {
   "name": "AI 第三只眼",
   "short_name": "AI第三只眼",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "MiniCPM-o 4.5 实时视觉助手 - 边看边听边说，AI 主动提醒",
   "start_url": "/ai-third-eye/",
   "display": "standalone",
@@ -60,7 +60,22 @@
   ],
   "categories": ["utilities", "entertainment"],
   "lang": "zh-CN",
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "https://via.placeholder.com/1280x720?text=AI+第三只眼",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "AI 第三只眼桌面端界面"
+    },
+    {
+      "src": "https://via.placeholder.com/750x1334?text=AI+第三只眼",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "AI 第三只眼移动端界面"
+    }
+  ],
   "shortcuts": [
     {
       "name": "开始对话",

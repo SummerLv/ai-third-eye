@@ -1,8 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.6
+ * 版本: v1.5.7
  * 实现全双工实时音视频对话
  * 
+ * v1.5.7 更新:
+ * - 新增 PWA screenshots 支持
+ * - README 开发日志同步更新
+ *
  * v1.5.6 更新:
  * - 修复 manifest.json JSON 语法错误（多余括号导致 PWA 解析失败）
  *
@@ -70,7 +74,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.6';
+const APP_VERSION = 'v1.5.7';
 
 class MiniCPMClient {
     constructor(options = {}) {

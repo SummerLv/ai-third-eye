@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.7] - 2026-04-29
+
+### Added
+- 📸 新增 PWA screenshots 支持（桌面端和移动端截图预览）
+- 📝 README 开发日志同步更新到最新版本
+
+### Changed
+- 🎨 改进 manifest.json 结构，添加截图元数据
+
+---
+
 ## [v1.5.6] - 2026-04-29
 
 ### Fixed
