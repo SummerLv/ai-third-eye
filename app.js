@@ -1,15 +1,16 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.8
+ * 版本: v1.0.9
  * 实现全双工实时音视频对话
  * 
- * v1.0.8 更新:
- * - 新增 PWA 支持 (离线缓存、添加到桌面)
- * - 新增应用图标生成
- * - 优化主题切换按钮显示
+ * v1.0.9 更新:
+ * - 新增 4 个实用型人设（学习助手、健身教练、美食家、面试官）
+ * - 新增快捷键帮助面板
+ * - PWA shortcuts 扩展（人设、统计）
+ * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.0.8';
+const APP_VERSION = 'v1.0.9';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -683,6 +684,20 @@ class UIController {
                 document.getElementById('statsPanel').classList.remove('show');
             });
         }
+        
+        // 🆕 Help button
+        const helpBtn = document.getElementById('helpBtn');
+        if (helpBtn) {
+            helpBtn.addEventListener('click', () => this.showHelp());
+        }
+        
+        // Close help button
+        const closeHelpBtn = document.getElementById('closeHelp');
+        if (closeHelpBtn) {
+            closeHelpBtn.addEventListener('click', () => {
+                document.getElementById('helpPanel').classList.remove('show');
+            });
+        }
     }
     
     loadStats() {
@@ -771,6 +786,14 @@ class UIController {
         this.saveStats();
         this.showStats();
         this.addMessage('system', '📊 统计数据已重置');
+    }
+    
+    // 🆕 显示帮助
+    showHelp() {
+        const panel = document.getElementById('helpPanel');
+        if (panel) {
+            panel.classList.add('show');
+        }
     }
     
     handleKeyboard(e) {

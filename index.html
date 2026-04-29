@@ -535,7 +535,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.0.8</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.0.9</span></p>
         </header>
         
         <div class="main-content">
@@ -579,6 +579,9 @@
                     </button>
                     <button class="btn btn-secondary" id="statsBtn" style="padding:8px 12px;font-size:12px;" title="查看统计">
                         📊
+                    </button>
+                    <button class="btn btn-secondary" id="helpBtn" style="padding:8px 12px;font-size:12px;" title="快捷键帮助">
+                        ❓
                     </button>
                     <button class="btn btn-secondary" id="clearBtn" style="padding:8px 12px;font-size:12px;" title="清空对话">
                         🗑️
@@ -653,6 +656,46 @@
         <div style="margin-top:20px;">
             <button class="btn btn-secondary" id="resetStats" style="width:100%;">🔄 重置统计</button>
             <button class="btn btn-secondary" id="closeStats" style="width:100%;margin-top:10px;">关闭</button>
+        </div>
+    </div>
+    
+    <!-- Help Panel -->
+    <div class="settings-panel" id="helpPanel">
+        <div class="settings-title">❓ 快捷键帮助</div>
+        <div style="color:var(--text-primary);">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">空格</td>
+                    <td style="padding:10px 0;">开始/结束对话</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">Ctrl+S</td>
+                    <td style="padding:10px 0;">截图保存</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">M</td>
+                    <td style="padding:10px 0;">静音/取消静音</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">C</td>
+                    <td style="padding:10px 0;">清空对话记录</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">E</td>
+                    <td style="padding:10px 0;">导出对话记录</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <td style="padding:10px 0;color:var(--accent-primary);">Esc</td>
+                    <td style="padding:10px 0;">关闭面板</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0;color:var(--accent-primary);">,</td>
+                    <td style="padding:10px 0;">打开设置面板</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top:20px;">
+            <button class="btn btn-secondary" id="closeHelp" style="width:100%;">关闭</button>
         </div>
     </div>
     

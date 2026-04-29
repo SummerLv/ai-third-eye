@@ -1,6 +1,7 @@
 {
   "name": "AI 第三只眼",
   "short_name": "AI第三只眼",
+  "version": "1.0.8",
   "description": "MiniCPM-o 4.5 实时视觉助手 - 边看边听边说，AI 主动提醒",
   "start_url": "/ai-third-eye/",
   "display": "standalone",
@@ -66,6 +67,20 @@
       "short_name": "对话",
       "description": "快速开始与AI对话",
       "url": "/ai-third-eye/",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "切换人设",
+      "short_name": "人设",
+      "description": "快速切换AI人设",
+      "url": "/ai-third-eye/?action=settings",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "查看统计",
+      "short_name": "统计",
+      "description": "查看使用统计数据",
+      "url": "/ai-third-eye/?action=stats",
       "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96" }]
     }
   ]
