@@ -1,8 +1,15 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.8
+ * 版本: v1.5.9
  * 实现全双工实时音视频对话
  * 
+ * v1.5.9 更新:
+ * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
+ * - 早上推荐学习助手/健身教练
+ * - 下午推荐美食家/旅行向导
+ * - 晚上推荐故事大王/诗人
+ * - 深夜推荐健康护士/小鹿
+ *
  * v1.5.8 更新:
  * - 新增「旅行向导」人设 - 发现风景，讲述故事
  * - 新增「健康护士」人设 - 关注健康，提醒防护
@@ -79,7 +86,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.8';
+const APP_VERSION = 'v1.5.9';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1603,12 +1610,40 @@ class UIController {
         const personalities = getAllPersonalities();
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
         
+        // 🆕 v1.5.9: 智能人设推荐
+        const recommended = getRecommendedPersonality();
+        const recommendationDiv = document.createElement('div');
+        recommendationDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 12px; background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,255,136,0.1)); border-radius: 12px; border: 1px solid rgba(0,212,255,0.3);';
+        recommendationDiv.innerHTML = `
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span style="font-size:20px;">💡</span>
+                <div>
+                    <div style="font-size:13px; color:#888;">${recommended.timeDesc}，推荐人设</div>
+                    <div style="font-size:16px; font-weight:600; color:var(--accent-primary); margin-top:4px;">${recommended.name}</div>
+                </div>
+                <button id="useRecommendedBtn" style="margin-left:auto; padding:6px 12px; font-size:12px; border-radius:6px;" class="btn btn-primary">使用</button>
+            </div>
+            <div style="font-size:12px; color:#888; margin-top:8px;">${recommended.description}</div>
+        `;
+        grid.appendChild(recommendationDiv);
+        
+        // 绑定推荐按钮事件
+        document.getElementById('useRecommendedBtn')?.addEventListener('click', () => {
+            this.selectPersonality(recommended.key);
+        });
+        
         for (const [key, personality] of Object.entries(personalities)) {
             const btn = document.createElement('button');
             btn.className = 'btn btn-secondary';
             btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left;';
             btn.dataset.personality = key;
             btn.innerHTML = `${personality.name}<br><span style="color:#888">${personality.description}</span>`;
+            
+            // 推荐的人设高亮显示
+            if (key === recommended.key) {
+                btn.style.borderColor = 'var(--accent-primary)';
+                btn.style.boxShadow = '0 0 10px rgba(0,212,255,0.3)';
+            }
             
             if (savedPersonality === key) {
                 btn.classList.remove('btn-secondary');

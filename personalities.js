@@ -172,6 +172,43 @@ const PERSONALITIES = {
 };
 
 /**
+ * 根据时间段智能推荐人设
+ * - 早上（6-12点）：学习助手、健身教练
+ * - 下午（12-18点）：美食家、旅行向导
+ * - 晚上（18-22点）：故事大王、诗人
+ * - 深夜（22-6点）：健康护士、小鹿
+ */
+function getRecommendedPersonality() {
+  const hour = new Date().getHours();
+  
+  let recommendedKeys = [];
+  if (hour >= 6 && hour < 12) {
+    // 早上：学习、运动
+    recommendedKeys = ['study-buddy', 'fitness-coach'];
+  } else if (hour >= 12 && hour < 18) {
+    // 下午：美食、旅行
+    recommendedKeys = ['foodie', 'tour-guide'];
+  } else if (hour >= 18 && hour < 22) {
+    // 晚上：故事、诗歌
+    recommendedKeys = ['storyteller', 'poet'];
+  } else {
+    // 深夜：健康、小鹿
+    recommendedKeys = ['health-nurse', 'little-deer'];
+  }
+  
+  const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
+  const timeDesc = hour >= 6 && hour < 12 ? '早上好' :
+                  hour >= 12 && hour < 18 ? '下午好' :
+                  hour >= 18 && hour < 22 ? '晚上好' : '夜深了';
+  
+  return {
+    key: randomKey,
+    timeDesc,
+    ...PERSONALITIES[randomKey]
+  };
+}
+
+/**
  * 随机选择一个人设
  */
 function getRandomPersonality() {
