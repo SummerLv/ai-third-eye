@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.5
+ * 版本: v1.0.6
  * 实现全双工实时音视频对话
  */
 
-const APP_VERSION = 'v1.0.5';
+const APP_VERSION = 'v1.0.6';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -46,6 +46,7 @@ class MiniCPMClient {
         this.onReconnect = options.onReconnect || (() => {});
         this.onMuteChange = options.onMuteChange || (() => {});
         this.onInterrupt = options.onInterrupt || (() => {});
+        this.onSpeakingChange = options.onSpeakingChange || (() => {});
     }
     
     async connect() {
@@ -161,7 +162,12 @@ class MiniCPMClient {
                 }
                 
                 if (endOfTurn) {
-                    this.updateAIStatus('listening', '正在听...');
+                    if (!endOfTurn) {
+                    this.onSpeakingChange && this.onSpeakingChange(true);
+                } else {
+                    this.onSpeakingChange && this.onSpeakingChange(false);
+                }
+                this.updateAIStatus('listening', '正在听...');
                 }
                 break;
                 
@@ -577,6 +583,16 @@ class UIController {
             this.takeScreenshot();
         });
         
+        // 🆕 Clear messages button
+        document.getElementById('clearBtn')?.addEventListener('click', () => {
+            this.clearMessages();
+        });
+        
+        // 🆕 Export messages button
+        document.getElementById('exportBtn')?.addEventListener('click', () => {
+            this.exportMessages();
+        });
+        
         this.loadSettings();
         this.initAudioVisualizer();
         this.showWelcomeTip();
@@ -614,6 +630,16 @@ class UIController {
         if (e.key === 'm' && this.client && this.client.isConnected) {
             e.preventDefault();
             this.toggleMute();
+        }
+        // C - 清空对话
+        if (e.key === 'c' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            this.clearMessages();
+        }
+        // E - 导出对话
+        if (e.key === 'e' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            this.exportMessages();
         }
         // , - 设置面板
         if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
@@ -738,7 +764,8 @@ class UIController {
             onStatusChange: (status, text) => this.updateStatus(status, text),
             onError: (error) => this.showError(error),
             onMuteChange: (muted) => this.updateMuteButton(muted),
-            onInterrupt: () => this.onInterrupt()
+            onInterrupt: () => this.onInterrupt(),
+            onSpeakingChange: (speaking) => this.setAISpeakingAnimation(speaking)
         });
         
         try {
@@ -799,6 +826,62 @@ class UIController {
     onInterrupt() {
         // 打断后的UI更新
         this.updateStatus('listening', '正在听...');
+        this.client && this.client.onSpeakingChange && this.client.onSpeakingChange(false);
+    }
+    
+    // 🆕 清空对话记录
+    clearMessages() {
+        const container = document.getElementById('messagesContainer');
+        container.innerHTML = `
+            <div class="message system">
+                <p>👋 对话记录已清空</p>
+                <p class="message-time">系统提示</p>
+            </div>
+        `;
+        this.messages = [];
+        this.partialMessage = '';
+    }
+    
+    // 🆕 导出对话记录
+    exportMessages() {
+        const container = document.getElementById('messagesContainer');
+        const messages = container.querySelectorAll('.message');
+        
+        let exportText = `AI 第三只眼 - 对话记录导出\n`;
+        exportText += `导出时间: ${new Date().toLocaleString()}\n`;
+        exportText += `版本: ${APP_VERSION}\n`;
+        exportText += `${'='.repeat(50)}\n\n`;
+        
+        messages.forEach(msg => {
+            const text = msg.querySelector('p')?.textContent || '';
+            const time = msg.querySelector('.message-time')?.textContent || '';
+            const type = msg.classList.contains('ai') ? 'AI' : 
+                        msg.classList.contains('user') ? '用户' : '系统';
+            exportText += `[${time}] ${type}: ${text}\n`;
+        });
+        
+        // 创建下载
+        const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ai-third-eye-chat-${new Date().toISOString().slice(0,10)}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        this.addMessage('system', '📄 对话记录已导出！');
+    }
+    
+    // 🆕 设置AI说话动画
+    setAISpeakingAnimation(speaking) {
+        const avatar = document.querySelector('.ai-avatar');
+        if (avatar) {
+            if (speaking) {
+                avatar.classList.add('speaking');
+            } else {
+                avatar.classList.remove('speaking');
+            }
+        }
     }
     
     addMessage(type, text, partial = false) {

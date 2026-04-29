@@ -150,6 +150,17 @@
             justify-content: center;
             align-items: center;
             font-size: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-avatar.speaking {
+            animation: speakingPulse 0.8s ease-in-out infinite;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+        }
+        
+        @keyframes speakingPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(0, 255, 136, 0.6); }
         }
         
         .ai-info {
@@ -462,7 +473,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:#00ff88">v1.0.5</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:#00ff88">v1.0.6</span></p>
         </header>
         
         <div class="main-content">
@@ -501,6 +512,12 @@
                     <button class="btn btn-secondary" id="settingsBtn" style="padding:8px 12px;font-size:12px;">
                         ⚙️ 设置
                     </button>
+                    <button class="btn btn-secondary" id="clearBtn" style="padding:8px 12px;font-size:12px;" title="清空对话">
+                        🗑️
+                    </button>
+                    <button class="btn btn-secondary" id="exportBtn" style="padding:8px 12px;font-size:12px;" title="导出对话">
+                        📤
+                    </button>
                 </div>
                 
                 <div class="messages-container" id="messagesContainer">
@@ -531,7 +548,7 @@
     <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-title">⚙️ 设置</div>
-        <p style="color:#888;font-size:12px;margin-bottom:15px">快捷键: 空格=开始/结束 | Ctrl+S=截图 | M=静音 | Esc=关闭设置</p>
+        <p style="color:#888;font-size:12px;margin-bottom:15px">快捷键: 空格=开始/结束 | Ctrl+S=截图 | M=静音 | C=清空 | E=导出 | Esc=关闭设置</p>
         
         <div class="setting-item">
             <div class="setting-label">🎭 选择 AI 人设</div>
