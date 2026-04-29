@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.6.1
+ * 版本: v1.6.2
  * 实现全双工实时音视频对话
+ * 
+ * v1.6.2 更新:
+ * - 新增「用户自定义人设」功能 - 创建属于自己的专属人设
+ * - 支持创建、编辑、删除自定义人设
+ * - 自定义人设保存在本地，刷新页面后仍然存在
  * 
  * v1.5.9 更新:
  * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
@@ -86,7 +91,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.6.1';
+const APP_VERSION = 'v1.6.2';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1654,10 +1659,52 @@ class UIController {
             this.selectPersonality(recommended.key);
         });
         
+        // 🆕 v1.6.2: 自定义人设区域
+        const customPersonalities = typeof getCustomPersonalities === 'function' ? getCustomPersonalities() : {};
+        const customKeys = Object.keys(customPersonalities);
+        
+        if (customKeys.length > 0) {
+            const customDiv = document.createElement('div');
+            customDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 10px; background: rgba(138,43,226,0.1); border-radius: 12px; border: 1px solid rgba(138,43,226,0.3);';
+            customDiv.innerHTML = `<div style="font-size:12px; color:#ba55d3; margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;"><span>✨ 我的自定义人设</span><button id="addCustomBtn" style="padding:2px 8px;font-size:11px;border-radius:4px;" class="btn btn-secondary">+ 新建</button></div><div style="display:flex;flex-direction:column;gap:6px;" id="customList"></div>`;
+            grid.appendChild(customDiv);
+            
+            const customList = customDiv.querySelector('#customList');
+            customKeys.forEach(key => {
+                const p = customPersonalities[key];
+                const item = document.createElement('div');
+                item.style.cssText = 'display:flex;align-items:center;gap:6px;padding:6px;background:rgba(0,0,0,0.2);border-radius:6px;';
+                item.innerHTML = `<span style="flex:1;font-size:12px;">${p.name}</span><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="use">使用</button><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="edit">编辑</button><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="delete">删除</button>`;
+                customList.appendChild(item);
+            });
+            
+            // 绑定自定义人设按钮事件
+            customList.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const key = btn.dataset.custom;
+                    const action = btn.dataset.action;
+                    if (action === 'use') this.selectPersonality(key);
+                    else if (action === 'edit') this.editCustomPersonality(key);
+                    else if (action === 'delete') this.deleteCustomPersonalityUI(key);
+                });
+            });
+            
+            // 新建按钮
+            customDiv.querySelector('#addCustomBtn')?.addEventListener('click', () => this.showCreateCustomPersonalityUI());
+        } else {
+            // 没有自定义人设时显示创建按钮
+            const createDiv = document.createElement('div');
+            createDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 10px; background: rgba(138,43,226,0.05); border-radius: 12px; border: 1px dashed rgba(138,43,226,0.3); text-align: center; cursor: pointer;';
+            createDiv.innerHTML = '<span style="color:#ba55d3;font-size:12px;">✨ + 创建自定义人设</span>';
+            createDiv.addEventListener('click', () => this.showCreateCustomPersonalityUI());
+            grid.appendChild(createDiv);
+        }
+        
         // 所有人设列表
         const allHeader = document.createElement('div');
         allHeader.style.cssText = 'grid-column: 1 / -1; font-size:12px; color:#888; margin-top:5px;';
-        allHeader.textContent = '🎭 全部人设（点击⭐收藏，🔥表示热度）';
+        allHeader.textContent = '🎭 内置人设（点击⭐收藏，🔥表示热度）';
         grid.appendChild(allHeader);
         
         // 🆕 v1.6.1: 获取热度统计
@@ -1711,18 +1758,116 @@ class UIController {
     
     // 🆕 v1.6.0: 切换人设收藏
     toggleFavoritePersonality(key) {
+        const personality = getAllPersonalitiesWithCustom ? getAllPersonalitiesWithCustom()[key] : getAllPersonalities()[key];
         if (isPersonalityFavorite(key)) {
             removeFavoritePersonality(key);
-            this.addMessage('system', `⭐ 已取消收藏 ${getAllPersonalities()[key].name}`);
+            this.addMessage('system', `⭐ 已取消收藏 ${personality?.name || key}`);
         } else {
             addFavoritePersonality(key);
-            this.addMessage('system', `⭐ 已收藏 ${getAllPersonalities()[key].name}`);
+            this.addMessage('system', `⭐ 已收藏 ${personality?.name || key}`);
         }
         this.loadPersonalityGrid();
     }
     
+    // 🆕 v1.6.2: 显示创建自定义人设界面
+    showCreateCustomPersonalityUI(editKey = null) {
+        const existing = document.getElementById('customPersonalityModal');
+        if (existing) existing.remove();
+        
+        const editData = editKey && typeof getCustomPersonalities === 'function' ? getCustomPersonalities()[editKey] : null;
+        
+        const modal = document.createElement('div');
+        modal.id = 'customPersonalityModal';
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;';
+        modal.innerHTML = `
+            <div style="background:var(--bg-secondary);border-radius:16px;padding:24px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto;border:1px solid rgba(138,43,226,0.3);">
+                <div style="color:#ba55d3;font-size:18px;font-weight:bold;margin-bottom:16px;">${editKey ? '✏️ 编辑人设' : '✨ 创建自定义人设'}</div>
+                <div style="margin-bottom:12px;">
+                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设名称（带emoji更生动）</label>
+                    <input id="customName" type="text" placeholder="例：🧙 巫师" value="${editData?.name?.replace(/^[^a-zA-Z\u4e00-\u9fa5]+/, '') || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">简短描述</label>
+                    <input id="customDesc" type="text" placeholder="例：神秘预言，洞察命运" value="${editData?.description || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设提示词（AI将按此行事）</label>
+                    <textarea id="customPrompt" placeholder="描述这个角色的性格、说话风格、关注点等..." style="width:100%;height:120px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);resize:vertical;">${editData?.prompt || ''}</textarea>
+                </div>
+                <div style="display:flex;gap:8px;justify-content:flex-end;">
+                    <button id="cancelCustomBtn" class="btn btn-secondary">取消</button>
+                    <button id="saveCustomBtn" class="btn btn-primary" style="background:linear-gradient(135deg,#ba55d3,#9370db);">${editKey ? '保存' : '创建'}</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // 绑定事件
+        modal.querySelector('#cancelCustomBtn').addEventListener('click', () => modal.remove());
+        modal.querySelector('#saveCustomBtn').addEventListener('click', () => {
+            const name = document.getElementById('customName').value.trim();
+            const desc = document.getElementById('customDesc').value.trim();
+            const prompt = document.getElementById('customPrompt').value.trim();
+            
+            if (!name) {
+                this.addMessage('system', '⚠️ 请输入人设名称');
+                return;
+            }
+            if (!prompt) {
+                this.addMessage('system', '⚠️ 请输入人设提示词');
+                return;
+            }
+            
+            // 添加 emoji 前缀（如果用户没有添加）
+            const fullName = name.match(/^[\u{1F300}-\u{1F9FF}]/u) ? name : `✨ ${name}`;
+            
+            if (editKey) {
+                if (typeof updateCustomPersonality === 'function') {
+                    updateCustomPersonality(editKey, fullName, desc, prompt);
+                    this.addMessage('system', `✏️ 已更新人设「${fullName}」`);
+                }
+            } else {
+                if (typeof createCustomPersonality === 'function') {
+                    const result = createCustomPersonality(fullName, desc, prompt);
+                    if (result) {
+                        this.addMessage('system', `✨ 已创建人设「${fullName}」`);
+                        // 自动选择新创建的人设
+                        this.selectPersonality(result.key);
+                    }
+                }
+            }
+            
+            modal.remove();
+            this.loadPersonalityGrid();
+        });
+        
+        // 点击背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.remove();
+        });
+    }
+    
+    // 🆕 v1.6.2: 编辑自定义人设
+    editCustomPersonality(key) {
+        this.showCreateCustomPersonalityUI(key);
+    }
+    
+    // 🆕 v1.6.2: 删除自定义人设（带确认）
+    deleteCustomPersonalityUI(key) {
+        const personality = typeof getCustomPersonalities === 'function' ? getCustomPersonalities()[key] : null;
+        if (!personality) return;
+        
+        if (confirm(`确定要删除人设「${personality.name}」吗？`)) {
+            if (typeof deleteCustomPersonality === 'function') {
+                deleteCustomPersonality(key);
+                this.addMessage('system', `🗑️ 已删除人设「${personality.name}」`);
+                this.loadPersonalityGrid();
+            }
+        }
+    }
+    
     selectPersonality(key) {
-        const personality = getAllPersonalities()[key];
+        const personality = (typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[key] : null) || getAllPersonalities()[key];
         if (!personality) return;
         
         localStorage.setItem('ai-third-eye-personality', key);
@@ -1786,11 +1931,13 @@ class UIController {
             document.getElementById('apiEndpoint').value = settings.apiEndpoint || '';
         }
         
-        // Load saved personality
+        // Load saved personality (支持自定义人设)
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
-        if (savedPersonality && getAllPersonalities()[savedPersonality]) {
-            const personality = getAllPersonalities()[savedPersonality];
-            document.getElementById('systemPrompt').value = personality.prompt;
+        if (savedPersonality) {
+            const personality = (typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[savedPersonality] : null) || getAllPersonalities()[savedPersonality];
+            if (personality) {
+                document.getElementById('systemPrompt').value = personality.prompt;
+            }
         }
     }
     

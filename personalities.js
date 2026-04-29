@@ -230,6 +230,100 @@ function getAllPersonalities() {
 const FAVORITES_KEY = 'ai-third-eye-favorite-personalities';
 
 /**
+ * v1.6.2: 用户自定义人设系统
+ */
+const CUSTOM_KEY = 'ai-third-eye-custom-personalities';
+
+/**
+ * 创建自定义人设
+ */
+function createCustomPersonality(name, description, prompt) {
+  try {
+    const saved = localStorage.getItem(CUSTOM_KEY);
+    const customs = saved ? JSON.parse(saved) : {};
+    // 生成唯一 key
+    const key = 'custom-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+    customs[key] = {
+      name: name,
+      description: description || '用户自定义人设',
+      prompt: prompt,
+      createdAt: new Date().toISOString()
+    };
+    localStorage.setItem(CUSTOM_KEY, JSON.stringify(customs));
+    return { key, ...customs[key] };
+  } catch (e) {
+    console.error('Failed to create custom personality:', e);
+    return null;
+  }
+}
+
+/**
+ * 获取所有自定义人设
+ */
+function getCustomPersonalities() {
+  try {
+    const saved = localStorage.getItem(CUSTOM_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+/**
+ * 获取自定义人设（合并到 PERSONALITIES）
+ */
+function getAllPersonalitiesWithCustom() {
+  const customs = getCustomPersonalities();
+  return { ...PERSONALITIES, ...customs };
+}
+
+/**
+ * 更新自定义人设
+ */
+function updateCustomPersonality(key, name, description, prompt) {
+  try {
+    const saved = localStorage.getItem(CUSTOM_KEY);
+    const customs = saved ? JSON.parse(saved) : {};
+    if (customs[key]) {
+      customs[key] = {
+        ...customs[key],
+        name: name,
+        description: description || customs[key].description,
+        prompt: prompt,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem(CUSTOM_KEY, JSON.stringify(customs));
+      return customs[key];
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * 删除自定义人设
+ */
+function deleteCustomPersonality(key) {
+  try {
+    const saved = localStorage.getItem(CUSTOM_KEY);
+    const customs = saved ? JSON.parse(saved) : {};
+    delete customs[key];
+    localStorage.setItem(CUSTOM_KEY, JSON.stringify(customs));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * 检查是否为自定义人设
+ */
+function isCustomPersonality(key) {
+  return key && key.startsWith('custom-');
+}
+
+/**
  * v1.6.1: 人设使用热度统计
  */
 const USAGE_KEY = 'ai-third-eye-personality-usage';

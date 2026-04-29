@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.6.2] - 2026-04-29
+
+### Added
+- ✨ 新增「用户自定义人设」功能 - 创建属于自己的专属人设
+- 🎨 自定义人设支持创建、编辑、删除操作
+- 💾 自定义人设保存在本地 localStorage，刷新后仍存在
+- 🔧 设置面板显示自定义人设区域，与内置人设分区显示
+
+### Changed
+- 🎨 优化设置面板布局，自定义人设区域高亮显示
+- 📝 更新 README 开发日志
+
+---
+
 ## [v1.6.1] - 2026-04-29
 
 ### Added
