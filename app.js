@@ -1,12 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.6.3
+ * 版本: v1.7.0
  * 实现全双工实时音视频对话
  * 
- * v1.6.2 更新:
- * - 新增「用户自定义人设」功能 - 创建属于自己的专属人设
- * - 支持创建、编辑、删除自定义人设
- * - 自定义人设保存在本地，刷新页面后仍然存在
+ * v1.7.0 更新:
+ * - 新增「跟随系统」主题选项 - 自动检测系统深色/浅色模式
+ * - 主题系统扩展至 5 种选择（新增自动模式）
  * 
  * v1.5.9 更新:
  * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
@@ -91,7 +90,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.6.3';
+const APP_VERSION = 'v1.7.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1010,16 +1009,25 @@ class UIController {
     
     // 🆕 主题系统
     initTheme() {
-        this.themes = ['default', 'light', 'sunset', 'ocean'];
+        this.themes = ['auto', 'default', 'light', 'sunset', 'ocean'];
         this.themeNames = {
+            'auto': '🔄 跟随系统',
             'default': '🌙 暗夜',
             'light': '☀️ 明亮',
             'sunset': '🌅 日落',
             'ocean': '🌊 海洋'
         };
         
+        // 🆕 监听系统主题变化
+        this.systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+        this.systemDarkMode.addEventListener('change', (e) => {
+            if (this.currentTheme === 'auto') {
+                this.applyAutoTheme();
+            }
+        });
+        
         // Load saved theme
-        const savedTheme = localStorage.getItem('ai-third-eye-theme') || 'default';
+        const savedTheme = localStorage.getItem('ai-third-eye-theme') || 'auto';
         this.setTheme(savedTheme);
         
         // Theme button
@@ -1030,13 +1038,25 @@ class UIController {
         }
     }
     
-    setTheme(theme) {
+    // 🆕 应用自动主题（跟随系统）
+    applyAutoTheme() {
+        const isDark = this.systemDarkMode.matches;
         document.body.className = '';
-        if (theme !== 'default') {
+        if (!isDark) {
+            document.body.classList.add('theme-light');
+        }
+    }
+    
+    setTheme(theme) {
+        this.currentTheme = theme;
+        localStorage.setItem('ai-third-eye-theme', theme);
+        
+        document.body.className = '';
+        if (theme === 'auto') {
+            this.applyAutoTheme();
+        } else if (theme !== 'default') {
             document.body.classList.add(`theme-${theme}`);
         }
-        localStorage.setItem('ai-third-eye-theme', theme);
-        this.currentTheme = theme;
         this.updateThemeButton();
     }
     

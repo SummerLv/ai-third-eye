@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.7.0] - 2026-04-29
+
+### Added
+- 🔄 新增「跟随系统」主题选项 - 自动检测系统深色/浅色模式
+- 🎨 主题系统扩展至 5 种选择（暗夜、明亮、日落、海洋、跟随系统）
+- 📱 更符合现代应用的体验，首次访问默认使用自动模式
+
+### Changed
+- 🎨 优化主题切换逻辑，支持监听系统主题实时变化
+- 🔄 更新 Service Worker 缓存版本
+
+---
+
 ## [v1.6.3] - 2026-04-29
 
 ### Added
