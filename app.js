@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.6
+ * 版本: v1.0.7
  * 实现全双工实时音视频对话
  */
 
-const APP_VERSION = 'v1.0.6';
+const APP_VERSION = 'v1.0.7';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -158,16 +158,13 @@ class MiniCPMClient {
                 }
                 
                 if (audio && !this.isMuted) {
+                    this.onSpeakingChange && this.onSpeakingChange(true);
                     await this.playAudio(audio);
                 }
                 
                 if (endOfTurn) {
-                    if (!endOfTurn) {
-                    this.onSpeakingChange && this.onSpeakingChange(true);
-                } else {
                     this.onSpeakingChange && this.onSpeakingChange(false);
-                }
-                this.updateAIStatus('listening', '正在听...');
+                    this.updateAIStatus('listening', '正在听...');
                 }
                 break;
                 
@@ -526,6 +523,8 @@ class UIController {
         this.partialMessage = '';
         
         this.init();
+        this.initTheme();
+        this.initStats();
     }
     
     init() {
@@ -605,6 +604,165 @@ class UIController {
         if (versionBadge) {
             versionBadge.textContent = APP_VERSION;
         }
+    }
+    
+    // 🆕 主题系统
+    initTheme() {
+        this.themes = ['default', 'light', 'sunset', 'ocean'];
+        this.themeNames = {
+            'default': '🌙 暗夜',
+            'light': '☀️ 明亮',
+            'sunset': '🌅 日落',
+            'ocean': '🌊 海洋'
+        };
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('ai-third-eye-theme') || 'default';
+        this.setTheme(savedTheme);
+        
+        // Theme button
+        const themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => this.cycleTheme());
+            this.updateThemeButton();
+        }
+    }
+    
+    setTheme(theme) {
+        document.body.className = '';
+        if (theme !== 'default') {
+            document.body.classList.add(`theme-${theme}`);
+        }
+        localStorage.setItem('ai-third-eye-theme', theme);
+        this.currentTheme = theme;
+        this.updateThemeButton();
+    }
+    
+    cycleTheme() {
+        const currentIndex = this.themes.indexOf(this.currentTheme);
+        const nextIndex = (currentIndex + 1) % this.themes.length;
+        this.setTheme(this.themes[nextIndex]);
+        this.addMessage('system', `🎨 已切换到 ${this.themeNames[this.currentTheme]} 主题`);
+    }
+    
+    updateThemeButton() {
+        const themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+            themeBtn.textContent = this.themeNames[this.currentTheme].split(' ')[0];
+        }
+    }
+    
+    // 🆕 统计系统
+    initStats() {
+        this.stats = this.loadStats();
+        
+        // Stats button
+        const statsBtn = document.getElementById('statsBtn');
+        if (statsBtn) {
+            statsBtn.addEventListener('click', () => this.showStats());
+        }
+        
+        // Reset stats button
+        const resetStatsBtn = document.getElementById('resetStats');
+        if (resetStatsBtn) {
+            resetStatsBtn.addEventListener('click', () => this.resetStats());
+        }
+        
+        // Close stats button
+        const closeStatsBtn = document.getElementById('closeStats');
+        if (closeStatsBtn) {
+            closeStatsBtn.addEventListener('click', () => {
+                document.getElementById('statsPanel').classList.remove('show');
+            });
+        }
+    }
+    
+    loadStats() {
+        const saved = localStorage.getItem('ai-third-eye-stats');
+        return saved ? JSON.parse(saved) : {
+            sessions: 0,
+            messages: 0,
+            screenshots: 0,
+            totalDuration: 0,
+            lastSession: null
+        };
+    }
+    
+    saveStats() {
+        localStorage.setItem('ai-third-eye-stats', JSON.stringify(this.stats));
+    }
+    
+    incrementStat(key) {
+        this.stats[key]++;
+        this.saveStats();
+    }
+    
+    recordSessionStart() {
+        this.sessionStartTime = Date.now();
+        this.stats.sessions++;
+        this.saveStats();
+    }
+    
+    recordSessionEnd() {
+        if (this.sessionStartTime) {
+            const duration = Math.floor((Date.now() - this.sessionStartTime) / 1000);
+            this.stats.totalDuration += duration;
+            this.stats.lastSession = new Date().toISOString();
+            this.saveStats();
+            this.sessionStartTime = null;
+        }
+    }
+    
+    showStats() {
+        const panel = document.getElementById('statsPanel');
+        const content = document.getElementById('statsContent');
+        
+        const formatDuration = (seconds) => {
+            if (seconds < 60) return `${seconds}秒`;
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}分${seconds % 60}秒`;
+            const hours = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            return `${hours}时${mins}分`;
+        };
+        
+        content.innerHTML = `
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;">
+                <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:24px;color:var(--accent-primary);">${this.stats.sessions}</div>
+                    <div style="font-size:12px;color:var(--text-secondary);">会话次数</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:24px;color:var(--accent-primary);">${this.stats.messages}</div>
+                    <div style="font-size:12px;color:var(--text-secondary);">对话消息</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:24px;color:var(--accent-primary);">${this.stats.screenshots}</div>
+                    <div style="font-size:12px;color:var(--text-secondary);">截图保存</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:24px;color:var(--accent-primary);">${formatDuration(this.stats.totalDuration)}</div>
+                    <div style="font-size:12px;color:var(--text-secondary);">总时长</div>
+                </div>
+            </div>
+            <div style="margin-top:15px;padding:10px;background:rgba(0,0,0,0.2);border-radius:8px;font-size:12px;">
+                <div style="color:var(--text-secondary);">最后会话: ${this.stats.lastSession ? new Date(this.stats.lastSession).toLocaleString() : '暂无'}</div>
+            </div>
+        `;
+        
+        panel.classList.add('show');
+    }
+    
+    resetStats() {
+        this.stats = {
+            sessions: 0,
+            messages: 0,
+            screenshots: 0,
+            totalDuration: 0,
+            lastSession: null
+        };
+        this.saveStats();
+        this.showStats();
+        this.addMessage('system', '📊 统计数据已重置');
     }
     
     handleKeyboard(e) {
@@ -778,6 +936,9 @@ class UIController {
             screenshotBtn.style.display = 'inline-flex';
             loadingOverlay.classList.remove('show');
             
+            // 🆕 记录会话开始
+            this.recordSessionStart();
+            
         } catch (e) {
             startBtn.disabled = false;
             loadingOverlay.classList.remove('show');
@@ -789,6 +950,9 @@ class UIController {
         if (this.client) {
             this.client.close();
         }
+        
+        // 🆕 记录会话结束
+        this.recordSessionEnd();
         
         document.getElementById('startBtn').style.display = 'inline-flex';
         document.getElementById('startBtn').disabled = false;
@@ -922,6 +1086,11 @@ class UIController {
             `;
             
             container.appendChild(msgEl);
+            
+            // 🆕 记录消息统计（仅记录 AI 和用户消息）
+            if (type === 'ai' || type === 'user') {
+                this.incrementStat('messages');
+            }
         }
         
         // Scroll to bottom
@@ -1020,6 +1189,9 @@ class UIController {
         a.href = dataUrl;
         a.download = `ai-third-eye-${timestamp}.png`;
         a.click();
+        
+        // 🆕 记录截图统计
+        this.incrementStat('screenshots');
         
         this.addMessage('system', '📸 截图已保存！');
         

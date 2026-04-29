@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI 第三只眼 - MiniCPM-o 4.5 实时视觉助手</title>
     <style>
+        /* Theme variables */
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-tertiary: #0f3460;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #00ff88;
+            --text-primary: #e8e8e8;
+            --text-secondary: #888;
+        }
+        
+        .theme-light {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e0e0e0;
+            --accent-primary: #0066cc;
+            --accent-secondary: #00aa44;
+            --text-primary: #333;
+            --text-secondary: #666;
+        }
+        
+        .theme-sunset {
+            --bg-primary: #2d1b3d;
+            --bg-secondary: #4a2c5a;
+            --bg-tertiary: #6b3d7a;
+            --accent-primary: #ff6b6b;
+            --accent-secondary: #ffd93d;
+            --text-primary: #f8e8d8;
+            --text-secondary: #ccc;
+        }
+        
+        .theme-ocean {
+            --bg-primary: #0a1628;
+            --bg-secondary: #1a2d4a;
+            --bg-tertiary: #2a4d6a;
+            --accent-primary: #4fc3f7;
+            --accent-secondary: #81d4fa;
+            --text-primary: #e1f5fe;
+            --text-secondary: #b0bec5;
+        }
+    </style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -13,10 +55,11 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
             min-height: 100vh;
-            color: #e8e8e8;
+            color: var(--text-primary);
             overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
         
         .app-container {
@@ -37,14 +80,18 @@
         h1 {
             font-size: 28px;
             font-weight: 600;
-            color: #00d4ff;
+            color: var(--accent-primary);
             letter-spacing: 2px;
         }
         
         .subtitle {
             font-size: 14px;
-            color: #888;
+            color: var(--text-secondary);
             margin-top: 5px;
+        }
+        
+        #versionBadge {
+            color: var(--accent-secondary);
         }
         
         .main-content {
@@ -169,12 +216,12 @@
         
         .ai-name {
             font-weight: 600;
-            color: #00d4ff;
+            color: var(--accent-primary);
         }
         
         .ai-status {
             font-size: 12px;
-            color: #888;
+            color: var(--text-secondary);
         }
         
         .messages-container {
@@ -251,13 +298,18 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #00d4ff, #00ff88);
-            color: #1a1a2e;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-primary);
         }
         
         .btn-primary:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 20px rgba(0,212,255,0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffa500, #ffcc00);
+            color: #333;
         }
         
         .btn-secondary {
@@ -473,7 +525,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:#00ff88">v1.0.6</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.0.7</span></p>
         </header>
         
         <div class="main-content">
@@ -512,6 +564,12 @@
                     <button class="btn btn-secondary" id="settingsBtn" style="padding:8px 12px;font-size:12px;">
                         ⚙️ 设置
                     </button>
+                    <button class="btn btn-secondary" id="themeBtn" style="padding:8px 12px;font-size:12px;" title="切换主题">
+                        🎨
+                    </button>
+                    <button class="btn btn-secondary" id="statsBtn" style="padding:8px 12px;font-size:12px;" title="查看统计">
+                        📊
+                    </button>
                     <button class="btn btn-secondary" id="clearBtn" style="padding:8px 12px;font-size:12px;" title="清空对话">
                         🗑️
                     </button>
@@ -548,7 +606,7 @@
     <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-title">⚙️ 设置</div>
-        <p style="color:#888;font-size:12px;margin-bottom:15px">快捷键: 空格=开始/结束 | Ctrl+S=截图 | M=静音 | C=清空 | E=导出 | Esc=关闭设置</p>
+        <p style="color:var(--text-secondary);font-size:12px;margin-bottom:15px">快捷键: 空格=开始/结束 | Ctrl+S=截图 | M=静音 | C=清空 | E=导出 | Esc=关闭设置</p>
         
         <div class="setting-item">
             <div class="setting-label">🎭 选择 AI 人设</div>
@@ -562,17 +620,29 @@
         
         <div class="setting-item">
             <div class="setting-label">AI 人设提示词</div>
-            <textarea class="setting-input" id="systemPrompt" rows="3">你是一个名叫"小鹿"的可爱 AI 助手，性格活泼、好奇心强。你会实时观察摄像头画面，主动描述看到的有趣事物，发现安全隐患会提醒用户。用简短俏皮的语言说话，偶尔会开点小玩笑。看到可爱的事物会表现出惊喜。</textarea>
+            <textarea class="setting-input" id="systemPrompt" rows="3" style="color:var(--text-primary);background:rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.2);">你是一个名叫"小鹿"的可爱 AI 助手，性格活泼、好奇心强。你会实时观察摄像头画面，主动描述看到的有趣事物，发现安全隐患会提醒用户。用简短俏皮的语言说话，偶尔会开点小玩笑。看到可爱的事物会表现出惊喜。</textarea>
         </div>
         
         <div class="setting-item">
             <div class="setting-label">API 端点</div>
-            <input class="setting-input" id="apiEndpoint" value="wss://minicpmo45.modelbest.cn/v1/realtime">
+            <input class="setting-input" id="apiEndpoint" value="wss://minicpmo45.modelbest.cn/v1/realtime" style="color:var(--text-primary);background:rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.2);">
         </div>
         
         <div style="display:flex;gap:10px;margin-top:20px;">
             <button class="btn btn-primary" id="saveSettings">保存</button>
             <button class="btn btn-secondary" id="closeSettings">取消</button>
+        </div>
+    </div>
+    
+    <!-- Stats Panel -->
+    <div class="settings-panel" id="statsPanel">
+        <div class="settings-title">📊 使用统计</div>
+        <div id="statsContent" style="color:var(--text-primary);">
+            <!-- Stats will be loaded dynamically -->
+        </div>
+        <div style="margin-top:20px;">
+            <button class="btn btn-secondary" id="resetStats" style="width:100%;">🔄 重置统计</button>
+            <button class="btn btn-secondary" id="closeStats" style="width:100%;margin-top:10px;">关闭</button>
         </div>
     </div>
     
