@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.3.1
+ * 版本: v1.4.0
  * 实现全双工实时音视频对话
+ * 
+ * v1.4.0 更新:
+ * - 新增视频帧率调节功能 (0.5-10 fps)
+ * - 优化弱网环境体验
+ * - 添加流量节省选项
  * 
  * v1.3.1 更新:
  * - 新增语音识别文字显示（用户说话时实时显示文字）
@@ -32,7 +37,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.3.1';
+const APP_VERSION = 'v1.4.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -59,7 +64,7 @@ class MiniCPMClient {
         this.canvas = null;
         this.ctx = null;
         this.frameInterval = null;
-        this.fps = 1; // 1 frame per second
+        this.fps = options.fps || 1; // 帧率可配置，默认 1 fps
         
         // Reconnection settings
         this.reconnectAttempts = 0;
@@ -259,6 +264,8 @@ class MiniCPMClient {
                     this.captureFrame();
                 }
             }, 1000 / this.fps);
+            
+            console.log(`Video streaming started at ${this.fps} fps`);
             
         } catch (e) {
             console.error('Video stream error:', e);
@@ -490,6 +497,24 @@ class MiniCPMClient {
         return Math.min(1, rms * 5); // 放大并限制到 0-1 范围
     }
     
+    // 🆕 设置视频帧率
+    setFps(fps) {
+        const validFps = Math.max(0.5, Math.min(10, fps)); // 限制 0.5-10 fps
+        this.fps = validFps;
+        
+        // 如果正在推流，重新设置间隔
+        if (this.frameInterval && this.isConnected) {
+            clearInterval(this.frameInterval);
+            this.frameInterval = setInterval(() => {
+                if (this.isConnected) {
+                    this.captureFrame();
+                }
+            }, 1000 / this.fps);
+        }
+        
+        return validFps;
+    }
+    
     // 🆕 设置视频镜像
     setMirrored(mirrored) {
         this.isMirrored = mirrored;
@@ -589,6 +614,7 @@ class UIController {
         this.initVolumeIndicator(); // 🆕 初始化音量指示器
         this.initNetworkStatus(); // 🆕 初始化网络状态检测
         this.initSessionTimer(); // 🆕 初始化会话计时器
+        this.initFpsControl(); // 🆕 初始化帧率控制
         this.loadChatHistory(); // 加载历史对话
     }
     
@@ -1113,7 +1139,8 @@ class UIController {
             onInterrupt: () => this.onInterrupt(),
             onSpeakingChange: (speaking) => this.setAISpeakingAnimation(speaking),
             onVolumeChange: (volume) => this.updateVolumeIndicator(volume), // 🆕 音量回调
-            isMirrored: localStorage.getItem('ai-third-eye-mirror') !== 'false' // 🆕 镜像设置
+            isMirrored: localStorage.getItem('ai-third-eye-mirror') !== 'false', // 🆕 镜像设置
+            fps: this.currentFps || 1 // 🆕 帧率设置
         });
         
         try {
@@ -1126,6 +1153,8 @@ class UIController {
             screenshotBtn.style.display = 'inline-flex';
             const mirrorBtn = document.getElementById('mirrorBtn');
             if (mirrorBtn) mirrorBtn.style.display = 'inline-flex';
+            const fpsBtn = document.getElementById('fpsBtn');
+            if (fpsBtn) fpsBtn.style.display = 'inline-flex';
             
             // 🆕 显示常用语按钮
             const quickPhrases = document.getElementById('quickPhrases');
@@ -1169,6 +1198,8 @@ class UIController {
         document.getElementById('screenshotBtn').style.display = 'none';
         const mirrorBtn = document.getElementById('mirrorBtn');
         if (mirrorBtn) mirrorBtn.style.display = 'none';
+        const fpsBtn = document.getElementById('fpsBtn');
+        if (fpsBtn) fpsBtn.style.display = 'none';
         
         this.addMessage('system', '👋 对话已结束');
     }
@@ -1535,6 +1566,100 @@ class UIController {
             indicator.textContent = online ? '🟢' : '🔴';
             indicator.title = online ? '网络正常' : '网络已断开';
             indicator.style.filter = online ? 'none' : 'drop-shadow(0 0 5px red)';
+        }
+    }
+    
+    // 🆕 初始化帧率控制
+    initFpsControl() {
+        // 从本地存储加载帧率设置
+        const savedFps = localStorage.getItem('ai-third-eye-fps');
+        this.currentFps = savedFps ? parseFloat(savedFps) : 1;
+        
+        // 帧率调节按钮
+        const fpsBtn = document.getElementById('fpsBtn');
+        if (fpsBtn) {
+            fpsBtn.addEventListener('click', () => this.showFpsSelector());
+            this.updateFpsDisplay();
+        }
+    }
+    
+    // 🆕 显示帧率选择器
+    showFpsSelector() {
+        const fpsOptions = [
+            { value: 0.5, label: '0.5 fps', desc: '极省流量' },
+            { value: 1, label: '1 fps', desc: '省流量' },
+            { value: 2, label: '2 fps', desc: '平衡' },
+            { value: 5, label: '5 fps', desc: '流畅' },
+            { value: 10, label: '10 fps', desc: '超流畅' }
+        ];
+        
+        const container = document.createElement('div');
+        container.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26,26,46,0.98);
+            border-radius: 12px;
+            padding: 20px;
+            z-index: 1000;
+            min-width: 200px;
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+        
+        const title = document.createElement('div');
+        title.textContent = '🎬 视频帧率设置';
+        title.style.cssText = 'color: #00d4ff; font-weight: bold; margin-bottom: 15px; font-size: 16px;';
+        container.appendChild(title);
+        
+        fpsOptions.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-secondary';
+            btn.style.cssText = 'width: 100%; margin-bottom: 8px; padding: 10px; text-align: left;';
+            
+            const isActive = this.currentFps === opt.value;
+            if (isActive) {
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-primary');
+            }
+            
+            btn.innerHTML = `${opt.label} <span style="color: #888; font-size: 12px;">(${opt.desc})</span>`;
+            btn.addEventListener('click', () => {
+                this.setFps(opt.value);
+                container.remove();
+            });
+            container.appendChild(btn);
+        });
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'btn btn-secondary';
+        closeBtn.style.cssText = 'width: 100%; margin-top: 10px;';
+        closeBtn.textContent = '取消';
+        closeBtn.addEventListener('click', () => container.remove());
+        container.appendChild(closeBtn);
+        
+        document.body.appendChild(container);
+    }
+    
+    // 🆕 设置帧率
+    setFps(fps) {
+        this.currentFps = fps;
+        localStorage.setItem('ai-third-eye-fps', fps.toString());
+        
+        if (this.client) {
+            this.client.setFps(fps);
+        }
+        
+        this.updateFpsDisplay();
+        this.addMessage('system', `🎬 视频帧率已设置为 ${fps} fps`);
+    }
+    
+    // 🆕 更新帧率显示
+    updateFpsDisplay() {
+        const fpsBtn = document.getElementById('fpsBtn');
+        if (fpsBtn) {
+            fpsBtn.textContent = `🎬 ${this.currentFps}fps`;
+            fpsBtn.title = `当前帧率: ${this.currentFps} fps (点击调节)`;
         }
     }
     
