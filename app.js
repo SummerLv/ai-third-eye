@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.4.0
+ * 版本: v1.4.1
  * 实现全双工实时音视频对话
  * 
  * v1.4.0 更新:
@@ -37,7 +37,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.4.0';
+const APP_VERSION = 'v1.4.1';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -208,6 +208,26 @@ class MiniCPMClient {
             case 'response.listen':
                 this.isListening = true;
                 this.updateAIStatus('listening', '正在听...');
+                break;
+                
+            // 🆕 用户语音识别结果（实时显示用户说的话）
+            case 'response.user_transcript':
+            case 'input_audio_buffer.speech_started':
+                // 用户开始说话
+                this.onMessage('user_speaking', '', true);
+                break;
+                
+            case 'response.transcript':
+            case 'input_audio_buffer.transcript':
+                // 用户说话的实时文字
+                if (data.text || data.transcript) {
+                    this.onMessage('user_transcript', data.text || data.transcript, true);
+                }
+                break;
+                
+            case 'input_audio_buffer.speech_stopped':
+                // 用户停止说话
+                this.onMessage('user_transcript_done', '', false);
                 break;
                 
             case 'session.closed':
@@ -948,6 +968,56 @@ class UIController {
         }
     }
     
+    // 🆕 初始化用户语音显示区域
+    initUserSpeechDisplay() {
+        let container = document.getElementById('userSpeechDisplay');
+        if (!container) {
+            const messagesContainer = document.getElementById('messagesContainer');
+            if (messagesContainer) {
+                container = document.createElement('div');
+                container.id = 'userSpeechDisplay';
+                container.style.cssText = `
+                    display: none;
+                    padding: 8px 12px;
+                    background: rgba(0,255,136,0.2);
+                    border: 1px solid rgba(0,255,136,0.4);
+                    border-radius: 12px;
+                    margin-bottom: 10px;
+                    animation: fadeIn 0.3s ease;
+                    align-self: flex-end;
+                    max-width: 85%;
+                `;
+                container.innerHTML = '<span class="speech-icon">🎤</span><span class="speech-text"></span>';
+                messagesContainer.appendChild(container);
+            }
+        }
+    }
+    
+    // 🆕 更新用户语音显示
+    updateUserSpeechDisplay(text, speaking = false, done = false) {
+        const container = document.getElementById('userSpeechDisplay');
+        if (!container) return;
+        
+        const textEl = container.querySelector('.speech-text');
+        
+        if (speaking && !text) {
+            // 开始说话，显示打字效果
+            container.style.display = 'block';
+            if (textEl) textEl.innerHTML = '<span style="animation: blink 1s infinite;">正在听...</span>';
+        } else if (text) {
+            // 显示实时文字
+            container.style.display = 'block';
+            if (textEl) textEl.textContent = text;
+        } else if (done) {
+            // 说话结束，隐藏临时显示
+            setTimeout(() => {
+                if (container) container.style.display = 'none';
+            }, 1500);
+        } else {
+            container.style.display = 'none';
+        }
+    }
+    
     handleKeyboard(e) {
         // Escape - 关闭设置面板
         if (e.key === 'Escape') {
@@ -1160,6 +1230,9 @@ class UIController {
             const quickPhrases = document.getElementById('quickPhrases');
             if (quickPhrases) quickPhrases.style.display = 'flex';
             
+            // 🆕 初始化用户语音显示区域
+            this.initUserSpeechDisplay();
+            
             loadingOverlay.classList.remove('show');
             
             // 🆕 记录会话开始
@@ -1291,6 +1364,20 @@ class UIController {
     
     addMessage(type, text, partial = false) {
         const container = document.getElementById('messagesContainer');
+        
+        // 🆕 处理用户语音识别显示
+        if (type === 'user_speaking') {
+            this.updateUserSpeechDisplay('', true);
+            return;
+        }
+        if (type === 'user_transcript') {
+            this.updateUserSpeechDisplay(text, false, false);
+            return;
+        }
+        if (type === 'user_transcript_done') {
+            this.updateUserSpeechDisplay('', false, true);
+            return;
+        }
         
         if (partial && type === 'ai') {
             // Update partial message
