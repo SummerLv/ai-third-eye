@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.4.2
+ * 版本: v1.5.0
  * 实现全双工实时音视频对话
+ * 
+ * v1.5.0 更新:
+ * - 新增语音快捷命令系统（暂停/换话题/再说一遍/安静/看得清楚吗）
+ * - AI 能识别用户意图并执行相应操作
+ * - 添加命令提示面板，帮助用户快速掌握快捷命令
+ * - 优化用户体验，减少手动点击操作
  * 
  * v1.4.2 更新:
  * - 修复用户语音转写正式保存到对话记录
@@ -40,7 +46,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.4.2';
+const APP_VERSION = 'v1.5.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -631,6 +637,27 @@ class UIController {
         this.partialMessage = '';
         this.volumeLevel = 0; // 🆕 音量级别
         
+        // 🆕 语音快捷命令系统
+        this.voiceCommands = {
+            '暂停': { action: 'pause', desc: '暂停AI发言', icon: '⏸️' },
+            '停一下': { action: 'pause', desc: '暂停AI发言', icon: '⏸️' },
+            '别说了': { action: 'pause', desc: '暂停AI发言', icon: '⏸️' },
+            '安静': { action: 'quiet', desc: '切换安静模式', icon: '🤫' },
+            '安静一下': { action: 'quiet', desc: '切换安静模式', icon: '🤫' },
+            '换个话题': { action: 'changeTopic', desc: '请求换话题', icon: '🔄' },
+            '换话题': { action: 'changeTopic', desc: '请求换话题', icon: '🔄' },
+            '再说一遍': { action: 'repeat', desc: '重复上次内容', icon: '🔁' },
+            '重复一遍': { action: 'repeat', desc: '重复上次内容', icon: '🔁' },
+            '看得清楚吗': { action: 'checkVision', desc: '询问画面清晰度', icon: '👁️' },
+            '看清楚了吗': { action: 'checkVision', desc: '询问画面清晰度', icon: '👁️' },
+            '继续': { action: 'continue', desc: '继续AI发言', icon: '▶️' },
+            '请继续': { action: 'continue', desc: '继续AI发言', icon: '▶️' },
+            '总结一下': { action: 'summarize', desc: '请求总结', icon: '📝' },
+            '帮我总结': { action: 'summarize', desc: '请求总结', icon: '📝' }
+        };
+        this.lastAIMessage = '';
+        this.isQuietMode = false;
+        
         this.init();
         this.initTheme();
         this.initStats();
@@ -866,6 +893,12 @@ class UIController {
             helpBtn.addEventListener('click', () => this.showHelp());
         }
         
+        // 🆕 Voice commands button
+        const voiceCmdBtn = document.getElementById('voiceCmdBtn');
+        if (voiceCmdBtn) {
+            voiceCmdBtn.addEventListener('click', () => this.showVoiceCommandsHelp());
+        }
+        
         // Close help button
         const closeHelpBtn = document.getElementById('closeHelp');
         if (closeHelpBtn) {
@@ -1013,6 +1046,8 @@ class UIController {
             // 显示实时文字
             container.style.display = 'block';
             if (textEl) textEl.textContent = text;
+            // 🆕 检测语音命令
+            this.detectVoiceCommand(text);
             // 保存转写文字
             this.lastUserTranscript = text;
         } else if (done) {
@@ -1027,6 +1062,152 @@ class UIController {
         } else {
             container.style.display = 'none';
         }
+    }
+    
+    // 🆕 检测并执行语音命令
+    detectVoiceCommand(text) {
+        if (!text || !this.client || !this.client.isConnected) return false;
+        
+        const normalizedText = text.trim().toLowerCase();
+        
+        for (const [keyword, cmd] of Object.entries(this.voiceCommands)) {
+            if (normalizedText.includes(keyword.toLowerCase())) {
+                this.executeVoiceCommand(cmd.action, keyword);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // 🆕 执行语音命令
+    executeVoiceCommand(action, keyword) {
+        const cmd = Object.values(this.voiceCommands).find(c => c.action === action);
+        const icon = cmd ? cmd.icon : '⚡';
+        
+        switch (action) {
+            case 'pause':
+                this.interrupt();
+                this.addMessage('system', `${icon} 已暂停AI发言`);
+                break;
+                
+            case 'quiet':
+                this.isQuietMode = !this.isQuietMode;
+                if (this.isQuietMode) {
+                    this.addMessage('system', `${icon} 已开启安静模式（减少主动描述）`);
+                } else {
+                    this.addMessage('system', `${icon} 已关闭安静模式`);
+                }
+                break;
+                
+            case 'changeTopic':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '让我们换个话题吧，聊点别的有趣的事情。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在切换话题...`);
+                }
+                break;
+                
+            case 'repeat':
+                if (this.lastAIMessage) {
+                    this.addMessage('ai', `好的，我再说一遍：${this.lastAIMessage}`);
+                } else {
+                    this.addMessage('system', `${icon} 暂无上次内容可重复`);
+                }
+                break;
+                
+            case 'checkVision':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '你现在看得清楚吗？画面清晰度如何？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在询问画面状态...`);
+                }
+                break;
+                
+            case 'continue':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请继续说'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+                
+            case 'summarize':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请总结一下我们刚才聊的内容。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在生成总结...`);
+                }
+                break;
+        }
+    }
+    
+    // 🆕 显示语音命令帮助
+    showVoiceCommandsHelp() {
+        const existing = document.getElementById('voiceCommandsHelp');
+        if (existing) {
+            existing.remove();
+            return;
+        }
+        
+        const container = document.createElement('div');
+        container.id = 'voiceCommandsHelp';
+        container.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26,26,46,0.98);
+            border-radius: 12px;
+            padding: 25px;
+            z-index: 1000;
+            min-width: 320px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+        
+        let html = `
+            <div style="color: #00d4ff; font-weight: bold; margin-bottom: 20px; font-size: 18px; display: flex; justify-content: space-between; align-items: center;">
+                <span>🎤 语音快捷命令</span>
+                <span style="cursor: pointer; font-size: 20px;" onclick="document.getElementById('voiceCommandsHelp').remove()">✕</span>
+            </div>
+            <div style="color: #888; font-size: 12px; margin-bottom: 15px;">
+                💡 直接说出这些词，AI会自动识别并执行相应操作
+            </div>
+            <div style="display: grid; gap: 10px;">
+        `;
+        
+        // 去重显示
+        const shownActions = new Set();
+        for (const [keyword, cmd] of Object.entries(this.voiceCommands)) {
+            if (shownActions.has(cmd.action)) continue;
+            shownActions.add(cmd.action);
+            html += `
+                <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                    <span style="font-size: 20px;">${cmd.icon}</span>
+                    <div>
+                        <div style="color: #e8e8e8; font-size: 14px;">${keyword}</div>
+                        <div style="color: #888; font-size: 12px;">${cmd.desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        html += '</div>';
+        container.innerHTML = html;
+        document.body.appendChild(container);
     }
     
     handleKeyboard(e) {
@@ -1063,6 +1244,11 @@ class UIController {
             e.preventDefault();
             this.exportMessages();
         }
+        // V - 语音命令帮助
+        if (e.key === 'v' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            this.showVoiceCommandsHelp();
+        }
         // , - 设置面板
         if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
             const panel = document.getElementById('settingsPanel');
@@ -1078,7 +1264,7 @@ class UIController {
         const hasVisited = localStorage.getItem('ai-third-eye-visited');
         if (!hasVisited) {
             setTimeout(() => {
-                this.addMessage('system', '💡 使用提示: 空格键开始/结束对话，Ctrl+S截图，M静音，Esc关闭面板');
+                this.addMessage('system', '💡 使用提示: 空格键开始/结束对话，Ctrl+S截图，M静音，V语音命令，Esc关闭面板');
                 localStorage.setItem('ai-third-eye-visited', 'true');
             }, 1500);
         }
