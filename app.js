@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.4
+ * 版本: v1.0.5
  * 实现全双工实时音视频对话
  */
 
-const APP_VERSION = 'v1.0.4';
+const APP_VERSION = 'v1.0.5';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -15,12 +15,14 @@ class MiniCPMClient {
         this.sessionId = null;
         this.isConnected = false;
         this.isListening = false;
+        this.isMuted = false;
         this.kvCacheLength = 0;
         
         // Audio settings
         this.sampleRate = 16000;
         this.audioContext = null;
         this.audioProcessor = null;
+        this.audioStream = null;
         this.audioQueue = [];
         this.isPlaying = false;
         
@@ -42,6 +44,8 @@ class MiniCPMClient {
         this.onStatusChange = options.onStatusChange || (() => {});
         this.onError = options.onError || (() => {});
         this.onReconnect = options.onReconnect || (() => {});
+        this.onMuteChange = options.onMuteChange || (() => {});
+        this.onInterrupt = options.onInterrupt || (() => {});
     }
     
     async connect() {
@@ -152,7 +156,7 @@ class MiniCPMClient {
                     this.onMessage('ai', text, !endOfTurn);
                 }
                 
-                if (audio) {
+                if (audio && !this.isMuted) {
                     await this.playAudio(audio);
                 }
                 
@@ -248,7 +252,7 @@ class MiniCPMClient {
             });
             
             // Get audio stream
-            const audioStream = await navigator.mediaDevices.getUserMedia({
+            this.audioStream = await navigator.mediaDevices.getUserMedia({
                 audio: {
                     sampleRate: this.sampleRate,
                     channelCount: 1,
@@ -257,13 +261,13 @@ class MiniCPMClient {
                 }
             });
             
-            const source = this.audioContext.createMediaStreamSource(audioStream);
+            const source = this.audioContext.createMediaStreamSource(this.audioStream);
             
-            // Use AudioWorklet for processing (better performance)
+            // Use ScriptProcessor for processing
             const processor = this.audioContext.createScriptProcessor(4096, 1, 1);
             
             processor.onaudioprocess = (event) => {
-                if (!this.isConnected) return;
+                if (!this.isConnected || this.isMuted) return;
                 
                 const inputData = event.inputBuffer.getChannelData(0);
                 
@@ -420,6 +424,40 @@ class MiniCPMClient {
         this.onStatusChange(status, text);
     }
     
+    // 🆕 静音功能
+    setMuted(muted) {
+        this.isMuted = muted;
+        this.onMuteChange(muted);
+        
+        // 清空音频播放队列
+        if (muted) {
+            this.audioPlaybackQueue = [];
+            this.isAudioPlaying = false;
+        }
+    }
+    
+    toggleMute() {
+        this.setMuted(!this.isMuted);
+        return this.isMuted;
+    }
+    
+    // 🆕 打断功能
+    interrupt() {
+        // 清空音频播放队列并停止当前播放
+        this.audioPlaybackQueue = [];
+        this.isAudioPlaying = false;
+        
+        // 关闭播放上下文
+        if (this.audioPlaybackContext) {
+            this.audioPlaybackContext.close();
+            this.audioPlaybackContext = null;
+        }
+        
+        this.updateAIStatus('listening', '已打断，正在听...');
+        this.onInterrupt();
+        this.onMessage('system', '⏸️ 已打断 AI 发言');
+    }
+    
     close() {
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify({
@@ -455,6 +493,19 @@ class MiniCPMClient {
             this.audioProcessor.disconnect();
             this.audioProcessor = null;
         }
+        
+        if (this.audioStream) {
+            this.audioStream.getTracks().forEach(track => track.stop());
+            this.audioStream = null;
+        }
+        
+        // Clean up playback
+        if (this.audioPlaybackContext) {
+            this.audioPlaybackContext.close();
+            this.audioPlaybackContext = null;
+        }
+        this.audioPlaybackQueue = [];
+        this.isAudioPlaying = false;
     }
 }
 
@@ -475,6 +526,18 @@ class UIController {
         // Setup event listeners
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('stopBtn').addEventListener('click', () => this.stop());
+        
+        // 🆕 静音按钮
+        const muteBtn = document.getElementById('muteBtn');
+        if (muteBtn) {
+            muteBtn.addEventListener('click', () => this.toggleMute());
+        }
+        
+        // 🆕 打断按钮
+        const interruptBtn = document.getElementById('interruptBtn');
+        if (interruptBtn) {
+            interruptBtn.addEventListener('click', () => this.interrupt());
+        }
         
         // Global keyboard shortcuts
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
@@ -517,6 +580,15 @@ class UIController {
         this.loadSettings();
         this.initAudioVisualizer();
         this.showWelcomeTip();
+        this.updateVersionDisplay();
+    }
+    
+    // 🆕 更新版本显示
+    updateVersionDisplay() {
+        const versionBadge = document.getElementById('versionBadge');
+        if (versionBadge) {
+            versionBadge.textContent = APP_VERSION;
+        }
     }
     
     handleKeyboard(e) {
@@ -538,7 +610,12 @@ class UIController {
             e.preventDefault();
             this.takeScreenshot();
         }
-        // C - 设置面板
+        // M - 静音切换
+        if (e.key === 'm' && this.client && this.client.isConnected) {
+            e.preventDefault();
+            this.toggleMute();
+        }
+        // , - 设置面板
         if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
             const panel = document.getElementById('settingsPanel');
             panel.classList.toggle('show');
@@ -553,7 +630,7 @@ class UIController {
         const hasVisited = localStorage.getItem('ai-third-eye-visited');
         if (!hasVisited) {
             setTimeout(() => {
-                this.addMessage('system', '💡 使用提示: 空格键快速开始/结束对话，S截图，Esc关闭面板');
+                this.addMessage('system', '💡 使用提示: 空格键开始/结束对话，Ctrl+S截图，M静音，Esc关闭面板');
                 localStorage.setItem('ai-third-eye-visited', 'true');
             }, 1500);
         }
@@ -659,7 +736,9 @@ class UIController {
             systemPrompt: systemPrompt,
             onMessage: (type, text, partial = false) => this.addMessage(type, text, partial),
             onStatusChange: (status, text) => this.updateStatus(status, text),
-            onError: (error) => this.showError(error)
+            onError: (error) => this.showError(error),
+            onMuteChange: (muted) => this.updateMuteButton(muted),
+            onInterrupt: () => this.onInterrupt()
         });
         
         try {
@@ -692,6 +771,34 @@ class UIController {
         document.getElementById('screenshotBtn').style.display = 'none';
         
         this.addMessage('system', '👋 对话已结束');
+    }
+    
+    // 🆕 静音切换
+    toggleMute() {
+        if (this.client) {
+            const muted = this.client.toggleMute();
+            this.updateMuteButton(muted);
+        }
+    }
+    
+    updateMuteButton(muted) {
+        const muteBtn = document.getElementById('muteBtn');
+        if (muteBtn) {
+            muteBtn.textContent = muted ? '🔊 取消静音' : '🔇 静音';
+            muteBtn.classList.toggle('btn-warning', muted);
+        }
+    }
+    
+    // 🆕 打断AI发言
+    interrupt() {
+        if (this.client) {
+            this.client.interrupt();
+        }
+    }
+    
+    onInterrupt() {
+        // 打断后的UI更新
+        this.updateStatus('listening', '正在听...');
     }
     
     addMessage(type, text, partial = false) {
@@ -758,7 +865,10 @@ class UIController {
         }
         
         if (this.client && this.client.sessionId) {
-            sessionInfo.textContent = `KV: ${this.client.kvCacheLength}/8192`;
+            // 🆕 更友好的显示方式
+            const kvPercent = Math.round((this.client.kvCacheLength / 8192) * 100);
+            sessionInfo.textContent = `记忆: ${kvPercent}%`;
+            sessionInfo.title = `Session: ${this.client.sessionId} | KV Cache: ${this.client.kvCacheLength}/8192`;
         }
     }
     
