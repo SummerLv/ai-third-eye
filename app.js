@@ -1,12 +1,15 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.4.1
+ * 版本: v1.4.2
  * 实现全双工实时音视频对话
  * 
- * v1.4.0 更新:
- * - 新增视频帧率调节功能 (0.5-10 fps)
- * - 优化弱网环境体验
- * - 添加流量节省选项
+ * v1.4.2 更新:
+ * - 修复用户语音转写正式保存到对话记录
+ * - 用户说完话后，对话内容会持久保存
+ * 
+ * v1.4.1 更新:
+ * - 完善用户语音识别实时显示功能
+ * - 新增说话动态效果
  * 
  * v1.3.1 更新:
  * - 新增语音识别文字显示（用户说话时实时显示文字）
@@ -37,7 +40,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.4.1';
+const APP_VERSION = 'v1.4.2';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1004,15 +1007,23 @@ class UIController {
             // 开始说话，显示打字效果
             container.style.display = 'block';
             if (textEl) textEl.innerHTML = '<span style="animation: blink 1s infinite;">正在听...</span>';
+            // 重置转写缓存
+            this.lastUserTranscript = '';
         } else if (text) {
             // 显示实时文字
             container.style.display = 'block';
             if (textEl) textEl.textContent = text;
+            // 保存转写文字
+            this.lastUserTranscript = text;
         } else if (done) {
-            // 说话结束，隐藏临时显示
+            // 说话结束，将用户说的话正式添加到对话记录
+            if (this.lastUserTranscript && this.lastUserTranscript.trim()) {
+                this.addMessage('user', this.lastUserTranscript.trim());
+            }
+            // 隐藏临时显示
             setTimeout(() => {
                 if (container) container.style.display = 'none';
-            }, 1500);
+            }, 500);
         } else {
             container.style.display = 'none';
         }
