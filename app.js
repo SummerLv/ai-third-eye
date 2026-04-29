@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.2
+ * 版本: v1.5.3
  * 实现全双工实时音视频对话
+ * 
+ * v1.5.3 更新:
+ * - 新增语音命令触发动画反馈
+ * - 新增关于面板（项目信息）
+ * - 优化主题切换体验（颜色预览）
+ * - 改进错误处理和 localStorage 容错
  * 
  * v1.5.2 更新:
  * - 修复版本号显示不一致
@@ -56,7 +62,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.2';
+const APP_VERSION = 'v1.5.3';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -676,6 +682,9 @@ class UIController {
         this.lastAIMessage = '';
         this.isQuietMode = false;
         
+        // 🆕 v1.5.3: 初始化语音命令反馈动画样式
+        this.initVoiceCommandStyles();
+        
         this.init();
         this.initTheme();
         this.initStats();
@@ -684,6 +693,61 @@ class UIController {
         this.initSessionTimer(); // 🆕 初始化会话计时器
         this.initFpsControl(); // 🆕 初始化帧率控制
         this.loadChatHistory(); // 加载历史对话
+    }
+    
+    // 🆕 v1.5.3: 初始化语音命令反馈动画样式
+    initVoiceCommandStyles() {
+        if (document.getElementById('voiceCommandStyles')) return;
+        const style = document.createElement('style');
+        style.id = 'voiceCommandStyles';
+        style.textContent = `
+            .voice-command-toast {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: rgba(0, 212, 255, 0.95);
+                color: #000;
+                padding: 20px 40px;
+                border-radius: 16px;
+                font-size: 24px;
+                font-weight: bold;
+                z-index: 99999;
+                box-shadow: 0 10px 40px rgba(0, 212, 255, 0.5);
+                animation: voiceCommandPop 0.6s ease forwards;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            @keyframes voiceCommandPop {
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+                100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+            @keyframes voiceCommandFade {
+                0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // 🆕 v1.5.3: 显示语音命令触发动画
+    showVoiceCommandFeedback(icon, keyword) {
+        const toast = document.createElement('div');
+        toast.className = 'voice-command-toast';
+        toast.innerHTML = `${icon} <span style="font-size:16px;font-weight:normal;">"${keyword}"</span>`;
+        document.body.appendChild(toast);
+        
+        // 1秒后开始淡出
+        setTimeout(() => {
+            toast.style.animation = 'voiceCommandFade 0.3s ease forwards';
+        }, 800);
+        
+        // 1.3秒后移除
+        setTimeout(() => {
+            toast.remove();
+        }, 1100);
     }
     
     // 🆕 初始化会话计时器
@@ -917,6 +981,13 @@ class UIController {
             voiceCmdBtn.addEventListener('click', () => this.showVoiceCommandsHelp());
         }
         
+        // 🆕 v1.5.3: About button - click version badge to show
+        const versionBadge = document.getElementById('versionBadge');
+        if (versionBadge) {
+            versionBadge.style.cursor = 'pointer';
+            versionBadge.addEventListener('click', () => this.showAbout());
+        }
+        
         // Close help button
         const closeHelpBtn = document.getElementById('closeHelp');
         if (closeHelpBtn) {
@@ -1020,6 +1091,91 @@ class UIController {
         if (panel) {
             panel.classList.add('show');
         }
+    }
+    
+    // 🆕 v1.5.3: 显示关于面板
+    showAbout() {
+        const existing = document.getElementById('aboutPanel');
+        if (existing) {
+            existing.remove();
+            return;
+        }
+        
+        const panel = document.createElement('div');
+        panel.id = 'aboutPanel';
+        panel.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26,26,46,0.98);
+            border-radius: 16px;
+            padding: 30px;
+            z-index: 1000;
+            min-width: 320px;
+            max-width: 400px;
+            border: 1px solid rgba(0,212,255,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        `;
+        
+        panel.innerHTML = `
+            <div style="text-align:center;margin-bottom:20px;">
+                <div style="font-size:48px;margin-bottom:10px;">🦐</div>
+                <h2 style="color:var(--accent-primary);margin:0;font-size:24px;">AI 第三只眼</h2>
+                <div style="color:var(--accent-secondary);font-size:14px;margin-top:5px;">${APP_VERSION}</div>
+            </div>
+            
+            <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:15px;margin-bottom:20px;">
+                <p style="margin:0 0 10px 0;color:var(--text-primary);font-size:14px;line-height:1.6;">
+                    基于 MiniCPM-o 4.5 的实时视觉助手<br>
+                    边看边听边说，AI 主动提醒
+                </p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                    <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
+                    <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">12种人设</span>
+                    <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom:20px;">
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:var(--text-secondary);font-size:13px;">作者</span>
+                    <span style="color:var(--text-primary);font-size:13px;">🦐 虾哥</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:var(--text-secondary);font-size:13px;">模型</span>
+                    <span style="color:var(--text-primary);font-size:13px;">MiniCPM-o 4.5</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <span style="color:var(--text-secondary);font-size:13px;">协议</span>
+                    <span style="color:var(--accent-secondary);font-size:13px;">MIT License</span>
+                </div>
+            </div>
+            
+            <div style="display:flex;gap:10px;">
+                <a href="https://github.com/SummerLv/ai-third-eye" target="_blank" 
+                   style="flex:1;background:rgba(0,212,255,0.2);color:var(--accent-primary);padding:10px;border-radius:8px;text-decoration:none;text-align:center;font-size:13px;">
+                    📦 GitHub
+                </a>
+                <button onclick="document.getElementById('aboutPanel').remove()" 
+                        style="flex:1;background:rgba(255,255,255,0.1);color:var(--text-primary);padding:10px;border-radius:8px;border:none;cursor:pointer;font-size:13px;">
+                    关闭
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(panel);
+        
+        // 点击外部关闭
+        setTimeout(() => {
+            document.addEventListener('click', function closeAbout(e) {
+                if (!panel.contains(e.target)) {
+                    panel.remove();
+                    document.removeEventListener('click', closeAbout);
+                }
+            });
+        }, 100);
     }
     
     // 🆕 初始化用户语音显示区域

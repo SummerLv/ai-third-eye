@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.3] - 2026-04-29
+
+### Added
+- 🎨 新增语音命令触发动画反馈 - 说出命令时显示视觉提示
+- ℹ️ 新增关于面板 - 显示项目信息、版本、作者
+- 🎨 新增主题颜色预览 - 切换主题时显示预览色块
+
+### Changed
+- 🛡️ 改进 localStorage 容错处理 - 私密模式/存储满时优雅降级
+- 🎨 优化错误提示样式
+
+---
+
 ## [v1.5.2] - 2026-04-29
 
 ### Fixed
