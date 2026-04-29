@@ -1,8 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.1.0
+ * 版本: v1.2.0
  * 实现全双工实时音视频对话
  * 
+ * v1.2.0 更新:
+ * - 新增实时音量指示器（显示用户说话音量）
+ * - 新增网络状态检测（断网时明显提示）
+ * - 新增摄像头镜像开关
+ * - 修复 Service Worker 缓存版本号同步问题
+ *
  * v1.1.0 更新:
  * - 新增对话历史持久化（刷新页面后恢复对话）
  * - 清空对话时同步清除本地存储
@@ -15,7 +21,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.1.0';
+const APP_VERSION = 'v1.2.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -58,6 +64,10 @@ class MiniCPMClient {
         this.onMuteChange = options.onMuteChange || (() => {});
         this.onInterrupt = options.onInterrupt || (() => {});
         this.onSpeakingChange = options.onSpeakingChange || (() => {});
+        this.onVolumeChange = options.onVolumeChange || (() => {}); // 🆕 音量回调
+        
+        // 🆕 镜像设置
+        this.isMirrored = options.isMirrored !== undefined ? options.isMirrored : true;
     }
     
     async connect() {
@@ -285,6 +295,10 @@ class MiniCPMClient {
                 
                 const inputData = event.inputBuffer.getChannelData(0);
                 
+                // 🆕 计算音量 (RMS)
+                const volume = this.calculateVolume(inputData);
+                this.onVolumeChange(volume);
+                
                 // Resample to 16kHz if needed
                 const resampledData = this.resampleTo16kHz(inputData);
                 
@@ -455,6 +469,30 @@ class MiniCPMClient {
         return this.isMuted;
     }
     
+    // 🆕 计算音量 (RMS)
+    calculateVolume(audioData) {
+        let sum = 0;
+        for (let i = 0; i < audioData.length; i++) {
+            sum += audioData[i] * audioData[i];
+        }
+        const rms = Math.sqrt(sum / audioData.length);
+        return Math.min(1, rms * 5); // 放大并限制到 0-1 范围
+    }
+    
+    // 🆕 设置视频镜像
+    setMirrored(mirrored) {
+        this.isMirrored = mirrored;
+        const video = document.getElementById('localVideo');
+        if (video) {
+            video.style.transform = mirrored ? 'scaleX(-1)' : 'scaleX(1)';
+        }
+    }
+    
+    toggleMirror() {
+        this.setMirrored(!this.isMirrored);
+        return this.isMirrored;
+    }
+    
     // 🆕 打断功能
     interrupt() {
         // 清空音频播放队列并停止当前播放
@@ -532,10 +570,13 @@ class UIController {
         this.currentMode = 'video';
         this.messages = [];
         this.partialMessage = '';
+        this.volumeLevel = 0; // 🆕 音量级别
         
         this.init();
         this.initTheme();
         this.initStats();
+        this.initVolumeIndicator(); // 🆕 初始化音量指示器
+        this.initNetworkStatus(); // 🆕 初始化网络状态检测
         this.loadChatHistory(); // 加载历史对话
     }
     
@@ -602,6 +643,11 @@ class UIController {
         // 🆕 Export messages button
         document.getElementById('exportBtn')?.addEventListener('click', () => {
             this.exportMessages();
+        });
+        
+        // 🆕 Mirror button
+        document.getElementById('mirrorBtn')?.addEventListener('click', () => {
+            this.toggleMirror();
         });
         
         this.loadSettings();
@@ -991,7 +1037,9 @@ class UIController {
             onError: (error) => this.showError(error),
             onMuteChange: (muted) => this.updateMuteButton(muted),
             onInterrupt: () => this.onInterrupt(),
-            onSpeakingChange: (speaking) => this.setAISpeakingAnimation(speaking)
+            onSpeakingChange: (speaking) => this.setAISpeakingAnimation(speaking),
+            onVolumeChange: (volume) => this.updateVolumeIndicator(volume), // 🆕 音量回调
+            isMirrored: localStorage.getItem('ai-third-eye-mirror') !== 'false' // 🆕 镜像设置
         });
         
         try {
@@ -1002,6 +1050,8 @@ class UIController {
             muteBtn.style.display = 'inline-flex';
             interruptBtn.style.display = 'inline-flex';
             screenshotBtn.style.display = 'inline-flex';
+            const mirrorBtn = document.getElementById('mirrorBtn');
+            if (mirrorBtn) mirrorBtn.style.display = 'inline-flex';
             loadingOverlay.classList.remove('show');
             
             // 🆕 记录会话开始
@@ -1028,6 +1078,8 @@ class UIController {
         document.getElementById('muteBtn').style.display = 'none';
         document.getElementById('interruptBtn').style.display = 'none';
         document.getElementById('screenshotBtn').style.display = 'none';
+        const mirrorBtn = document.getElementById('mirrorBtn');
+        if (mirrorBtn) mirrorBtn.style.display = 'none';
         
         this.addMessage('system', '👋 对话已结束');
     }
@@ -1271,6 +1323,77 @@ class UIController {
         
         // Clean up
         canvas.remove();
+    }
+    
+    // 🆕 初始化音量指示器
+    initVolumeIndicator() {
+        const container = document.getElementById('volumeIndicator');
+        if (!container) return;
+        
+        // 创建音量条组
+        container.innerHTML = '';
+        for (let i = 0; i < 5; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'volume-bar';
+            bar.style.cssText = `
+                width: 4px;
+                height: ${4 + i * 4}px;
+                background: var(--accent-primary);
+                border-radius: 2px;
+                opacity: 0.3;
+                transition: all 0.1s ease;
+            `;
+            container.appendChild(bar);
+        }
+    }
+    
+    // 🆕 更新音量指示器
+    updateVolumeIndicator(volume) {
+        this.volumeLevel = volume;
+        const bars = document.querySelectorAll('.volume-bar');
+        const activeBars = Math.floor(volume * 5);
+        
+        bars.forEach((bar, index) => {
+            bar.style.opacity = index < activeBars ? '1' : '0.3';
+            bar.style.transform = index < activeBars ? 'scaleY(1.2)' : 'scaleY(1)';
+        });
+    }
+    
+    // 🆕 初始化网络状态检测
+    initNetworkStatus() {
+        // 创建网络状态指示器
+        this.updateNetworkStatus(navigator.onLine);
+        
+        window.addEventListener('online', () => {
+            this.updateNetworkStatus(true);
+            this.addMessage('system', '🌐 网络已恢复');
+        });
+        
+        window.addEventListener('offline', () => {
+            this.updateNetworkStatus(false);
+            this.addMessage('system', '⚠️ 网络已断开');
+        });
+    }
+    
+    // 🆕 更新网络状态显示
+    updateNetworkStatus(online) {
+        const indicator = document.getElementById('networkStatus');
+        if (indicator) {
+            indicator.textContent = online ? '🟢' : '🔴';
+            indicator.title = online ? '网络正常' : '网络已断开';
+        }
+    }
+    
+    // 🆕 切换摄像头镜像
+    toggleMirror() {
+        if (this.client) {
+            const mirrored = this.client.toggleMirror();
+            const mirrorBtn = document.getElementById('mirrorBtn');
+            if (mirrorBtn) {
+                mirrorBtn.textContent = mirrored ? '🪞 已镜像' : '📷 正常';
+            }
+            this.addMessage('system', mirrored ? '🪞 已开启镜像' : '📷 已关闭镜像');
+        }
     }
 }
 
