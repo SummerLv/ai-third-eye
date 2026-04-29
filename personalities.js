@@ -230,6 +230,63 @@ function getAllPersonalities() {
 const FAVORITES_KEY = 'ai-third-eye-favorite-personalities';
 
 /**
+ * v1.6.1: 人设使用热度统计
+ */
+const USAGE_KEY = 'ai-third-eye-personality-usage';
+
+/**
+ * 记录人设使用次数
+ */
+function recordPersonalityUsage(key) {
+  try {
+    const saved = localStorage.getItem(USAGE_KEY);
+    const usage = saved ? JSON.parse(saved) : {};
+    usage[key] = (usage[key] || 0) + 1;
+    localStorage.setItem(USAGE_KEY, JSON.stringify(usage));
+    return usage[key];
+  } catch (e) {
+    return 0;
+  }
+}
+
+/**
+ * 获取人设使用次数
+ */
+function getPersonalityUsage(key) {
+  try {
+    const saved = localStorage.getItem(USAGE_KEY);
+    const usage = saved ? JSON.parse(saved) : {};
+    return usage[key] || 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+/**
+ * 获取所有使用统计（按热度排序）
+ */
+function getPersonalityUsageStats() {
+  try {
+    const saved = localStorage.getItem(USAGE_KEY);
+    const usage = saved ? JSON.parse(saved) : {};
+    // 按使用次数排序
+    const sorted = Object.entries(usage)
+      .sort((a, b) => b[1] - a[1])
+      .map(([key, count]) => ({ key, count, ...PERSONALITIES[key] }));
+    return sorted;
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * 获取热门人设（使用次数前3）
+ */
+function getTopPersonalities(limit = 3) {
+  return getPersonalityUsageStats().slice(0, limit);
+}
+
+/**
  * 获取收藏的人设列表
  */
 function getFavoritePersonalities() {

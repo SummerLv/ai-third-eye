@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.6.1] - 2026-04-29
+
+### Added
+- 🔥 新增「人设使用热度统计」- 记录每个人设的使用次数
+- 📊 热门人设显示火焰图标(🔥)，帮助用户发现热门人设
+- 🔢 使用次数实时显示在人设卡片上
+
+### Fixed
+- 🐛 修复关于面板显示"12种人设"错误（实际为14种）
+
+### Changed
+- 🔄 更新 Service Worker 缓存版本
+- 📝 更新 README 开发日志
+
+---
+
 ## [v1.6.0] - 2026-04-29
 
 ### Added

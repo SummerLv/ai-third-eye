@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.6.0
+ * 版本: v1.6.1
  * 实现全双工实时音视频对话
  * 
  * v1.5.9 更新:
@@ -86,7 +86,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.6.0';
+const APP_VERSION = 'v1.6.1';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1240,7 +1240,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">12种人设</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">14种人设</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
@@ -1657,18 +1657,27 @@ class UIController {
         // 所有人设列表
         const allHeader = document.createElement('div');
         allHeader.style.cssText = 'grid-column: 1 / -1; font-size:12px; color:#888; margin-top:5px;';
-        allHeader.textContent = '🎭 全部人设（点击⭐收藏）';
+        allHeader.textContent = '🎭 全部人设（点击⭐收藏，🔥表示热度）';
         grid.appendChild(allHeader);
+        
+        // 🆕 v1.6.1: 获取热度统计
+        const usageStats = typeof getPersonalityUsageStats === 'function' ? getPersonalityUsageStats() : [];
+        const maxUsage = usageStats.length > 0 ? usageStats[0].count : 1;
         
         for (const [key, personality] of Object.entries(personalities)) {
             const wrapper = document.createElement('div');
             wrapper.style.cssText = 'display:flex;align-items:center;gap:4px;';
             
+            // 🆕 v1.6.1: 获取使用次数和计算热度图标
+            const usageCount = typeof getPersonalityUsage === 'function' ? getPersonalityUsage(key) : 0;
+            const hotness = maxUsage > 0 ? usageCount / maxUsage : 0;
+            const hotIcon = usageCount > 0 ? (hotness > 0.7 ? '🔥' : hotness > 0.3 ? '🔥' : '') : '';
+            
             const btn = document.createElement('button');
             btn.className = 'btn btn-secondary';
             btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left; flex:1;';
             btn.dataset.personality = key;
-            btn.innerHTML = `${personality.name}<br><span style="color:#888">${personality.description}</span>`;
+            btn.innerHTML = `${personality.name}${hotIcon ? '<span style="margin-left:4px">' + hotIcon + '</span>' : ''}<br><span style="color:#888">${personality.description}</span>${usageCount > 0 ? '<span style="color:#666;font-size:10px;"> · ' + usageCount + '次</span>' : ''}`;
             
             // 推荐的人设高亮显示
             if (key === recommended.key) {
@@ -1718,6 +1727,11 @@ class UIController {
         
         localStorage.setItem('ai-third-eye-personality', key);
         document.getElementById('systemPrompt').value = personality.prompt;
+        
+        // 🆕 v1.6.1: 记录使用热度
+        if (typeof recordPersonalityUsage === 'function') {
+            recordPersonalityUsage(key);
+        }
         
         // Update grid buttons
         const grid = document.getElementById('personalityGrid');
