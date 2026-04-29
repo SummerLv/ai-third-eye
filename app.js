@@ -1,10 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.3.0
+ * 版本: v1.3.1
  * 实现全双工实时音视频对话
  * 
+ * v1.3.1 更新:
+ * - 新增语音识别文字显示（用户说话时实时显示文字）
+ * - 新增常用语快速发送按钮
+ * - 优化用户消息显示样式
+ * 
  * v1.3.0 更新:
- * - 新增连接延迟显示（实时 Ping 值）
  * - 新增网络状态警告横幅（断网时醒目提示）
  * - 改进音量指示器视觉效果（渐变颜色）
  * - 新增会话时长计时器
@@ -28,7 +32,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.3.0';
+const APP_VERSION = 'v1.3.1';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -693,8 +697,37 @@ class UIController {
         
         this.loadSettings();
         this.initAudioVisualizer();
+        this.initQuickPhrases(); // 🆕 初始化常用语按钮
         this.showWelcomeTip();
         this.updateVersionDisplay();
+    }
+    
+    // 🆕 初始化常用语快速发送
+    initQuickPhrases() {
+        const phrasesContainer = document.getElementById('quickPhrases');
+        if (!phrasesContainer) return;
+        
+        phrasesContainer.querySelectorAll('.phrase-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const phrase = btn.dataset.phrase;
+                if (phrase && this.client && this.client.isConnected) {
+                    this.addMessage('user', phrase);
+                    // 发送文本消息给AI
+                    this.sendTextMessage(phrase);
+                }
+            });
+        });
+    }
+    
+    // 🆕 发送文本消息
+    sendTextMessage(text) {
+        if (!this.client || !this.client.ws || this.client.ws.readyState !== WebSocket.OPEN) return;
+        
+        const msg = {
+            type: 'input_text',
+            text: text
+        };
+        this.client.ws.send(JSON.stringify(msg));
     }
     
     // 🆕 更新版本显示
@@ -1093,6 +1126,11 @@ class UIController {
             screenshotBtn.style.display = 'inline-flex';
             const mirrorBtn = document.getElementById('mirrorBtn');
             if (mirrorBtn) mirrorBtn.style.display = 'inline-flex';
+            
+            // 🆕 显示常用语按钮
+            const quickPhrases = document.getElementById('quickPhrases');
+            if (quickPhrases) quickPhrases.style.display = 'flex';
+            
             loadingOverlay.classList.remove('show');
             
             // 🆕 记录会话开始
@@ -1124,6 +1162,10 @@ class UIController {
         document.getElementById('stopBtn').style.display = 'none';
         document.getElementById('muteBtn').style.display = 'none';
         document.getElementById('interruptBtn').style.display = 'none';
+        
+        // 🆕 隐藏常用语按钮
+        const quickPhrases = document.getElementById('quickPhrases');
+        if (quickPhrases) quickPhrases.style.display = 'none';
         document.getElementById('screenshotBtn').style.display = 'none';
         const mirrorBtn = document.getElementById('mirrorBtn');
         if (mirrorBtn) mirrorBtn.style.display = 'none';
