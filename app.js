@@ -1,10 +1,15 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.0.7
+ * 版本: v1.0.8
  * 实现全双工实时音视频对话
+ * 
+ * v1.0.8 更新:
+ * - 新增 PWA 支持 (离线缓存、添加到桌面)
+ * - 新增应用图标生成
+ * - 优化主题切换按钮显示
  */
 
-const APP_VERSION = 'v1.0.7';
+const APP_VERSION = 'v1.0.8';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -648,7 +653,10 @@ class UIController {
     updateThemeButton() {
         const themeBtn = document.getElementById('themeBtn');
         if (themeBtn) {
-            themeBtn.textContent = this.themeNames[this.currentTheme].split(' ')[0];
+            // 显示 emoji + 主题名
+            const [emoji, name] = this.themeNames[this.currentTheme].split(' ');
+            themeBtn.innerHTML = `${emoji}`;
+            themeBtn.title = `当前主题: ${name} (点击切换)`;
         }
     }
     
