@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.7.3] - 2026-04-29
+
+### Fixed
+- 🐛 修复 index.html 静态版本号不一致 (显示 v1.7.1 而非 v1.7.2)
+- 🔄 同步更新所有文件版本号至 v1.7.3
+
+---
+
 ## [v1.7.2] - 2026-04-30
 
 ### Changed
