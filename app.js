@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.3
+ * 版本: v1.5.5
  * 实现全双工实时音视频对话
  * 
  * v1.5.4 更新:
@@ -67,7 +67,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.4';
+const APP_VERSION = 'v1.5.5';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1921,10 +1921,42 @@ class UIController {
             
             const icon = type === 'ai' ? '🤖' : type === 'user' ? '👤' : '📢';
             
-            msgEl.innerHTML = `
-                <p>${icon} ${text}</p>
-                <span class="message-time">${new Date().toLocaleTimeString()}</span>
-            `;
+            // 🆕 v1.5.5: AI 消息添加复制按钮
+            if (type === 'ai') {
+                msgEl.innerHTML = `
+                    <div class="message-content-wrapper">
+                        <p>${icon} ${text}</p>
+                        <button class="copy-btn" title="复制" onclick="this.closest('.message').classList.contains('message') && this.closest('.message').querySelector('p').textContent.substring(2)">📋</button>
+                    </div>
+                    <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                `;
+                
+                // 添加复制按钮事件
+                const copyBtn = msgEl.querySelector('.copy-btn');
+                if (copyBtn) {
+                    copyBtn.onclick = () => {
+                        const textContent = msgEl.querySelector('p').textContent.substring(2); // 去掉图标
+                        navigator.clipboard.writeText(textContent).then(() => {
+                            copyBtn.textContent = '✅';
+                            copyBtn.classList.add('copy-copied');
+                            setTimeout(() => {
+                                copyBtn.textContent = '📋';
+                                copyBtn.classList.remove('copy-copied');
+                            }, 2000);
+                        }).catch(() => {
+                            copyBtn.textContent = '❌';
+                            setTimeout(() => {
+                                copyBtn.textContent = '📋';
+                            }, 2000);
+                        });
+                    };
+                }
+            } else {
+                msgEl.innerHTML = `
+                    <p>${icon} ${text}</p>
+                    <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                `;
+            }
             
             container.appendChild(msgEl);
             

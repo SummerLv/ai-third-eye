@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.5] - 2026-04-29
+
+### Added
+- 📋 新增 AI 消息一键复制功能 - 鼠标悬停显示复制按钮
+- ✨ 复制成功显示动画反馈（✅ -> 📋）
+
+### Fixed
+- 🐛 修复头部版本注释与实际版本不一致问题
+
+---
+
 ## [v1.5.4] - 2026-04-29
 
 ### Added
