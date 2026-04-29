@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.6] - 2026-04-29
+
+### Fixed
+- 🐛 修复 manifest.json JSON 语法错误（第4行多余括号导致 PWA 解析失败）
+- ✅ manifest.json 现可通过 JSON 验证，PWA 安装功能正常
+
+---
+
 ## [v1.5.5] - 2026-04-29
 
 ### Added

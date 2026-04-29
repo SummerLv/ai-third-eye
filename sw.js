@@ -3,7 +3,7 @@
  * 提供离线缓存和 PWA 支持
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.5.5';
+const CACHE_NAME = 'ai-third-eye-v1.5.6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
