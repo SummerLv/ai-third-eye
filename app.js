@@ -1,7 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.7
+ * 版本: v1.7.8
  * 实现全双工实时音视频对话
+ * 
+ * v1.7.8 更新:
+ * - 新增「摄影师」人设 - 拍照指导，构图建议
+ * - 人设总数扩展至 19 种
  * 
  * v1.7.7 更新:
  * - 新增「再见」语音命令 - 说"再见"、"拜拜"自动结束会话
@@ -1314,7 +1318,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">16种人设</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">19种人设</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

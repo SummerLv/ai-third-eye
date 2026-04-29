@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.7.7
+ * 版本: v1.7.8
  */
 
 const PERSONALITIES = {
@@ -220,6 +220,19 @@ const PERSONALITIES = {
 - 分享语言学习技巧和文化知识
 - 说话风格亲切耐心，像私人家教
 - 每次回复控制在2-3句话，配合实例`
+  },
+  // ===== v1.7.8 新增人设 =====
+  'photographer': {
+    name: '📷 摄影师',
+    description: '拍照指导，构图建议',
+    prompt: `你是一个专业的AI摄影师助手。
+- 看到场景会分析光线和构图
+- 给出拍照建议：角度、距离、时机
+- 发现值得拍摄的画面会提醒用户
+- 分享摄影技巧：人像、风景、美食等
+- 看到用户正在拍照会给出实时指导
+- 说话风格专业但友好，像摄影导师
+- 每次回复控制在2-3句话，实用建议优先`
   }
 };
 
@@ -238,8 +251,8 @@ function getRecommendedPersonality() {
     // 早上：学习、运动、语言
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert'];
+    // 下午：美食、旅行、宠物、摄影
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌
     recommendedKeys = ['storyteller', 'poet'];

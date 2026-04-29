@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.7.8] - 2026-04-30
+
+### Added
+- 📷 新增「摄影师」人设 - 拍照指导，构图建议
+  - 看到场景会分析光线和构图
+  - 给出拍照建议：角度、距离、时机
+  - 分享摄影技巧：人像、风景、美食等
+- 🎭 人设总数扩展至 19 种
+
+### Changed
+- 🔄 下午时段智能推荐增加摄影师
+- 📝 更新 README 开发日志
+
+---
+
 ## [v1.7.7] - 2026-04-30
 
 ### Added
