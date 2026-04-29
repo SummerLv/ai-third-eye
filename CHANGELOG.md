@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.7.5] - 2026-04-30
+
+### Fixed
+- 🐛 修复关于面板显示"14种人设"错误（实际为16种）
+
+---
+
 ## [v1.7.4] - 2026-04-29
 
 ### Added
