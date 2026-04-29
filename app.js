@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.0
+ * 版本: v1.5.1
  * 实现全双工实时音视频对话
+ * 
+ * v1.5.1 更新:
+ * - 新增语音命令：截图/拍照、大声点、小声点、慢一点、快一点
+ * - 扩展常用语按钮：不明白、再说一遍、太棒了
+ * - 优化用户体验，语音控制更丰富
  * 
  * v1.5.0 更新:
  * - 新增语音快捷命令系统（暂停/换话题/再说一遍/安静/看得清楚吗）
@@ -46,7 +51,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.0';
+const APP_VERSION = 'v1.5.1';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -653,7 +658,15 @@ class UIController {
             '继续': { action: 'continue', desc: '继续AI发言', icon: '▶️' },
             '请继续': { action: 'continue', desc: '继续AI发言', icon: '▶️' },
             '总结一下': { action: 'summarize', desc: '请求总结', icon: '📝' },
-            '帮我总结': { action: 'summarize', desc: '请求总结', icon: '📝' }
+            '帮我总结': { action: 'summarize', desc: '请求总结', icon: '📝' },
+            // 🆕 v1.5.1 新增语音命令
+            '截图': { action: 'screenshot', desc: '截图保存', icon: '📸' },
+            '拍照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
+            '拍张照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
+            '大声点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
+            '小声点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
+            '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
+            '快一点': { action: 'faster', desc: '请求快点说', icon: '🐇' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1147,6 +1160,56 @@ class UIController {
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在生成总结...`);
+                }
+                break;
+            
+            // 🆕 v1.5.1 新增命令处理
+            case 'screenshot':
+                this.captureScreenshot();
+                this.addMessage('system', `${icon} 已截图保存`);
+                break;
+            
+            case 'louder':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请你大声一点说话，我听得不太清楚。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在请求大声说话...`);
+                }
+                break;
+            
+            case 'quieter':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请你小声一点说话，声音有点大。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在请求小声说话...`);
+                }
+                break;
+            
+            case 'slower':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请你慢一点说话，我需要时间理解。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在请求慢点说...`);
+                }
+                break;
+            
+            case 'faster':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请你快一点说话，我准备好了。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在请求快点说...`);
                 }
                 break;
         }
