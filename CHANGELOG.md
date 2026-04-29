@@ -2,7 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
-## [v1.7.6] - 2026-05-01
+## [v1.7.7] - 2026-04-30
+
+### Added
+- 👋 新增「再见」语音命令 - 说"再见"、"拜拜"、"下次见"自动结束会话
+  - AI 会先告别，3秒后自动结束会话
+  - 无需手动点击停止按钮，更自然的结束方式
+- 🛑 新增「结束」语音命令 - 快速结束当前对话
+- 🔊 语音命令总数扩展至 24 种
+
+### Changed
+- 📝 更新 README 开发日志
+
+---
+
+## [v1.7.6] - 2026-04-30
 
 ### Added
 - 🛡️ 新增「安全卫士」人设 - 专注安全提醒，发现潜在危险
@@ -28,7 +42,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v1.7.4] - 2026-04-29
+## [v1.7.4] - 2026-04-30
 
 ### Added
 - 🐕 新增「宠物专家」人设 - 关爱毛孩子，分享养宠知识
@@ -47,7 +61,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v1.7.3] - 2026-04-29
+## [v1.7.3] - 2026-04-30
 
 ### Fixed
 - 🐛 修复 index.html 静态版本号不一致 (显示 v1.7.1 而非 v1.7.2)
@@ -55,7 +69,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v1.7.2] - 2026-04-30
+## [v1.7.2] - 2026-04-29
 
 ### Changed
 - 🎨 优化首页推荐横幅显示位置 - 从顶部20px调整为80px，不再遮挡标题区域
@@ -64,7 +78,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [v1.7.1] - 2026-04-29
+## [v1.7.1] - 2026-04-30
 
 ### Added
 - 💡 新增「首页智能推荐横幅」- 每天首次访问时显示推荐人设

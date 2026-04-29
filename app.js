@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.6
+ * 版本: v1.7.7
  * 实现全双工实时音视频对话
+ * 
+ * v1.7.7 更新:
+ * - 新增「再见」语音命令 - 说"再见"、"拜拜"自动结束会话
+ * - 新增「结束」语音命令 - 快速结束当前对话
+ * - 语音命令总数扩展至 24 种
  * 
  * v1.7.6 更新:
  * - 新增「安全卫士」人设 - 专注安全提醒，发现潜在危险
@@ -101,7 +106,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.6';
+const APP_VERSION = 'v1.7.7';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -716,7 +721,12 @@ class UIController {
             '大声点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
             '小声点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
             '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
-            '快一点': { action: 'faster', desc: '请求快点说', icon: '🐇' }
+            '快一点': { action: 'faster', desc: '请求快点说', icon: '🐇' },
+            // 🆕 v1.7.7 新增语音命令
+            '再见': { action: 'goodbye', desc: '结束会话', icon: '👋' },
+            '拜拜': { action: 'goodbye', desc: '结束会话', icon: '👋' },
+            '下次见': { action: 'goodbye', desc: '结束会话', icon: '👋' },
+            '结束': { action: 'endSession', desc: '结束对话', icon: '🛑' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1544,6 +1554,31 @@ class UIController {
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在请求快点说...`);
                 }
+                break;
+            
+            // 🆕 v1.7.7 新增命令处理
+            case 'goodbye':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '我们要结束了，跟用户说再见吧！'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在告别...`);
+                    // 3秒后自动结束会话
+                    setTimeout(() => {
+                        this.stop();
+                        this.addMessage('system', '👋 会话已结束，期待下次相见！');
+                    }, 3000);
+                } else {
+                    this.stop();
+                    this.addMessage('system', `${icon} 会话已结束，再见！`);
+                }
+                break;
+            
+            case 'endSession':
+                this.stop();
+                this.addMessage('system', `${icon} 对话已结束`);
                 break;
         }
     }
