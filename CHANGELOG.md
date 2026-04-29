@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.7.2] - 2026-04-30
+
+### Changed
+- 🎨 优化首页推荐横幅显示位置 - 从顶部20px调整为80px，不再遮挡标题区域
+- ✨ 改进横幅样式，更加紧凑优雅（更小的padding、圆角、阴影）
+- 📱 调整横幅最大宽度为420px，移动端体验更好
+
+---
+
 ## [v1.7.1] - 2026-04-29
 
 ### Added

@@ -1,12 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.1
+ * 版本: v1.7.2
  * 实现全双工实时音视频对话
  * 
- * v1.7.1 更新:
- * - 新增首页智能推荐横幅 - 每天首次访问显示推荐人设
- * - 优化推荐横幅交互体验
- * - 支持一键使用推荐人设
+ * v1.7.2 更新:
+ * - 优化首页推荐横幅显示位置 - 不再遮挡顶部标题区域
+ * - 改进横幅样式，更加紧凑优雅
+ * - 调整横幅最大宽度，移动端体验更好
  * 
  * v1.5.9 更新:
  * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
@@ -91,7 +91,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.1';
+const APP_VERSION = 'v1.7.2';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1662,19 +1662,20 @@ class UIController {
         banner.id = 'homeRecommendationBanner';
         banner.style.cssText = `
             position: fixed;
-            top: 20px;
+            top: 80px;
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, rgba(0,212,255,0.95), rgba(0,255,136,0.95));
             color: #000;
-            padding: 16px 24px;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,212,255,0.4);
+            padding: 14px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,212,255,0.4);
             z-index: 9999;
             display: flex;
             align-items: center;
-            gap: 16px;
-            max-width: 90vw;
+            gap: 12px;
+            max-width: 420px;
+            width: calc(100% - 40px);
             animation: bannerSlideIn 0.5s ease;
         `;
         
