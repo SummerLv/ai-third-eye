@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.6.0] - 2026-04-29
+
+### Added
+- ⭐ 新增「人设收藏系统」- 用户可以收藏常用人设，方便快速切换
+- 📌 收藏列表显示在设置面板顶部，最多可收藏5个人设
+- 🎯 一键收藏/取消收藏，支持快速访问
+
+### Changed
+- 🎨 优化设置面板布局，收藏区域独立显示
+- 📝 更新 README 开发日志
+- 🔄 更新 Service Worker 缓存版本
+
+---
+
 ## [v1.5.9] - 2026-04-29
 
 ### Added

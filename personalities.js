@@ -223,3 +223,48 @@ function getRandomPersonality() {
 function getAllPersonalities() {
   return PERSONALITIES;
 }
+
+/**
+ * v1.6.0: 人设收藏系统
+ */
+const FAVORITES_KEY = 'ai-third-eye-favorite-personalities';
+
+/**
+ * 获取收藏的人设列表
+ */
+function getFavoritePersonalities() {
+  try {
+    const saved = localStorage.getItem(FAVORITES_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * 添加人设到收藏
+ */
+function addFavoritePersonality(key) {
+  const favorites = getFavoritePersonalities();
+  if (!favorites.includes(key)) {
+    favorites.unshift(key); // 添加到开头
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites.slice(0, 5))); // 最多收藏5个
+  }
+  return getFavoritePersonalities();
+}
+
+/**
+ * 从收藏中移除人设
+ */
+function removeFavoritePersonality(key) {
+  const favorites = getFavoritePersonalities().filter(f => f !== key);
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+  return favorites;
+}
+
+/**
+ * 检查人设是否已收藏
+ */
+function isPersonalityFavorite(key) {
+  return getFavoritePersonalities().includes(key);
+}

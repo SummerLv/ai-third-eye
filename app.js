@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.9
+ * 版本: v1.6.0
  * 实现全双工实时音视频对话
  * 
  * v1.5.9 更新:
@@ -86,7 +86,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.9';
+const APP_VERSION = 'v1.6.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1609,6 +1609,28 @@ class UIController {
         grid.innerHTML = '';
         const personalities = getAllPersonalities();
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
+        const favorites = getFavoritePersonalities();
+        
+        // 🆕 v1.6.0: 收藏区域
+        if (favorites.length > 0) {
+            const favDiv = document.createElement('div');
+            favDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 12px; border: 1px solid rgba(255,215,0,0.3);';
+            favDiv.innerHTML = `<div style="font-size:12px; color:#ffd700; margin-bottom:8px;">⭐ 我的收藏</div><div style="display:flex;flex-wrap:wrap;gap:8px;" id="favoriteButtons"></div>`;
+            grid.appendChild(favDiv);
+            
+            const favContainer = favDiv.querySelector('#favoriteButtons');
+            favorites.forEach(key => {
+                if (personalities[key]) {
+                    const p = personalities[key];
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-secondary';
+                    btn.style.cssText = 'padding: 4px 10px; font-size: 12px; border-color: rgba(255,215,0,0.5);';
+                    btn.innerHTML = `${p.name}`;
+                    btn.addEventListener('click', () => this.selectPersonality(key));
+                    favContainer.appendChild(btn);
+                }
+            });
+        }
         
         // 🆕 v1.5.9: 智能人设推荐
         const recommended = getRecommendedPersonality();
@@ -1632,10 +1654,19 @@ class UIController {
             this.selectPersonality(recommended.key);
         });
         
+        // 所有人设列表
+        const allHeader = document.createElement('div');
+        allHeader.style.cssText = 'grid-column: 1 / -1; font-size:12px; color:#888; margin-top:5px;';
+        allHeader.textContent = '🎭 全部人设（点击⭐收藏）';
+        grid.appendChild(allHeader);
+        
         for (const [key, personality] of Object.entries(personalities)) {
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'display:flex;align-items:center;gap:4px;';
+            
             const btn = document.createElement('button');
             btn.className = 'btn btn-secondary';
-            btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left;';
+            btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left; flex:1;';
             btn.dataset.personality = key;
             btn.innerHTML = `${personality.name}<br><span style="color:#888">${personality.description}</span>`;
             
@@ -1651,8 +1682,34 @@ class UIController {
             }
             
             btn.addEventListener('click', () => this.selectPersonality(key));
-            grid.appendChild(btn);
+            wrapper.appendChild(btn);
+            
+            // 收藏按钮
+            const favBtn = document.createElement('button');
+            favBtn.className = 'btn btn-secondary';
+            favBtn.style.cssText = 'padding: 8px; font-size: 14px; min-width:32px;';
+            favBtn.innerHTML = isPersonalityFavorite(key) ? '⭐' : '☆';
+            favBtn.title = isPersonalityFavorite(key) ? '取消收藏' : '添加收藏';
+            favBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleFavoritePersonality(key);
+            });
+            wrapper.appendChild(favBtn);
+            
+            grid.appendChild(wrapper);
         }
+    }
+    
+    // 🆕 v1.6.0: 切换人设收藏
+    toggleFavoritePersonality(key) {
+        if (isPersonalityFavorite(key)) {
+            removeFavoritePersonality(key);
+            this.addMessage('system', `⭐ 已取消收藏 ${getAllPersonalities()[key].name}`);
+        } else {
+            addFavoritePersonality(key);
+            this.addMessage('system', `⭐ 已收藏 ${getAllPersonalities()[key].name}`);
+        }
+        this.loadPersonalityGrid();
     }
     
     selectPersonality(key) {
