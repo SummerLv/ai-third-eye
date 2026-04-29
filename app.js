@@ -3,6 +3,11 @@
  * 版本: v1.5.3
  * 实现全双工实时音视频对话
  * 
+ * v1.5.4 更新:
+ * - 新增"AI正在思考"视觉指示器
+ * - 优化用户语音识别反馈体验
+ * - 改进连接状态视觉提示
+ *
  * v1.5.3 更新:
  * - 新增语音命令触发动画反馈
  * - 新增关于面板（项目信息）
@@ -62,7 +67,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.3';
+const APP_VERSION = 'v1.5.4';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -685,6 +690,10 @@ class UIController {
         // 🆕 v1.5.3: 初始化语音命令反馈动画样式
         this.initVoiceCommandStyles();
         
+        // 🆕 v1.5.4: 思考指示器状态
+        this.isAIThinking = false;
+        this.thinkingTimeout = null;
+        
         this.init();
         this.initTheme();
         this.initStats();
@@ -728,6 +737,38 @@ class UIController {
                 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
                 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
             }
+            /* 🆕 v1.5.4: AI思考指示器样式 */
+            .ai-thinking-indicator {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                background: rgba(0, 212, 255, 0.2);
+                border: 1px solid rgba(0, 212, 255, 0.4);
+                border-radius: 20px;
+                animation: thinkingPulse 1.5s ease-in-out infinite;
+            }
+            @keyframes thinkingPulse {
+                0%, 100% { opacity: 0.7; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.02); }
+            }
+            .thinking-dots {
+                display: flex;
+                gap: 4px;
+            }
+            .thinking-dot {
+                width: 6px;
+                height: 6px;
+                background: var(--accent-primary);
+                border-radius: 50%;
+                animation: thinkingDot 1.4s ease-in-out infinite;
+            }
+            .thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+            .thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+            @keyframes thinkingDot {
+                0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+                40% { transform: scale(1); opacity: 1; }
+            }
         `;
         document.head.appendChild(style);
     }
@@ -748,6 +789,53 @@ class UIController {
         setTimeout(() => {
             toast.remove();
         }, 1100);
+    }
+    
+    // 🆕 v1.5.4: 显示AI思考指示器
+    showAIThinkingIndicator() {
+        if (this.isAIThinking) return;
+        this.isAIThinking = true;
+        
+        // 创建思考指示器
+        const messagesContainer = document.getElementById('messagesContainer');
+        if (!messagesContainer) return;
+        
+        const indicator = document.createElement('div');
+        indicator.id = 'aiThinkingIndicator';
+        indicator.className = 'message ai thinking-indicator';
+        indicator.innerHTML = `
+            <div class="ai-thinking-indicator">
+                <span style="color:var(--accent-primary);font-size:14px;">AI 正在思考</span>
+                <div class="thinking-dots">
+                    <div class="thinking-dot"></div>
+                    <div class="thinking-dot"></div>
+                    <div class="thinking-dot"></div>
+                </div>
+            </div>
+        `;
+        messagesContainer.appendChild(indicator);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        
+        // 设置超时自动隐藏（防止一直显示）
+        this.thinkingTimeout = setTimeout(() => {
+            this.hideAIThinkingIndicator();
+        }, 10000);
+    }
+    
+    // 🆕 v1.5.4: 隐藏AI思考指示器
+    hideAIThinkingIndicator() {
+        if (!this.isAIThinking) return;
+        this.isAIThinking = false;
+        
+        if (this.thinkingTimeout) {
+            clearTimeout(this.thinkingTimeout);
+            this.thinkingTimeout = null;
+        }
+        
+        const indicator = document.getElementById('aiThinkingIndicator');
+        if (indicator) {
+            indicator.remove();
+        }
     }
     
     // 🆕 初始化会话计时器
@@ -1229,6 +1317,8 @@ class UIController {
             if (this.lastUserTranscript && this.lastUserTranscript.trim()) {
                 this.addMessage('user', this.lastUserTranscript.trim());
             }
+            // 🆕 v1.5.4: 显示AI思考指示器
+            this.showAIThinkingIndicator();
             // 隐藏临时显示
             setTimeout(() => {
                 if (container) container.style.display = 'none';
@@ -1802,6 +1892,9 @@ class UIController {
         if (partial && type === 'ai') {
             // Update partial message
             this.partialMessage += text;
+            
+            // 🆕 v1.5.4: AI开始回复，隐藏思考指示器
+            this.hideAIThinkingIndicator();
             
             let msgEl = container.querySelector('.message.ai.partial');
             if (!msgEl) {

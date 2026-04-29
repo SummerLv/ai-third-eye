@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.4] - 2026-04-29
+
+### Added
+- 💭 新增"AI正在思考"视觉指示器 - 用户说话结束后显示思考动画
+- ✨ 思考指示器带脉冲动画和跳动的圆点
+- ⏱️ 思考指示器10秒超时自动隐藏
+
+### Changed
+- 🎨 优化用户语音识别反馈体验
+- 🔧 AI开始回复时自动隐藏思考指示器
+
+---
+
 ## [v1.5.3] - 2026-04-29
 
 ### Added
