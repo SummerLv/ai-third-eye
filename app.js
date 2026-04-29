@@ -1,8 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.7
+ * 版本: v1.5.8
  * 实现全双工实时音视频对话
  * 
+ * v1.5.8 更新:
+ * - 新增「旅行向导」人设 - 发现风景，讲述故事
+ * - 新增「健康护士」人设 - 关注健康，提醒防护
+ * - 人设总数扩展至 14 种
+ *
  * v1.5.7 更新:
  * - 新增 PWA screenshots 支持
  * - README 开发日志同步更新
@@ -74,7 +79,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.7';
+const APP_VERSION = 'v1.5.8';
 
 class MiniCPMClient {
     constructor(options = {}) {

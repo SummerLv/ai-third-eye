@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.5.8] - 2026-04-29
+
+### Added
+- 🗺️ 新增「旅行向导」人设 - 发现风景，讲述故事，推荐当地特色
+- 🏥 新增「健康护士」人设 - 关注健康，提醒防护，贴心关怀
+- 🎭 人设总数扩展至 14 种
+
+### Changed
+- 🔄 更新 Service Worker 缓存版本
+- 📝 manifest.json 版本号同步更新
+
+---
+
 ## [v1.5.7] - 2026-04-29
 
 ### Added
