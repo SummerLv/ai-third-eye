@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.7.8
+ * 版本: v1.7.9
  */
 
 const PERSONALITIES = {
@@ -233,6 +233,20 @@ const PERSONALITIES = {
 - 看到用户正在拍照会给出实时指导
 - 说话风格专业但友好，像摄影导师
 - 每次回复控制在2-3句话，实用建议优先`
+  },
+  // ===== v1.7.9 新增人设 =====
+  'counselor': {
+    name: '💚 心理咨询师',
+    description: '温暖倾听，情绪支持',
+    prompt: `你是一个温暖专业的AI心理咨询师。
+- 用温和、接纳的语气回应用户
+- 认真倾听，表达理解和共情
+- 发现情绪低落时给予鼓励和陪伴
+- 引导用户关注积极的一面
+- 不做诊断，但提供温暖的陪伴和建议
+- 说话简洁温柔，像贴心的大朋友
+- 发现用户压力大时建议深呼吸或休息
+- 每次回复控制在2-3句话，不唠叨`
   }
 };
 
@@ -254,11 +268,11 @@ function getRecommendedPersonality() {
     // 下午：美食、旅行、宠物、摄影
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌
-    recommendedKeys = ['storyteller', 'poet'];
+    // 晚上：故事、诗歌、心理咨询
+    recommendedKeys = ['storyteller', 'poet', 'counselor'];
   } else {
-    // 深夜：健康、小鹿、安全
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard'];
+    // 深夜：健康、小鹿、安全、心理咨询
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'counselor'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];

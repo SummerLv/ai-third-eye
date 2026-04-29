@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.8
+ * 版本: v1.7.9
  * 实现全双工实时音视频对话
+ * 
+ * v1.7.9 更新:
+ * - 新增「心理咨询师」人设 - 温暖倾听，情绪支持
+ * - 新增「帮助」语音命令 - 语音获取使用指导
+ * - 人设总数扩展至 20 种
  * 
  * v1.7.8 更新:
  * - 新增「摄影师」人设 - 拍照指导，构图建议
@@ -110,7 +115,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.8';
+const APP_VERSION = 'v1.7.9';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -730,7 +735,12 @@ class UIController {
             '再见': { action: 'goodbye', desc: '结束会话', icon: '👋' },
             '拜拜': { action: 'goodbye', desc: '结束会话', icon: '👋' },
             '下次见': { action: 'goodbye', desc: '结束会话', icon: '👋' },
-            '结束': { action: 'endSession', desc: '结束对话', icon: '🛑' }
+            '结束': { action: 'endSession', desc: '结束对话', icon: '🛑' },
+            // 🆕 v1.7.9 新增语音命令
+            '帮助': { action: 'help', desc: '显示帮助', icon: '❓' },
+            '怎么用': { action: 'help', desc: '显示帮助', icon: '❓' },
+            '怎么操作': { action: 'help', desc: '显示帮助', icon: '❓' },
+            '使用帮助': { action: 'help', desc: '显示帮助', icon: '❓' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1583,6 +1593,20 @@ class UIController {
             case 'endSession':
                 this.stop();
                 this.addMessage('system', `${icon} 对话已结束`);
+                break;
+            
+            // 🆕 v1.7.9 新增帮助命令
+            case 'help':
+                this.showVoiceCommandsHelp();
+                this.addMessage('system', `${icon} 已打开帮助面板`);
+                // 同时让AI也给出帮助提示
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户需要帮助，请简洁介绍你可以做什么，以及常用的语音命令。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
                 break;
         }
     }
