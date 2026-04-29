@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.5.1
+ * 版本: v1.5.2
  * 实现全双工实时音视频对话
+ * 
+ * v1.5.2 更新:
+ * - 修复版本号显示不一致
+ * - 修复语音截图命令调用方法名错误
+ * - 新增 CHANGELOG.md 记录版本变更
  * 
  * v1.5.1 更新:
  * - 新增语音命令：截图/拍照、大声点、小声点、慢一点、快一点
@@ -51,7 +56,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.5.1';
+const APP_VERSION = 'v1.5.2';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1165,8 +1170,7 @@ class UIController {
             
             // 🆕 v1.5.1 新增命令处理
             case 'screenshot':
-                this.captureScreenshot();
-                this.addMessage('system', `${icon} 已截图保存`);
+                this.takeScreenshot();
                 break;
             
             case 'louder':
