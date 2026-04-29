@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.6.2
+ * 版本: v1.6.3
  * 实现全双工实时音视频对话
  * 
  * v1.6.2 更新:
