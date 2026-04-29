@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file.
 - 💾 自定义人设保存在本地 localStorage，刷新后仍存在
 - 🔧 设置面板显示自定义人设区域，与内置人设分区显示
 
+### Fixed
+- 🐛 修复 index.html 版本号显示不一致（显示 v1.6.1 而非 v1.6.2）
+
 ### Changed
 - 🎨 优化设置面板布局，自定义人设区域高亮显示
 - 📝 更新 README 开发日志
