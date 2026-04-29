@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.9
+ * 版本: v1.8.0
  * 实现全双工实时音视频对话
+ * 
+ * v1.8.0 更新:
+ * - 新增截图水印功能 - 自动添加人设名称、时间戳、版本号
+ * - 水印样式优雅，采用渐变背景
+ * - 截图更具纪念意义和分享价值
  * 
  * v1.7.9 更新:
  * - 新增「心理咨询师」人设 - 温暖倾听，情绪支持
@@ -115,7 +120,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.9';
+const APP_VERSION = 'v1.8.0';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2550,6 +2555,41 @@ class UIController {
         ctx.scale(-1, 1);
         ctx.drawImage(video, 0, 0);
         
+        // 🆕 v1.8.0: 添加水印
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // 重置变换矩阵
+        
+        // 获取当前人设名称
+        const savedPersonality = localStorage.getItem('ai-third-eye-personality');
+        const personality = savedPersonality ? 
+            ((typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[savedPersonality] : null) || getAllPersonalities()[savedPersonality]) : null;
+        const personalityName = personality ? personality.name : '🦐 小鹿';
+        
+        // 水印背景（半透明黑色渐变）
+        const gradient = ctx.createLinearGradient(0, canvas.height - 80, 0, canvas.height);
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.7)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, canvas.height - 80, canvas.width, 80);
+        
+        // 项目名称
+        ctx.font = 'bold 18px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#00d4ff';
+        ctx.textAlign = 'left';
+        ctx.fillText('🦐 AI 第三只眼', 15, canvas.height - 45);
+        
+        // 人设名称
+        ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#00ff88';
+        ctx.fillText(`人设: ${personalityName}`, 15, canvas.height - 25);
+        
+        // 时间戳和版本号
+        const now = new Date();
+        const timeStr = now.toLocaleString('zh-CN');
+        ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+        ctx.fillStyle = '#888';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${timeStr} · ${APP_VERSION}`, canvas.width - 15, canvas.height - 25);
+        
         // Get image data
         const dataUrl = canvas.toDataURL('image/png');
         
@@ -2563,7 +2603,7 @@ class UIController {
         // 🆕 记录截图统计
         this.incrementStat('screenshots');
         
-        this.addMessage('system', '📸 截图已保存！');
+        this.addMessage('system', `📸 截图已保存！（水印: ${personalityName}）`);
         
         // Clean up
         canvas.remove();
