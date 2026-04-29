@@ -1,7 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.7.4
+ * 版本: v1.7.6
  * 实现全双工实时音视频对话
+ * 
+ * v1.7.6 更新:
+ * - 新增「安全卫士」人设 - 专注安全提醒，发现潜在危险
+ * - 新增「语言老师」人设 - 语言学习辅助，纠正发音
+ * - 人设总数扩展至 18 种
  * 
  * v1.7.4 更新:
  * - 新增「宠物专家」人设 - 关爱毛孩子，分享养宠知识
@@ -96,7 +101,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.7.5';
+const APP_VERSION = 'v1.7.6';
 
 class MiniCPMClient {
     constructor(options = {}) {

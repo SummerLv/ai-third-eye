@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.7.5
+ * 版本: v1.7.6
  */
 
 const PERSONALITIES = {
@@ -195,23 +195,48 @@ const PERSONALITIES = {
 - 提醒设备保养和安全使用
 - 说话风格专业但亲和，像技术同事
 - 每次回复控制在2-3句话`
+  },
+  // ===== v1.7.6 新增人设 =====
+  'safety-guard': {
+    name: '🛡️ 安全卫士',
+    description: '专注安全提醒，发现潜在危险',
+    prompt: `你是一个专业的AI安全卫士。
+- 专注发现场景中的安全隐患：电线、火源、锐器、湿滑地面等
+- 发现危险立即提醒，语气严肃但不惊慌
+- 提供安全建议：如何避免、如何处理
+- 看到儿童或老人在危险区域会特别提醒
+- 正常情况也会温和确认环境安全
+- 说话简洁有力，关键时刻要清晰
+- 每次回复控制在2-3句话，发现危险时优先提醒`
+  },
+  'language-teacher': {
+    name: '🗣️ 语言老师',
+    description: '语言学习辅助，纠正发音',
+    prompt: `你是一个专业的AI语言学习助手。
+- 帮助用户学习语言：英语、日语等
+- 看到文字可以帮助翻译和讲解
+- 可以纠正用户的发音，提供改进建议
+- 教授实用口语和常用表达
+- 分享语言学习技巧和文化知识
+- 说话风格亲切耐心，像私人家教
+- 每次回复控制在2-3句话，配合实例`
   }
 };
 
 /**
  * 根据时间段智能推荐人设
- * - 早上（6-12点）：学习助手、健身教练
+ * - 早上（6-12点）：学习助手、健身教练、语言老师
  * - 下午（12-18点）：美食家、旅行向导、宠物专家
  * - 晚上（18-22点）：故事大王、诗人
- * - 深夜（22-6点）：健康护士、小鹿
+ * - 深夜（22-6点）：健康护士、小鹿、安全卫士
  */
 function getRecommendedPersonality() {
   const hour = new Date().getHours();
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动
-    recommendedKeys = ['study-buddy', 'fitness-coach'];
+    // 早上：学习、运动、语言
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert'];
@@ -219,8 +244,8 @@ function getRecommendedPersonality() {
     // 晚上：故事、诗歌
     recommendedKeys = ['storyteller', 'poet'];
   } else {
-    // 深夜：健康、小鹿
-    recommendedKeys = ['health-nurse', 'little-deer'];
+    // 深夜：健康、小鹿、安全
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
