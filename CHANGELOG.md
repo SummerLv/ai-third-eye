@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.26] - 2026-04-30
+
+### Fixed
+- 🐛 修复语音命令关键词数量统计错误（README和CHANGELOG显示77，实际为78）
+- 自动化 Review 检测并修复文档与代码不一致问题
+- 同步所有文件版本号至 v1.8.26
+
 ## [v1.8.25] - 2026-04-30
 
 ### Added
@@ -10,7 +17,7 @@ All notable changes to this project will be documented in this file.
   - "下载截图" - 保存截图到本地
   - "复制截图" - 复制截图到剪贴板
 - 截图功能增强：支持复制到剪贴板，提升便捷性
-- 语音命令关键词总数扩展至 77 个
+- 语音命令关键词总数扩展至 78 个
 - 提升截图操作便捷性，支持更多使用场景
 
 ### Changed
