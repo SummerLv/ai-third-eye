@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.16] - 2026-04-30
+
+### Fixed
+- 🐛 修复版本号不一致问题 - 所有文件版本号同步至 v1.8.16
+  - app.js、personalities.js、sw.js、index.html 版本号统一
+- 📝 README.md 快捷键描述已更新（v1.8.16 commit）
+
+---
+
 ## [v1.8.15] - 2026-04-30
 
 ### Fixed
