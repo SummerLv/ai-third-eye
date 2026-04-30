@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.14] - 2026-04-30
+
+### Fixed
+- 🐛 修复 index.html 版本号显示不一致（v1.8.12 → v1.8.13）
+- ✅ 所有文件版本号现已同步至 v1.8.13
+
+---
+
 ## [v1.8.13] - 2026-04-30
 
 ### Improved
