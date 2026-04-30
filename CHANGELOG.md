@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.24] - 2026-04-30
+
+### Changed
+- 🎨 优化快捷命令栏UI：字幕按钮 emoji 从 📝 改为 👁️
+- 提升用户体验，字幕按钮与总结按钮区分度更高
+- 所有文件版本号同步至 v1.8.24
+
+---
+
 ## [v1.8.23] - 2026-04-30
 
 ### Fixed
