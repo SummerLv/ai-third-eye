@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.30] - 2026-04-30
+
+### Fixed
+- 🐛 修复 manifest.json 版本号不一致问题
+  - manifest.json 版本为 1.8.28，其他文件为 v1.8.29
+  - 自动化 Review 检测并修复版本同步问题
+  - 现所有文件版本号统一为 v1.8.30
+
+---
+
 ## [v1.8.29] - 2026-05-01
 
 ### Fixed
