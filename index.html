@@ -576,7 +576,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.10</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.11</span></p>
         </header>
         
         <div class="main-content">
@@ -600,6 +600,11 @@
                     </div>
                     
                     <video id="localVideo" autoplay playsinline muted></video>
+                    
+                    <!-- 🆕 v1.8.11: 实时字幕显示层 -->
+                    <div id="subtitleOverlay" style="position:absolute;bottom:20px;left:20px;right:20px;text-align:center;pointer-events:none;opacity:0;transition:opacity 0.3s ease;">
+                        <div id="subtitleText" style="display:inline-block;background:rgba(0,0,0,0.75);color:#fff;padding:12px 24px;border-radius:8px;font-size:16px;line-height:1.6;max-width:80%;text-shadow:0 1px 2px rgba(0,0,0,0.5);"></div>
+                    </div>
                     
                     <div class="loading-overlay" id="loadingOverlay">
                         <div class="loading-spinner"></div>
@@ -753,9 +758,13 @@
                     <td style="padding:10px 0;color:var(--accent-primary);">Esc</td>
                     <td style="padding:10px 0;">关闭面板</td>
                 </tr>
-                <tr>
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
                     <td style="padding:10px 0;color:var(--accent-primary);">,</td>
                     <td style="padding:10px 0;">打开设置面板</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px 0;color:var(--accent-primary);">B</td>
+                    <td style="padding:10px 0;">切换实时字幕</td>
                 </tr>
             </table>
         </div>

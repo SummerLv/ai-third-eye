@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.10
+ * 版本: v1.8.11
  * 
+ * v1.8.11 更新:
+ * - 新增实时字幕显示功能 - 在视频上方显示AI回复，适合听障用户
+ * - 字幕支持自动淡出、智能换行、美观动画
+ * - 可在设置中开关字幕显示
+ * - 增强导出功能 - 支持导出为Markdown格式
+ *
  * v1.8.10 更新:
  * - 新增「好的/明白」语音命令 - 常用确认回应
  * - 更正语音命令统计（42个关键词，19种action）
@@ -159,7 +165,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.10';
+const APP_VERSION = 'v1.8.11';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -749,6 +755,8 @@ class UIController {
         this.messages = [];
         this.partialMessage = '';
         this.volumeLevel = 0; // 🆕 音量级别
+        this.subtitleEnabled = true; // 🆕 v1.8.11: 字幕开关
+        this.subtitleTimeout = null; // 🆕 v1.8.11: 字幕自动隐藏定时器
         
         // 🆕 语音快捷命令系统
         this.voiceCommands = {
@@ -804,7 +812,12 @@ class UIController {
             '好的': { action: 'okay', desc: '确认理解', icon: '👌' },
             '明白': { action: 'okay', desc: '确认理解', icon: '👌' },
             '知道了': { action: 'okay', desc: '确认理解', icon: '👌' },
-            '收到': { action: 'okay', desc: '确认理解', icon: '👌' }
+            '收到': { action: 'okay', desc: '确认理解', icon: '👌' },
+            // 🆕 v1.8.11: 新增字幕开关语音命令
+            '开字幕': { action: 'toggleSubtitle', desc: '开启字幕', icon: '📝' },
+            '显示字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
+            '关字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
+            '字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1071,6 +1084,9 @@ class UIController {
         this.initQuickPhrases(); // 🆕 初始化常用语按钮
         this.showWelcomeTip();
         this.updateVersionDisplay();
+        
+        // 🆕 v1.8.11: 加载字幕设置
+        this.subtitleEnabled = localStorage.getItem('ai-third-eye-subtitle') !== 'false';
     }
     
     // 🆕 初始化常用语快速发送
@@ -1735,6 +1751,11 @@ class UIController {
                     this.addMessage('system', `${icon} 收到！`);
                 }
                 break;
+            
+            // 🆕 v1.8.11: 新增字幕开关命令
+            case 'toggleSubtitle':
+                this.toggleSubtitle();
+                break;
         }
     }
     
@@ -1834,6 +1855,11 @@ class UIController {
         if (e.key === 'v' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
             e.preventDefault();
             this.showVoiceCommandsHelp();
+        }
+        // 🆕 v1.8.11: B - 切换字幕显示
+        if (e.key === 'b' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            this.toggleSubtitle();
         }
         // , - 设置面板
         if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
@@ -2461,33 +2487,68 @@ class UIController {
     }
     
     // 🆕 导出对话记录
-    exportMessages() {
+    exportMessages(format = 'txt') {
         const container = document.getElementById('messagesContainer');
         const messages = container.querySelectorAll('.message');
         
-        let exportText = `AI 第三只眼 - 对话记录导出\n`;
-        exportText += `导出时间: ${new Date().toLocaleString()}\n`;
-        exportText += `版本: ${APP_VERSION}\n`;
-        exportText += `${'='.repeat(50)}\n\n`;
+        let exportText = '';
+        const timestamp = new Date().toISOString().slice(0,10);
         
-        messages.forEach(msg => {
-            const text = msg.querySelector('p')?.textContent || '';
-            const time = msg.querySelector('.message-time')?.textContent || '';
-            const type = msg.classList.contains('ai') ? 'AI' : 
-                        msg.classList.contains('user') ? '用户' : '系统';
-            exportText += `[${time}] ${type}: ${text}\n`;
-        });
-        
-        // 创建下载
-        const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `ai-third-eye-chat-${new Date().toISOString().slice(0,10)}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-        
-        this.addMessage('system', '📄 对话记录已导出！');
+        // 🆕 v1.8.11: 支持 Markdown 格式导出
+        if (format === 'md') {
+            exportText = `# AI 第三只眼 - 对话记录\n\n`;
+            exportText += `> 导出时间: ${new Date().toLocaleString()}\n\n`;
+            exportText += `> 版本: ${APP_VERSION}\n\n`;
+            exportText += `---\n\n`;
+            
+            messages.forEach(msg => {
+                const text = msg.querySelector('p')?.textContent || '';
+                const time = msg.querySelector('.message-time')?.textContent || '';
+                const isAI = msg.classList.contains('ai');
+                const isUser = msg.classList.contains('user');
+                
+                if (isAI) {
+                    exportText += `### 🤖 AI (${time})\n\n${text}\n\n`;
+                } else if (isUser) {
+                    exportText += `### 👤 用户 (${time})\n\n${text}\n\n`;
+                } else {
+                    exportText += `> 📢 ${text}\n\n`;
+                }
+            });
+            
+            const blob = new Blob([exportText], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ai-third-eye-chat-${timestamp}.md`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            this.addMessage('system', '📄 对话记录已导出为 Markdown 格式！');
+        } else {
+            exportText = `AI 第三只眼 - 对话记录导出\n`;
+            exportText += `导出时间: ${new Date().toLocaleString()}\n`;
+            exportText += `版本: ${APP_VERSION}\n`;
+            exportText += `${'='.repeat(50)}\n\n`;
+            
+            messages.forEach(msg => {
+                const text = msg.querySelector('p')?.textContent || '';
+                const time = msg.querySelector('.message-time')?.textContent || '';
+                const type = msg.classList.contains('ai') ? 'AI' : 
+                            msg.classList.contains('user') ? '用户' : '系统';
+                exportText += `[${time}] ${type}: ${text}\n`;
+            });
+            
+            const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ai-third-eye-chat-${timestamp}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            this.addMessage('system', '📄 对话记录已导出！');
+        }
     }
     
     // 🆕 设置AI说话动画
@@ -2598,6 +2659,11 @@ class UIController {
         
         // Scroll to bottom
         container.scrollTop = container.scrollHeight;
+        
+        // 🆕 v1.8.11: 显示实时字幕（仅AI消息且启用字幕时）
+        if (type === 'ai' && this.subtitleEnabled && !partial) {
+            this.showSubtitle(text);
+        }
         
         // Keep only last 50 messages
         while (container.children.length > 50) {
@@ -3214,6 +3280,59 @@ class UIController {
             }
             this.addMessage('system', mirrored ? '🪞 已开启镜像' : '📷 已关闭镜像');
         }
+    }
+    
+    // 🆕 v1.8.11: 显示实时字幕
+    showSubtitle(text) {
+        if (!this.subtitleEnabled) return;
+        
+        const overlay = document.getElementById('subtitleOverlay');
+        const subtitleText = document.getElementById('subtitleText');
+        if (!overlay || !subtitleText) return;
+        
+        // 去掉图标和多余空格
+        const cleanText = text.replace(/^[🤖👤📢]\s*/, '').trim();
+        if (!cleanText) return;
+        
+        // 清除之前的隐藏定时器
+        if (this.subtitleTimeout) {
+            clearTimeout(this.subtitleTimeout);
+            this.subtitleTimeout = null;
+        }
+        
+        // 显示字幕
+        subtitleText.textContent = cleanText;
+        overlay.style.opacity = '1';
+        
+        // 根据文本长度设置自动隐藏时间（每10个字约1秒，最少3秒，最多10秒）
+        const charCount = cleanText.length;
+        const hideDelay = Math.min(Math.max(charCount / 10 * 1000, 3000), 10000);
+        
+        this.subtitleTimeout = setTimeout(() => {
+            this.hideSubtitle();
+        }, hideDelay);
+    }
+    
+    // 🆕 v1.8.11: 隐藏字幕
+    hideSubtitle() {
+        const overlay = document.getElementById('subtitleOverlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+        }
+        if (this.subtitleTimeout) {
+            clearTimeout(this.subtitleTimeout);
+            this.subtitleTimeout = null;
+        }
+    }
+    
+    // 🆕 v1.8.11: 切换字幕显示
+    toggleSubtitle() {
+        this.subtitleEnabled = !this.subtitleEnabled;
+        localStorage.setItem('ai-third-eye-subtitle', this.subtitleEnabled);
+        if (!this.subtitleEnabled) {
+            this.hideSubtitle();
+        }
+        this.addMessage('system', this.subtitleEnabled ? '📝 已开启实时字幕' : '📝 已关闭实时字幕');
     }
 }
 
