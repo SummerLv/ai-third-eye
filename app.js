@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.11
+ * 版本: v1.8.12
  * 
+ * v1.8.12 更新:
+ * - 新增对话搜索功能 - 快速查找历史对话内容
+ * - 支持快捷键 Ctrl+F 打开搜索
+ * - 搜索结果高亮显示，可上下导航
+ * - 实时显示匹配数量
+ *
  * v1.8.11 更新:
  * - 新增实时字幕显示功能 - 在视频上方显示AI回复，适合听障用户
  * - 字幕支持自动淡出、智能换行、美观动画
@@ -165,7 +171,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.11';
+const APP_VERSION = 'v1.8.12';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1079,6 +1085,23 @@ class UIController {
             this.toggleMirror();
         });
         
+        // 🆕 v1.8.12: Search button
+        document.getElementById('searchBtn')?.addEventListener('click', () => {
+            this.toggleSearchBar();
+        });
+        document.getElementById('searchClose')?.addEventListener('click', () => {
+            this.closeSearchBar();
+        });
+        document.getElementById('searchPrev')?.addEventListener('click', () => {
+            this.searchPrev();
+        });
+        document.getElementById('searchNext')?.addEventListener('click', () => {
+            this.searchNext();
+        });
+        document.getElementById('searchInput')?.addEventListener('input', (e) => {
+            this.searchMessages(e.target.value);
+        });
+        
         this.loadSettings();
         this.initAudioVisualizer();
         this.initQuickPhrases(); // 🆕 初始化常用语按钮
@@ -1860,6 +1883,11 @@ class UIController {
         if (e.key === 'b' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
             e.preventDefault();
             this.toggleSubtitle();
+        }
+        // 🆕 v1.8.12: Ctrl+F - 搜索对话
+        if (e.key === 'f' && e.ctrlKey) {
+            e.preventDefault();
+            this.toggleSearchBar();
         }
         // , - 设置面板
         if (e.key === ',' && e.ctrlKey === false && e.altKey === false) {
@@ -3407,6 +3435,126 @@ class UIController {
                 }
             `;
             document.head.appendChild(style);
+        }
+    }
+}
+
+    // 🆕 v1.8.12: 切换搜索栏
+    toggleSearchBar() {
+        const searchBar = document.getElementById('searchBar');
+        const searchInput = document.getElementById('searchInput');
+        if (searchBar) {
+            const isHidden = searchBar.style.display === 'none';
+            searchBar.style.display = isHidden ? 'flex' : 'none';
+            if (isHidden && searchInput) {
+                searchInput.focus();
+                searchInput.select();
+            } else {
+                this.clearSearchHighlight();
+            }
+        }
+    }
+    
+    // 🆕 v1.8.12: 关闭搜索栏
+    closeSearchBar() {
+        const searchBar = document.getElementById('searchBar');
+        const searchInput = document.getElementById('searchInput');
+        if (searchBar) {
+            searchBar.style.display = 'none';
+        }
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        this.clearSearchHighlight();
+    }
+    
+    // 🆕 v1.8.12: 搜索对话
+    searchMessages(keyword) {
+        this.clearSearchHighlight();
+        
+        const searchCount = document.getElementById('searchCount');
+        
+        if (!keyword || keyword.trim() === '') {
+            if (searchCount) searchCount.textContent = '';
+            this.searchResults = [];
+            this.currentSearchIndex = -1;
+            return;
+        }
+        
+        const container = document.getElementById('messagesContainer');
+        if (!container) return;
+        
+        const messages = container.querySelectorAll('.message');
+        const matches = [];
+        const searchRegex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        
+        messages.forEach((msg, idx) => {
+            const textContent = msg.textContent || '';
+            if (textContent.toLowerCase().includes(keyword.toLowerCase())) {
+                matches.push({ element: msg, index: idx });
+                
+                // 高亮匹配文本
+                const contentP = msg.querySelector('p:first-of-type');
+                if (contentP && contentP.dataset.originalText === undefined) {
+                    contentP.dataset.originalText = contentP.innerHTML;
+                }
+                if (contentP && contentP.dataset.originalText !== undefined) {
+                    contentP.innerHTML = contentP.dataset.originalText.replace(searchRegex, '<mark style="background:#ffeb3b;color:#000;padding:1px 2px;border-radius:2px;">$1</mark>');
+                }
+            }
+        });
+        
+        this.searchResults = matches;
+        this.currentSearchIndex = matches.length > 0 ? 0 : -1;
+        
+        // 更新搜索计数
+        if (searchCount) {
+            searchCount.textContent = matches.length > 0 ? `${matches.length} 条匹配` : '无匹配';
+        }
+        
+        // 滚动到第一个匹配
+        if (matches.length > 0) {
+            this.scrollToSearchResult(0);
+        }
+    }
+    
+    // 🆕 v1.8.12: 清除搜索高亮
+    clearSearchHighlight() {
+        const container = document.getElementById('messagesContainer');
+        if (!container) return;
+        
+        const markedElements = container.querySelectorAll('[data-original-text]');
+        markedElements.forEach(el => {
+            el.innerHTML = el.dataset.originalText;
+            delete el.dataset.originalText;
+        });
+    }
+    
+    // 🆕 v1.8.12: 上一个搜索结果
+    searchPrev() {
+        if (this.searchResults.length === 0) return;
+        this.currentSearchIndex = (this.currentSearchIndex - 1 + this.searchResults.length) % this.searchResults.length;
+        this.scrollToSearchResult(this.currentSearchIndex);
+    }
+    
+    // 🆕 v1.8.12: 下一个搜索结果
+    searchNext() {
+        if (this.searchResults.length === 0) return;
+        this.currentSearchIndex = (this.currentSearchIndex + 1) % this.searchResults.length;
+        this.scrollToSearchResult(this.currentSearchIndex);
+    }
+    
+    // 🆕 v1.8.12: 滚动到搜索结果
+    scrollToSearchResult(index) {
+        if (index < 0 || index >= this.searchResults.length) return;
+        const result = this.searchResults[index];
+        if (result && result.element) {
+            result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // 更新搜索计数显示
+            const searchCount = document.getElementById('searchCount');
+            if (searchCount) {
+                searchCount.textContent = `${index + 1}/${this.searchResults.length}`;
+            }
         }
     }
 }

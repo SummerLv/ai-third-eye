@@ -576,7 +576,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.11</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.12</span></p>
         </header>
         
         <div class="main-content">
@@ -645,6 +645,17 @@
                     <button class="btn btn-secondary" id="exportBtn" style="padding:8px 12px;font-size:12px;" title="导出对话">
                         📤
                     </button>
+                    <button class="btn btn-secondary" id="searchBtn" style="padding:8px 12px;font-size:12px;" title="搜索对话 (Ctrl+F)">
+                        🔍
+                    </button>
+                </div>
+                <!-- 🆕 v1.8.12: 对话搜索栏 -->
+                <div id="searchBar" style="display:none;padding:8px 12px;background:rgba(0,0,0,0.2);border-radius:8px;margin-bottom:10px;gap:8px;align-items:center;">
+                    <input id="searchInput" type="text" placeholder="搜索对话内容..." style="flex:1;padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.3);color:var(--text-primary);font-size:14px;">
+                    <span id="searchCount" style="color:var(--text-secondary);font-size:12px;min-width:60px;"></span>
+                    <button id="searchPrev" class="btn btn-secondary" style="padding:6px 10px;font-size:12px;">↑</button>
+                    <button id="searchNext" class="btn btn-secondary" style="padding:6px 10px;font-size:12px;">↓</button>
+                    <button id="searchClose" class="btn btn-secondary" style="padding:6px 10px;font-size:12px;">✕</button>
                 </div>
                 
                 <div class="messages-container" id="messagesContainer">

@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.12] - 2026-04-30
+
+### Added
+- 🔍 新增「对话搜索」功能 - 快速查找历史对话内容
+  - 支持快捷键 Ctrl+F 打开搜索栏
+  - 搜索结果实时高亮显示
+  - 支持上下导航浏览匹配结果
+  - 实时显示匹配数量
+- ⌨️ 新增快捷键「Ctrl+F」- 打开/关闭搜索栏
+
+---
+
 ## [v1.8.11] - 2026-04-30
 
 ### Added
