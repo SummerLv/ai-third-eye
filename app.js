@@ -1,7 +1,15 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.16
+ * 版本: v1.8.17
  * 
+ * v1.8.17 更新:
+ * - 新增更多实用语音命令: "没听清/再说一次"(重复)、"等等/等一下"(暂停)
+ * - 新增 "重新开始/重来"语音命令 - 清空对话重新开始
+ * - 新增 "计时/倒计时"语音命令 - 请求计时功能
+ * - 新增 "现在几点/几点了"语音命令 - 询问当前时间
+ * - 新增 "今天日期/今天几号"语音命令 - 询问当前日期
+ * - 语音命令总数扩展至 58 个关键词
+ *
  * v1.8.15 更新:
  * - 更正语音命令统计 - action数量19→20
  * - README.md 同步更新
@@ -184,7 +192,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.16';
+const APP_VERSION = 'v1.8.17';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -836,7 +844,20 @@ class UIController {
             '开字幕': { action: 'toggleSubtitle', desc: '开启字幕', icon: '📝' },
             '显示字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
             '关字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
-            '字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' }
+            '字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
+            // 🆕 v1.8.17: 新增更多实用语音命令
+            '没听清': { action: 'repeat', desc: '请AI重复', icon: '👂' },
+            '再说一次': { action: 'repeat', desc: '请AI重复', icon: '👂' },
+            '等等': { action: 'pause', desc: '暂停AI发言', icon: '✋' },
+            '等一下': { action: 'pause', desc: '暂停AI发言', icon: '✋' },
+            '重新开始': { action: 'restart', desc: '重置对话', icon: '🔄' },
+            '重来': { action: 'restart', desc: '重置对话', icon: '🔄' },
+            '计时': { action: 'timer', desc: '开始计时', icon: '⏱️' },
+            '倒计时': { action: 'timer', desc: '开始计时', icon: '⏱️' },
+            '现在几点': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
+            '几点了': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
+            '今天日期': { action: 'whatDate', desc: '询问日期', icon: '📅' },
+            '今天几号': { action: 'whatDate', desc: '询问日期', icon: '📅' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1791,6 +1812,59 @@ class UIController {
             // 🆕 v1.8.11: 新增字幕开关命令
             case 'toggleSubtitle':
                 this.toggleSubtitle();
+                break;
+            
+            // 🆕 v1.8.17: 新增更多实用命令
+            case 'restart':
+                // 清空对话并重新开始
+                this.clearChat();
+                this.addMessage('system', `${icon} 对话已重置，让我们重新开始！`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想要重新开始对话。请用你的方式打个招呼，重新介绍自己并询问今天想聊什么。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'timer':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户需要计时。请询问需要计时多久，然后开始倒计时提醒。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 已请求计时功能`);
+                } else {
+                    this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
+                }
+                break;
+            
+            case 'whatTime':
+                const nowTime = new Date();
+                const timeStr = nowTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+                this.addMessage('system', `${icon} 现在是 ${timeStr}`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: `告诉用户现在的时间是${timeStr}，并简单聊两句。`
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'whatDate':
+                const nowDate = new Date();
+                const dateStr = nowDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+                this.addMessage('system', `${icon} 今天是 ${dateStr}`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: `告诉用户今天是${dateStr}，并简单聊两句。`
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
                 break;
         }
     }
