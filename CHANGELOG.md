@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.5] - 2026-04-30
+
+### Fixed
+- 🐛 修复版本号不一致问题 - index.html v1.8.3 → v1.8.4
+  - 自动化 Review 检测并修复页面版本号显示延迟
+  - 确保所有文件版本号同步
+
+---
+
 ## [v1.8.4] - 2026-04-30
 
 ### Added
