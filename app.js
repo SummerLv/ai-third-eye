@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.2
+ * 版本: v1.8.3
+ * 
+ * v1.8.3 更新:
+ * - 新增截图成功音效反馈 - 更有成就感的截图体验
+ * - 使用 Web Audio API 合成清脆"叮"声，无需外部资源
+ */
  * 实现全双工实时音视频对话
  * 
  * v1.8.1 更新:
@@ -125,7 +130,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.2';
+const APP_VERSION = 'v1.8.3';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2608,6 +2613,9 @@ class UIController {
         // 🆕 记录截图统计
         this.incrementStat('screenshots');
         
+        // 🆕 v1.8.3: 播放截图成功音效
+        this.playScreenshotSound();
+        
         this.addMessage('system', `📸 截图已保存！（水印: ${personalityName}）`);
         
         // Clean up
@@ -2660,6 +2668,35 @@ class UIController {
                 bar.style.background = 'var(--accent-primary)';
             }
         });
+    }
+    
+    // 🆕 v1.8.3: 播放截图成功音效（Web Audio API 合成）
+    playScreenshotSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 创建振荡器 - 清脆的"叮"声
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // 设置频率 - E6 高音（1318.51 Hz）
+            oscillator.frequency.setValueAtTime(1318.51, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(987.77, audioContext.currentTime + 0.1);
+            
+            // 设置音量包络
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            // 连接节点
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (e) {
+            console.log('Screenshot sound error:', e);
+        }
     }
     
     // 🆕 初始化网络状态检测（带警告横幅）

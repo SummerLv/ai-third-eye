@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.3] - 2026-04-30
+
+### Added
+- 🔊 新增「截图成功音效」反馈 - 更有成就感的截图体验
+  - 使用 Web Audio API 合成清脆"叮"声
+  - 无需外部资源，轻量高效
+  - 截图保存时自动播放，提升用户反馈
+
+---
+
 ## [v1.8.2] - 2026-04-30
 
 ### Fixed
