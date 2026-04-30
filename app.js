@@ -1,8 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.27
+ * 版本: v1.8.28
  * 
- * v1.8.27 更新:
+ * v1.8.28 更新:
+ * - 🐛 修复计时控制语音命令 bug - pauseTimer/resumeTimer 改为发送给 AI 处理
+ * - 修复 startTimerCountdown() 方法缺失导致的运行时错误
+ *
  * - 🌍 新增「翻译官」人设 - 实时翻译，语言桥梁
  * - 🎤 新增语音命令：暂停计时/继续计时/讲个笑话/翻译一下
  * - 📊 语音命令关键词扩展至 88 个
@@ -234,7 +237,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.27';
+const APP_VERSION = 'v1.8.28';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2029,24 +2032,30 @@ class UIController {
                 this.addMessage('system', `${icon} 已恢复默认人设（小鹿）`);
                 break;
             
-            // 🆕 v1.8.27: 新增计时控制命令
+            // 🆕 v1.8.28: 修复计时控制命令 - 改为发送给 AI 处理
             case 'pauseTimer':
-                if (this.timerInterval) {
-                    clearInterval(this.timerInterval);
-                    this.timerPaused = true;
-                    this.addMessage('system', `${icon} 计时器已暂停`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '暂停计时。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 已请求暂停计时`);
                 } else {
-                    this.addMessage('system', `${icon} 当前没有正在进行的计时`);
+                    this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
                 }
                 break;
             
             case 'resumeTimer':
-                if (this.timerPaused && this.timerSeconds !== undefined) {
-                    this.timerPaused = false;
-                    this.startTimerCountdown();
-                    this.addMessage('system', `${icon} 计时器已继续`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '继续计时。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 已请求继续计时`);
                 } else {
-                    this.addMessage('system', `${icon} 当前没有暂停的计时`);
+                    this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
                 }
                 break;
             

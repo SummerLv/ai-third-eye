@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.28] - 2026-05-01
+
+### Fixed
+- 🐛 修复计时控制语音命令 bug
+  - `pauseTimer` 和 `resumeTimer` 命令引用了不存在的 `startTimerCountdown()` 方法
+  - 将这些命令改为发送文本给 AI 处理，与其他计时命令保持一致
+  - 避免运行时错误："this.startTimerCountdown is not a function"
+
+---
+
 ## [v1.8.27] - 2026-05-01
 
 ### Added
