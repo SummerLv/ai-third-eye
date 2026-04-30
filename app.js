@@ -1,7 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.30
+ * 版本: v1.8.31
  * 
+ * v1.8.31 更新:
+ * - 🥗 新增「营养师」人设 - 饮食分析，营养建议
+ * - 🎤 新增健康饮食语音命令: 有营养吗/健康吗/卡路里/热量
+ * - 📊 语音命令关键词扩展至 96 个（新增 8 个健康饮食命令）
+ * - 🎭 人设总数扩展至 23 种
+ * - 🔄 智能推荐增加营养师（下午和深夜时段）
+ *
  * v1.8.30 更新:
  * - 🐛 修复 manifest.json 版本号不一致问题 (1.8.28→1.8.29)
  * - 自动化 Review 检测并修复版本同步问题
@@ -241,7 +248,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.30';
+const APP_VERSION = 'v1.8.31';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -937,7 +944,16 @@ class UIController {
             '来个笑话': { action: 'tellJoke', desc: '讲个笑话', icon: '😄' },
             '翻译一下': { action: 'translate', desc: '请求翻译', icon: '🌍' },
             '帮我翻译': { action: 'translate', desc: '请求翻译', icon: '🌍' },
-            '这是什么意思': { action: 'translate', desc: '请求翻译', icon: '🌍' }
+            '这是什么意思': { action: 'translate', desc: '请求翻译', icon: '🌍' },
+            // 🆕 v1.8.31: 新增健康饮食语音命令
+            '有营养吗': { action: 'nutrition', desc: '询问营养信息', icon: '🥗' },
+            '营养吗': { action: 'nutrition', desc: '询问营养信息', icon: '🥗' },
+            '健康吗': { action: 'healthCheck', desc: '询问是否健康', icon: '💚' },
+            '这个健康': { action: 'healthCheck', desc: '询问是否健康', icon: '💚' },
+            '卡路里': { action: 'calories', desc: '询问卡路里', icon: '🔥' },
+            '热量': { action: 'calories', desc: '询问热量', icon: '🔥' },
+            '多少热量': { action: 'calories', desc: '询问热量', icon: '🔥' },
+            '这个吃了': { action: 'eatAdvice', desc: '询问是否可以吃', icon: '🍽️' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1570,7 +1586,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">22种人设</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
@@ -2084,6 +2100,51 @@ class UIController {
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在翻译...`);
+                }
+                break;
+            
+            // 🆕 v1.8.31: 新增健康饮食语音命令
+            case 'nutrition':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请分析你看到的食物的营养价值，有哪些营养成分？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析营养成分...`);
+                }
+                break;
+            
+            case 'healthCheck':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请评估你看到的食物或生活习惯是否健康，给出建议。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在评估健康程度...`);
+                }
+                break;
+            
+            case 'calories':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请估算你看到的食物大概有多少卡路里（热量）。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在估算热量...`);
+                }
+                break;
+            
+            case 'eatAdvice':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请告诉我这个食物是否适合吃，有什么注意事项？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析饮食建议...`);
                 }
                 break;
         }
