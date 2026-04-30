@@ -1,7 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.12
+ * 版本: v1.8.13
  * 
+ * v1.8.13 更新:
+ * - 完善快捷键帮助面板，添加V键（语音命令帮助）说明
+ * - 更新底部快捷键提示栏，补充 Ctrl+F、B、V 等新快捷键
+ *
  * v1.8.12 更新:
  * - 新增对话搜索功能 - 快速查找历史对话内容
  * - 支持快捷键 Ctrl+F 打开搜索
@@ -171,7 +175,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.12';
+const APP_VERSION = 'v1.8.13';
 
 class MiniCPMClient {
     constructor(options = {}) {

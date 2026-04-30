@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.13] - 2026-04-30
+
+### Improved
+- ⌨️ 完善快捷键帮助面板，添加 V 键（语音命令帮助）说明
+- 📝 更新底部快捷键提示栏，补充 Ctrl+F（搜索）、B（字幕）、V（语音帮助）等新快捷键
+
+---
+
 ## [v1.8.12] - 2026-04-30
 
 ### Added
