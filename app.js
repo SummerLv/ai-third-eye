@@ -1,11 +1,16 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.9
+ * 版本: v1.8.10
  * 
+ * v1.8.10 更新:
+ * - 新增「好的/明白」语音命令 - 常用确认回应
+ * - 更正语音命令统计（42个关键词，19种action）
+ * - 优化语音命令帮助面板显示
+ *
  * v1.8.9 更新:
  * - 新增「谢谢」语音命令 - 说"谢谢"、"感谢"表达感谢，AI友好回应
  * - 新增「不错」语音命令 - 说"不错"、"很好"表达认可
- * - 语音命令总数扩展至 28 种，增强用户反馈表达
+ * - 语音命令总数扩展至 42 个关键词，增强用户反馈表达
  * 
  * v1.8.8 更新:
  * - 新增结束对话音效 - 三音符舒缓告别旋律，温暖结束对话体验
@@ -154,7 +159,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.9';
+const APP_VERSION = 'v1.8.10';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -794,7 +799,12 @@ class UIController {
             '不错': { action: 'praise', desc: '表达认可', icon: '👍' },
             '很好': { action: 'praise', desc: '表达认可', icon: '👍' },
             '真棒': { action: 'praise', desc: '表达认可', icon: '👍' },
-            '厉害': { action: 'praise', desc: '表达认可', icon: '👍' }
+            '厉害': { action: 'praise', desc: '表达认可', icon: '👍' },
+            // 🆕 v1.8.10: 新增"好的"语音命令
+            '好的': { action: 'okay', desc: '确认理解', icon: '👌' },
+            '明白': { action: 'okay', desc: '确认理解', icon: '👌' },
+            '知道了': { action: 'okay', desc: '确认理解', icon: '👌' },
+            '收到': { action: 'okay', desc: '确认理解', icon: '👌' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1709,6 +1719,20 @@ class UIController {
                     this.addMessage('system', `${icon} 谢谢你的认可！`);
                 } else {
                     this.addMessage('system', `${icon} 谢谢认可！`);
+                }
+                break;
+            
+            // 🆕 v1.8.10: 新增确认命令
+            case 'okay':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户确认明白了，继续观察和描述。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 好的，继续...`);
+                } else {
+                    this.addMessage('system', `${icon} 收到！`);
                 }
                 break;
         }
