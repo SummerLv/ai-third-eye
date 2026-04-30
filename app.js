@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.5
+ * 版本: v1.8.6
+ * 
+ * v1.8.6 更新:
+ * - 新增人设切换音效 - 活泼的四音符旋律，更有仪式感
+ * - 修复 APP_VERSION 常量版本号遗漏问题
+ * - 音效系统进一步完善，覆盖更多交互场景
  * 
  * v1.8.4 更新:
  * - 新增开始对话音效 - 更有仪式感的对话启动体验
@@ -136,7 +141,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.5';
+const APP_VERSION = 'v1.8.6';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2152,6 +2157,9 @@ class UIController {
             recordPersonalityUsage(key);
         }
         
+        // 🆕 v1.8.6: 播放人设切换音效
+        this.playPersonalitySound();
+        
         // Update grid buttons
         const grid = document.getElementById('personalityGrid');
         grid.querySelectorAll('button').forEach(btn => {
@@ -2815,6 +2823,42 @@ class UIController {
             oscillator3.stop(audioContext.currentTime + 0.4);
         } catch (e) {
             console.log('Reconnect sound error:', e);
+        }
+    }
+    
+    // 🆕 v1.8.6: 播放人设切换音效（Web Audio API 合成）
+    playPersonalitySound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 四音符跳悦旋律 - 活泼的人设切换感
+            const oscillators = [];
+            const gainNode = audioContext.createGain();
+            
+            // 四音符：C5-E5-G5-C6 - 明亮上扬的旋律
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            const startTime = audioContext.currentTime;
+            
+            notes.forEach((freq, i) => {
+                const osc = audioContext.createOscillator();
+                osc.frequency.setValueAtTime(freq, startTime + i * 0.08);
+                osc.type = 'sine';
+                osc.connect(gainNode);
+                oscillators.push(osc);
+            });
+            
+            // 音量包络
+            gainNode.gain.setValueAtTime(0.18, startTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.4);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillators.forEach((osc, i) => {
+                osc.start(startTime + i * 0.08);
+                osc.stop(startTime + i * 0.08 + 0.1);
+            });
+        } catch (e) {
+            console.log('Personality sound error:', e);
         }
     }
     

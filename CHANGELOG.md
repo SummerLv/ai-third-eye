@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.6] - 2026-04-30
+
+### Added
+- 🔊 新增「人设切换音效」反馈 - 更有仪式感的人设选择体验
+  - 四音符跳悦旋律：C5-E5-G5-C6，活泼明快
+  - 切换人设时自动播放，增强交互反馈
+  - 使用 Web Audio API 合成，无需外部资源
+
+### Fixed
+- 🐛 修复 APP_VERSION 常量版本号遗漏问题 v1.8.4 → v1.8.5
+  - 自动化 Review 检测并修复常量版本号不同步
+  - 确保所有版本标识完全一致
+
+---
+
 ## [v1.8.5] - 2026-04-30
 
 ### Fixed
