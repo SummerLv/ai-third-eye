@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.18
+ * 版本: v1.8.19
+ * 
+ * v1.8.19 更新:
+ * - 新增人设切换语音命令: "换人设"/"切换人设"/"换个人"/"换个人设" 随机切换AI人设
+ * - 修正语音命令关键词数量统计（69→73个）
  * 
  * v1.8.18 更新:
  * - 新增全屏模式语音命令: "全屏"进入全屏，"退出全屏"取消全屏
@@ -198,7 +202,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.18';
+const APP_VERSION = 'v1.8.19';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -871,7 +875,12 @@ class UIController {
             '大声点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
             '声音大点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
             '小声点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
-            '声音小点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' }
+            '声音小点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
+            // 🆕 v1.8.19: 新增人设切换语音命令
+            '换人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
+            '切换人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
+            '换个人': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
+            '换个人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1902,6 +1911,13 @@ class UIController {
                     document.webkitExitFullscreen();
                     this.addMessage('system', `${icon} 已退出全屏模式`);
                 }
+                break;
+            
+            // 🆕 v1.8.19: 随机切换人设
+            case 'randomPersonality':
+                const randomP = getRandomPersonality();
+                this.selectPersonality(randomP.key);
+                this.addMessage('system', `${icon} 已切换为 ${randomP.name}`);
                 break;
         }
     }

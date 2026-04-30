@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.19] - 2026-04-30
+
+### Added
+- 🎭 新增人设切换语音命令:
+  - "换人设"/"切换人设"/"换个人"/"换个人设" - 随机切换AI人设
+- 📊 语音命令总数扩展至 73 个关键词
+- 📝 修正关键词数量统计（69→73）
+
+---
+
 ## [v1.8.18] - 2026-04-30
 
 ### Added
@@ -11,7 +21,7 @@ All notable changes to this project will be documented in this file.
 - 🔊 新增更多音量控制关键词:
   - "声音大点" - 同"大声点"
   - "声音小点" - 同"小声点"
-- 📊 语音命令总数扩展至 64 个关键词
+- 📊 语音命令总数扩展至 69 个关键词
 - 📝 README.md 同步更新版本描述
 
 ---
