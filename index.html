@@ -317,6 +317,37 @@
             color: #00ff88 !important;
         }
         
+        /* 🆕 v1.8.21: Quick Commands Bar - 快捷命令栏样式 */
+        .qc-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #e8e8e8;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qc-btn:hover {
+            background: var(--accent-primary);
+            transform: scale(1.15);
+        }
+        .qc-btn:active {
+            transform: scale(0.95);
+        }
+        
+        @media (max-width: 600px) {
+            .qc-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+        }
+        
         .controls {
             display: flex;
             flex-direction: column;
@@ -576,7 +607,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.20</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.21</span></p>
         </header>
         
         <div class="main-content">
@@ -693,6 +724,17 @@
                 <button class="btn btn-secondary" id="fpsBtn" style="display:none;">🎬 1fps</button>
                 <button class="btn btn-secondary" id="mirrorBtn" style="display:none;">🪞 镜像</button>
                 <button class="btn btn-danger" id="stopBtn" style="display:none;">⏹️ 结束对话</button>
+            </div>
+            
+            <!-- 🆕 v1.8.21: Quick Commands Bar - 快捷命令栏 -->
+            <div id="quickCommandsBar" style="display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px;padding:10px;background:rgba(0,0,0,0.15);border-radius:12px;">
+                <button class="qc-btn" data-cmd="pause" title="暂停AI">⏸️</button>
+                <button class="qc-btn" data-cmd="continue" title="继续">▶️</button>
+                <button class="qc-btn" data-cmd="repeat" title="重复">🔁</button>
+                <button class="qc-btn" data-cmd="screenshot" title="截图">📸</button>
+                <button class="qc-btn" data-cmd="summarize" title="总结">📝</button>
+                <button class="qc-btn" data-cmd="randomPersonality" title="换人设">🎲</button>
+                <button class="qc-btn" data-cmd="goodbye" title="再见">👋</button>
             </div>
         </div>
     </div>

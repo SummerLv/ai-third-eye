@@ -207,7 +207,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.20';
+const APP_VERSION = 'v1.8.21';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1166,6 +1166,7 @@ class UIController {
         this.loadSettings();
         this.initAudioVisualizer();
         this.initQuickPhrases(); // 🆕 初始化常用语按钮
+        this.initQuickCommands(); // 🆕 v1.8.21: 初始化快捷命令栏
         this.showWelcomeTip();
         this.updateVersionDisplay();
         
@@ -1188,6 +1189,30 @@ class UIController {
                 }
             });
         });
+    }
+    
+    // 🆕 v1.8.21: 初始化快捷命令栏
+    initQuickCommands() {
+        const bar = document.getElementById('quickCommandsBar');
+        if (!bar) return;
+        
+        bar.querySelectorAll('.qc-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cmd = btn.dataset.cmd;
+                if (cmd) {
+                    this.executeQuickCommand(cmd);
+                    // 添加点击反馈动画
+                    btn.style.transform = 'scale(0.85)';
+                    setTimeout(() => btn.style.transform = '', 150);
+                }
+            });
+        });
+    }
+    
+    // 🆕 v1.8.21: 执行快捷命令
+    executeQuickCommand(cmd) {
+        // 复用语音命令的执行逻辑
+        this.executeVoiceCommand(cmd, cmd);
     }
     
     // 🆕 发送文本消息
@@ -2560,6 +2585,10 @@ class UIController {
             const quickPhrases = document.getElementById('quickPhrases');
             if (quickPhrases) quickPhrases.style.display = 'flex';
             
+            // 🆕 v1.8.21: 显示快捷命令栏
+            const quickCommandsBar = document.getElementById('quickCommandsBar');
+            if (quickCommandsBar) quickCommandsBar.style.display = 'flex';
+            
             // 🆕 初始化用户语音显示区域
             this.initUserSpeechDisplay();
             
@@ -2604,6 +2633,11 @@ class UIController {
         // 🆕 隐藏常用语按钮
         const quickPhrases = document.getElementById('quickPhrases');
         if (quickPhrases) quickPhrases.style.display = 'none';
+        
+        // 🆕 v1.8.21: 隐藏快捷命令栏
+        const quickCommandsBar = document.getElementById('quickCommandsBar');
+        if (quickCommandsBar) quickCommandsBar.style.display = 'none';
+        
         document.getElementById('screenshotBtn').style.display = 'none';
         const mirrorBtn = document.getElementById('mirrorBtn');
         if (mirrorBtn) mirrorBtn.style.display = 'none';
@@ -3506,7 +3540,6 @@ class UIController {
         }
         this.addMessage('system', this.subtitleEnabled ? '📝 已开启实时字幕' : '📝 已关闭实时字幕');
     }
-}
 
     // 🆕 v1.6.3: 显示首页推荐人设横幅
     showRecommendedPersonalityBanner() {
@@ -3581,7 +3614,6 @@ class UIController {
             document.head.appendChild(style);
         }
     }
-}
 
     // 🆕 v1.8.12: 切换搜索栏
     toggleSearchBar() {
