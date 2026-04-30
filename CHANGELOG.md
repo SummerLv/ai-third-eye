@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.8] - 2026-04-30
+
+### Added
+- 🔊 新增「结束对话音效」反馈 - 温暖的对话结束体验
+  - 三音符舒缓告别旋律：E5-C5-G4，温暖下降音
+  - 点击结束按钮或按空格键结束时自动播放
+  - 音效系统完整覆盖：开始、结束、截图、人设切换、静音、断线重连
+  - 使用 Web Audio API 合成，无需外部资源
+
+---
+
 ## [v1.8.7] - 2026-04-30
 
 ### Added

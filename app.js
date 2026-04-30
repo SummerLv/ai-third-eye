@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.7
+ * 版本: v1.8.8
+ * 
+ * v1.8.8 更新:
+ * - 新增结束对话音效 - 三音符舒缓告别旋律，温暖结束对话体验
+ * - 音效系统完整覆盖：开始、结束、截图、人设切换、静音、断线重连
  * 
  * v1.8.7 更新:
  * - 新增静音切换音效 - 双音符提示，清晰反馈静音状态变化
@@ -145,7 +149,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.7';
+const APP_VERSION = 'v1.8.8';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2313,6 +2317,9 @@ class UIController {
     }
     
     stop() {
+        // 🆕 v1.8.8: 播放结束对话音效
+        this.playEndSound();
+        
         if (this.client) {
             this.client.close();
         }
@@ -2908,6 +2915,53 @@ class UIController {
             oscillator2.stop(audioContext.currentTime + 0.25);
         } catch (e) {
             console.log('Mute sound error:', e);
+        }
+    }
+    
+    // 🆕 v1.8.8: 播放结束对话音效（Web Audio API 合成）
+    playEndSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 三音符舒缓告别旋律 - 温暖的结束感
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const oscillator3 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // 第一个音符：E5 (659.25 Hz) - 温暖起点
+            oscillator1.frequency.setValueAtTime(659.25, audioContext.currentTime);
+            oscillator1.type = 'sine';
+            
+            // 第二个音符：C5 (523.25 Hz) - 下降
+            oscillator2.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.15);
+            oscillator2.type = 'sine';
+            
+            // 第三个音符：G4 (392 Hz) - 温和结束
+            oscillator3.frequency.setValueAtTime(392, audioContext.currentTime + 0.3);
+            oscillator3.type = 'sine';
+            
+            // 音量包络 - 柔和的渐弱
+            gainNode.gain.setValueAtTime(0.18, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.18, audioContext.currentTime + 0.15);
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + 0.3);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            // 连接节点
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            oscillator3.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillator1.start(audioContext.currentTime);
+            oscillator1.stop(audioContext.currentTime + 0.18);
+            oscillator2.start(audioContext.currentTime + 0.15);
+            oscillator2.stop(audioContext.currentTime + 0.33);
+            oscillator3.start(audioContext.currentTime + 0.3);
+            oscillator3.stop(audioContext.currentTime + 0.5);
+        } catch (e) {
+            console.log('End sound error:', e);
         }
     }
     
