@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.8
+ * 版本: v1.8.9
+ * 
+ * v1.8.9 更新:
+ * - 新增「谢谢」语音命令 - 说"谢谢"、"感谢"表达感谢，AI友好回应
+ * - 新增「不错」语音命令 - 说"不错"、"很好"表达认可
+ * - 语音命令总数扩展至 28 种，增强用户反馈表达
  * 
  * v1.8.8 更新:
  * - 新增结束对话音效 - 三音符舒缓告别旋律，温暖结束对话体验
@@ -24,7 +29,7 @@
  * v1.8.3 更新:
  * - 新增截图成功音效反馈 - 更有成就感的截图体验
  * - 使用 Web Audio API 合成清脆"叮"声，无需外部资源
- */
+ * 
  * 实现全双工实时音视频对话
  * 
  * v1.8.1 更新:
@@ -149,7 +154,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.8';
+const APP_VERSION = 'v1.8.9';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -779,7 +784,17 @@ class UIController {
             '你是谁': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
             '介绍一下': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
             '你是什': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
-            '自我介绍': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' }
+            '自我介绍': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
+            // 🆕 v1.8.9: 新增"谢谢"语音命令
+            '谢谢': { action: 'thanks', desc: '表达感谢', icon: '🙏' },
+            '感谢': { action: 'thanks', desc: '表达感谢', icon: '🙏' },
+            '谢谢你': { action: 'thanks', desc: '表达感谢', icon: '🙏' },
+            '多谢': { action: 'thanks', desc: '表达感谢', icon: '🙏' },
+            // 🆕 v1.8.9: 新增"不错"语音命令
+            '不错': { action: 'praise', desc: '表达认可', icon: '👍' },
+            '很好': { action: 'praise', desc: '表达认可', icon: '👍' },
+            '真棒': { action: 'praise', desc: '表达认可', icon: '👍' },
+            '厉害': { action: 'praise', desc: '表达认可', icon: '👍' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1666,6 +1681,34 @@ class UIController {
                     this.addMessage('system', `${icon} ${persName} 正在自我介绍...`);
                 } else {
                     this.addMessage('system', `${icon} 当前人设: ${persName} - ${persDesc}`);
+                }
+                break;
+            
+            // 🆕 v1.8.9: 新增感谢命令
+            case 'thanks':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '谢谢！用户表示感谢。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 不客气！很高兴能帮到你`);
+                } else {
+                    this.addMessage('system', `${icon} 不客气！`);
+                }
+                break;
+            
+            // 🆕 v1.8.9: 新增认可命令
+            case 'praise':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户表示认可和赞赏，继续保持！'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 谢谢你的认可！`);
+                } else {
+                    this.addMessage('system', `${icon} 谢谢认可！`);
                 }
                 break;
         }
