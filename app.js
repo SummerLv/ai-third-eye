@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.28
+ * 版本: v1.8.29
  * 
- * v1.8.28 更新:
- * - 🐛 修复计时控制语音命令 bug - pauseTimer/resumeTimer 改为发送给 AI 处理
- * - 修复 startTimerCountdown() 方法缺失导致的运行时错误
+ * v1.8.29 更新:
+ * - 🐛 修复关于面板人设数量显示错误（21→22）
+ * - 自动化 Review 检测并修复文档不一致
  *
  * - 🌍 新增「翻译官」人设 - 实时翻译，语言桥梁
  * - 🎤 新增语音命令：暂停计时/继续计时/讲个笑话/翻译一下
@@ -237,7 +237,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.28';
+const APP_VERSION = 'v1.8.29';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1566,7 +1566,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">21种人设</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">22种人设</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

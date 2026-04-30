@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.29] - 2026-05-01
+
+### Fixed
+- 🐛 修复关于面板人设数量显示错误
+  - 显示 "21种人设" 但实际有 22 种
+  - 自动化 Review 检测并修复文档不一致
+
+---
+
 ## [v1.8.28] - 2026-05-01
 
 ### Fixed
