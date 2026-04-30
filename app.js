@@ -1,9 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.22
+ * 版本: v1.8.23
  * 
+ * v1.8.23 更新:
+ * - 🐛 修复快捷命令栏缺失字幕开关按钮（CHANGELOG 声明但实际未添加）
+ * - 字幕开关按钮现已添加到工具类区域
+ * - 所有文件版本号同步至 v1.8.23
+ *
  * v1.8.22 更新:
- * - 增强快捷命令栏：添加静音、清空、导出、字幕开关按钮
+ * - 增强快捷命令栏：添加静音、清空、导出按钮
  * - 快捷命令栏按钮分组：操作类、工具类、结束类
  * - executeVoiceCommand 新增 mute/clear/export 命令支持
  * - 移动端快捷操作更便捷
@@ -213,7 +218,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.22';
+const APP_VERSION = 'v1.8.23';
 
 class MiniCPMClient {
     constructor(options = {}) {

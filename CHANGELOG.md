@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.23] - 2026-04-30
+
+### Fixed
+- 🐛 修复快捷命令栏缺失字幕开关按钮（CHANGELOG v1.8.22 声明但实际未添加）
+- 字幕开关按钮现已添加到工具类区域
+- executeVoiceCommand 已支持 toggleSubtitle 命令
+- 所有文件版本号同步至 v1.8.23
+
+---
+
 ## [v1.8.22] - 2026-04-30
 
 ### Added
