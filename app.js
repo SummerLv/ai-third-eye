@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.26
+ * 版本: v1.8.27
  * 
+ * v1.8.27 更新:
+ * - 🌍 新增「翻译官」人设 - 实时翻译，语言桥梁
+ * - 🎤 新增语音命令：暂停计时/继续计时/讲个笑话/翻译一下
+ * - 📊 语音命令关键词扩展至 88 个
+ * - 🎭 人设总数扩展至 22 种
+ *
  * v1.8.26 更新:
  * - 🐛 修复语音命令关键词数量统计错误（77→78）
  * - 自动化 Review 检测并修复文档不一致
@@ -913,7 +919,18 @@ class UIController {
             '下载截图': { action: 'downloadScreenshot', desc: '下载截图到本地', icon: '💾' },
             '保存截图': { action: 'downloadScreenshot', desc: '下载截图到本地', icon: '💾' },
             '复制截图': { action: 'copyScreenshot', desc: '复制截图到剪贴板', icon: '📋' },
-            '复制图片': { action: 'copyScreenshot', desc: '复制截图到剪贴板', icon: '📋' }
+            '复制图片': { action: 'copyScreenshot', desc: '复制截图到剪贴板', icon: '📋' },
+            // 🆕 v1.8.27: 新增计时控制和趣味命令
+            '暂停计时': { action: 'pauseTimer', desc: '暂停计时器', icon: '⏸️' },
+            '停止计时': { action: 'pauseTimer', desc: '暂停计时器', icon: '⏸️' },
+            '继续计时': { action: 'resumeTimer', desc: '继续计时器', icon: '▶️' },
+            '恢复计时': { action: 'resumeTimer', desc: '继续计时器', icon: '▶️' },
+            '讲个笑话': { action: 'tellJoke', desc: '讲个笑话', icon: '😄' },
+            '说个笑话': { action: 'tellJoke', desc: '讲个笑话', icon: '😄' },
+            '来个笑话': { action: 'tellJoke', desc: '讲个笑话', icon: '😄' },
+            '翻译一下': { action: 'translate', desc: '请求翻译', icon: '🌍' },
+            '帮我翻译': { action: 'translate', desc: '请求翻译', icon: '🌍' },
+            '这是什么意思': { action: 'translate', desc: '请求翻译', icon: '🌍' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -2010,6 +2027,51 @@ class UIController {
                 localStorage.removeItem('ai-third-eye-personality');
                 this.selectPersonality('little-deer'); // 默认小鹿人设
                 this.addMessage('system', `${icon} 已恢复默认人设（小鹿）`);
+                break;
+            
+            // 🆕 v1.8.27: 新增计时控制命令
+            case 'pauseTimer':
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerPaused = true;
+                    this.addMessage('system', `${icon} 计时器已暂停`);
+                } else {
+                    this.addMessage('system', `${icon} 当前没有正在进行的计时`);
+                }
+                break;
+            
+            case 'resumeTimer':
+                if (this.timerPaused && this.timerSeconds !== undefined) {
+                    this.timerPaused = false;
+                    this.startTimerCountdown();
+                    this.addMessage('system', `${icon} 计时器已继续`);
+                } else {
+                    this.addMessage('system', `${icon} 当前没有暂停的计时`);
+                }
+                break;
+            
+            // 🆕 v1.8.27: 新增笑话命令
+            case 'tellJoke':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请讲一个简短的、有趣的笑话，控制在30字以内。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在想一个笑话...`);
+                }
+                break;
+            
+            // 🆕 v1.8.27: 新增翻译命令
+            case 'translate':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请把你看到的内容翻译成中文，如果没有看到文字就告诉用户。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在翻译...`);
+                }
                 break;
         }
     }

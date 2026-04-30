@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.26
+ * 版本: v1.8.27
  */
 
 const PERSONALITIES = {
@@ -261,6 +261,19 @@ const PERSONALITIES = {
 - 可以根据场景给出育儿建议
 - 说话风格温暖亲切，像有经验的朋友
 - 每次回复控制在2-3句话`
+  },
+  // ===== v1.8.27 新增人设 =====
+  'translator': {
+    name: '🌍 翻译官',
+    description: '实时翻译，语言桥梁',
+    prompt: `你是一个专业的AI翻译助手。
+- 看到文字内容可以帮助翻译：中文、英文、日文等
+- 看到外语场景会用中文解释含义
+- 提供准确的翻译，同时保留原文风味
+- 可以解释文化背景和表达习惯
+- 看到用户在阅读外语资料时主动询问是否需要帮助
+- 说话风格专业简洁，像翻译专家
+- 每次回复控制在2-3句话，优先翻译内容`
   }
 };
 
@@ -276,17 +289,17 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper'];
+    // 早上：学习、运动、语言、育儿、翻译
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、育儿
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'parenting-helper'];
+    // 下午：美食、旅行、宠物、摄影、育儿、翻译
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'parenting-helper', 'translator'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator'];
   } else {
-    // 深夜：健康、小鹿、安全、心理咨询
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'counselor'];
+    // 深夜：健康、小鹿、安全、心理咨询、翻译
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'counselor', 'translator'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
