@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.3
+ * 版本: v1.8.4
+ * 
+ * v1.8.4 更新:
+ * - 新增开始对话音效 - 更有仪式感的对话启动体验
+ * - 新增断线重连成功音效 - 网络恢复时的即时反馈
+ * - 新增语音命令"你是谁" - 让AI自我介绍当前人设
+ * - 音效体系完善：开始对话、断线重连、截图成功
  * 
  * v1.8.3 更新:
  * - 新增截图成功音效反馈 - 更有成就感的截图体验
@@ -130,7 +136,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.3';
+const APP_VERSION = 'v1.8.4';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -755,7 +761,12 @@ class UIController {
             '帮助': { action: 'help', desc: '显示帮助', icon: '❓' },
             '怎么用': { action: 'help', desc: '显示帮助', icon: '❓' },
             '怎么操作': { action: 'help', desc: '显示帮助', icon: '❓' },
-            '使用帮助': { action: 'help', desc: '显示帮助', icon: '❓' }
+            '使用帮助': { action: 'help', desc: '显示帮助', icon: '❓' },
+            // 🆕 v1.8.4: 新增"你是谁"语音命令
+            '你是谁': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
+            '介绍一下': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
+            '你是什': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' },
+            '自我介绍': { action: 'whoAreYou', desc: 'AI自我介绍', icon: '🎭' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1623,6 +1634,27 @@ class UIController {
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
+            
+            // 🆕 v1.8.4 新增"你是谁"命令
+            case 'whoAreYou':
+                // 获取当前人设信息
+                const savedPers = localStorage.getItem('ai-third-eye-personality');
+                const currentPers = savedPers ? 
+                    ((typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[savedPers] : null) || getAllPersonalities()[savedPers]) : null;
+                const persName = currentPers ? currentPers.name : '🦐 AI 助手';
+                const persDesc = currentPers ? currentPers.description : '友好的AI助手';
+                
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: `请用有趣的方式向用户介绍你自己，你是「${persName}」，特点是：${persDesc}。用符合你人设的语气来介绍，控制在2-3句话。`
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} ${persName} 正在自我介绍...`);
+                } else {
+                    this.addMessage('system', `${icon} 当前人设: ${persName} - ${persDesc}`);
+                }
+                break;
         }
     }
     
@@ -2255,6 +2287,9 @@ class UIController {
             // 🆕 记录会话开始
             this.recordSessionStart();
             
+            // 🆕 v1.8.4: 播放开始对话音效
+            this.playStartSound();
+            
             // 🆕 开始会话计时
             this.startSessionTimer();
             
@@ -2699,6 +2734,90 @@ class UIController {
         }
     }
     
+    // 🆕 v1.8.4: 播放开始对话音效（Web Audio API 合成）
+    playStartSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 双音符上扬旋律 - 愉悦的开始感
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // 第一个音符：C5 (523.25 Hz) - 0.1秒
+            oscillator1.frequency.setValueAtTime(523.25, audioContext.currentTime);
+            oscillator1.type = 'sine';
+            
+            // 第二个音符：E5 (659.25 Hz) - 稍高，上扬感
+            oscillator2.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.15);
+            oscillator2.type = 'sine';
+            
+            // 音量包络
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.15);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.35);
+            
+            // 连接节点
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillator1.start(audioContext.currentTime);
+            oscillator1.stop(audioContext.currentTime + 0.15);
+            oscillator2.start(audioContext.currentTime + 0.15);
+            oscillator2.stop(audioContext.currentTime + 0.35);
+        } catch (e) {
+            console.log('Start sound error:', e);
+        }
+    }
+    
+    // 🆕 v1.8.4: 播放断线重连成功音效（Web Audio API 合成）
+    playReconnectSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 三音符恢复旋律 - 舒缓的连接恢复感
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const oscillator3 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            // 第一个音符：G4 (392 Hz) - 低沉起点
+            oscillator1.frequency.setValueAtTime(392, audioContext.currentTime);
+            oscillator1.type = 'sine';
+            
+            // 第二个音符：C5 (523.25 Hz) - 上升
+            oscillator2.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.12);
+            oscillator2.type = 'sine';
+            
+            // 第三个音符：G5 (783.99 Hz) - 高亮结束
+            oscillator3.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.24);
+            oscillator3.type = 'sine';
+            
+            // 音量包络
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + 0.24);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+            
+            // 连接节点
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            oscillator3.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillator1.start(audioContext.currentTime);
+            oscillator1.stop(audioContext.currentTime + 0.12);
+            oscillator2.start(audioContext.currentTime + 0.12);
+            oscillator2.stop(audioContext.currentTime + 0.24);
+            oscillator3.start(audioContext.currentTime + 0.24);
+            oscillator3.stop(audioContext.currentTime + 0.4);
+        } catch (e) {
+            console.log('Reconnect sound error:', e);
+        }
+    }
+    
     // 🆕 初始化网络状态检测（带警告横幅）
     initNetworkStatus() {
         // 创建网络状态指示器
@@ -2707,6 +2826,8 @@ class UIController {
         window.addEventListener('online', () => {
             this.updateNetworkStatus(true);
             this.hideNetworkWarning();
+            // 🆕 v1.8.4: 播放断线重连成功音效
+            this.playReconnectSound();
             this.addMessage('system', '🌐 网络已恢复');
         });
         
