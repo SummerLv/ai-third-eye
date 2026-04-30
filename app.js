@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.6
+ * 版本: v1.8.7
+ * 
+ * v1.8.7 更新:
+ * - 新增静音切换音效 - 双音符提示，清晰反馈静音状态变化
+ * - LICENSE 年份更新至 2026
  * 
  * v1.8.6 更新:
  * - 新增人设切换音效 - 活泼的四音符旋律，更有仪式感
@@ -141,7 +145,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.6';
+const APP_VERSION = 'v1.8.7';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2351,6 +2355,8 @@ class UIController {
             muteBtn.textContent = muted ? '🔊 取消静音' : '🔇 静音';
             muteBtn.classList.toggle('btn-warning', muted);
         }
+        // 🆕 v1.8.7: 播放静音切换音效
+        this.playMuteSound(muted);
     }
     
     // 🆕 打断AI发言
@@ -2859,6 +2865,49 @@ class UIController {
             });
         } catch (e) {
             console.log('Personality sound error:', e);
+        }
+    }
+    
+    // 🆕 v1.8.7: 播放静音切换音效（Web Audio API 合成）
+    playMuteSound(muted) {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // 双音符提示音 - 清晰的静音状态变化反馈
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            if (muted) {
+                // 静音开启：低沉提示音 - G3 → C4（下行，表示静音）
+                oscillator1.frequency.setValueAtTime(196.00, audioContext.currentTime);
+                oscillator2.frequency.setValueAtTime(261.63, audioContext.currentTime + 0.1);
+            } else {
+                // 取消静音：明亮提示音 - C5 → E5（上行，表示恢复）
+                oscillator1.frequency.setValueAtTime(523.25, audioContext.currentTime);
+                oscillator2.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+            }
+            
+            oscillator1.type = 'sine';
+            oscillator2.type = 'sine';
+            
+            // 音量包络
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.25);
+            
+            // 连接节点
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // 播放
+            oscillator1.start(audioContext.currentTime);
+            oscillator1.stop(audioContext.currentTime + 0.12);
+            oscillator2.start(audioContext.currentTime + 0.1);
+            oscillator2.stop(audioContext.currentTime + 0.25);
+        } catch (e) {
+            console.log('Mute sound error:', e);
         }
     }
     

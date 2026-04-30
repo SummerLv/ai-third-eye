@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.7] - 2026-04-30
+
+### Added
+- 🔊 新增「静音切换音效」反馈 - 清晰的静音状态变化提示
+  - 静音开启：低沉下行提示音（G3→C4），表示静音状态
+  - 取消静音：明亮上行提示音（C5→E5），表示恢复状态
+  - 按 M 键或点击静音按钮时自动播放
+  - 使用 Web Audio API 合成，无需外部资源
+
+### Updated
+- 📄 LICENSE 年份更新至 2024-2026
+
+---
+
 ## [v1.8.6] - 2026-04-30
 
 ### Added
