@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - 🎨 优化快捷命令栏UI：字幕按钮 emoji 从 📝 改为 👁️
 - 提升用户体验，字幕按钮与总结按钮区分度更高
+
+### Fixed
+- 🐛 修复版本号不一致（自动化 Review 检测）
+  - app.js APP_VERSION 常量: v1.8.23 → v1.8.24
+  - index.html 版本徽章: v1.8.22 → v1.8.24
+  - README.md 更新版本亮点显示
 - 所有文件版本号同步至 v1.8.24
 
 ---
