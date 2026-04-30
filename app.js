@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.17
+ * 版本: v1.8.18
  * 
+ * v1.8.18 更新:
+ * - 新增全屏模式语音命令: "全屏"进入全屏，"退出全屏"取消全屏
+ * - 新增更多音量控制关键词: "声音大点"、"声音小点"
+ * - 语音命令总数扩展至 64 个关键词
+ * - README.md 同步更新版本描述
+ *
  * v1.8.17 更新:
  * - 新增更多实用语音命令: "没听清/再说一次"(重复)、"等等/等一下"(暂停)
  * - 新增 "重新开始/重来"语音命令 - 清空对话重新开始
@@ -192,7 +198,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.17';
+const APP_VERSION = 'v1.8.18';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -857,7 +863,15 @@ class UIController {
             '现在几点': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
             '几点了': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
             '今天日期': { action: 'whatDate', desc: '询问日期', icon: '📅' },
-            '今天几号': { action: 'whatDate', desc: '询问日期', icon: '📅' }
+            '今天几号': { action: 'whatDate', desc: '询问日期', icon: '📅' },
+            // 🆕 v1.8.18: 新增全屏和界面控制语音命令
+            '全屏': { action: 'fullscreen', desc: '进入全屏', icon: '⛶' },
+            '退出全屏': { action: 'exitFullscreen', desc: '退出全屏', icon: '⛶' },
+            '取消全屏': { action: 'exitFullscreen', desc: '退出全屏', icon: '⛶' },
+            '大声点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
+            '声音大点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
+            '小声点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
+            '声音小点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1864,6 +1878,29 @@ class UIController {
                         text: `告诉用户今天是${dateStr}，并简单聊两句。`
                     };
                     this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            // 🆕 v1.8.18: 全屏控制
+            case 'fullscreen':
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                    this.addMessage('system', `${icon} 已进入全屏模式`);
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                    this.addMessage('system', `${icon} 已进入全屏模式`);
+                } else {
+                    this.addMessage('system', `${icon} 当前浏览器不支持全屏`);
+                }
+                break;
+            
+            case 'exitFullscreen':
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    this.addMessage('system', `${icon} 已退出全屏模式`);
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                    this.addMessage('system', `${icon} 已退出全屏模式`);
                 }
                 break;
         }
