@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.19
+ * 版本: v1.8.20
+ * 
+ * v1.8.20 更新:
+ * - 修复语音命令关键词重复定义问题（移除 v1.5.1 区的 '大声点'/'小声点'）
+ * - 语音命令关键词总数修正为 71 个
+ * - 自动化 Review 检测并修复
  * 
  * v1.8.19 更新:
  * - 新增人设切换语音命令: "换人设"/"切换人设"/"换个人"/"换个人设" 随机切换AI人设
@@ -202,7 +207,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.19';
+const APP_VERSION = 'v1.8.20';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -816,8 +821,7 @@ class UIController {
             '截图': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             '拍照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             '拍张照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
-            '大声点': { action: 'louder', desc: '请求大声说话', icon: '🔊' },
-            '小声点': { action: 'quieter', desc: '请求小声说话', icon: '🔉' },
+            // '大声点' '小声点' 移至 v1.8.18 区块，避免重复定义
             '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
             '快一点': { action: 'faster', desc: '请求快点说', icon: '🐇' },
             // 🆕 v1.7.7 新增语音命令
