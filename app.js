@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.24
+ * 版本: v1.8.25
  * 
+ * v1.8.25 更新:
+ * - 🎤 新增实用语音命令: "重置人设"/"下载截图"/"复制截图"
+ * - 截图支持复制到剪贴板功能
+ * - 语音命令关键词扩展至 77 个
+ * - 提升截图操作便捷性
+ *
  * v1.8.24 更新:
  * - 🎨 优化快捷命令栏UI：字幕按钮 emoji 从 📝 改为 👁️，避免与总结按钮混淆
  * - 提升用户体验，按钮区分度更高
@@ -218,7 +224,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.24';
+const APP_VERSION = 'v1.8.25';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -866,10 +872,10 @@ class UIController {
             '知道了': { action: 'okay', desc: '确认理解', icon: '👌' },
             '收到': { action: 'okay', desc: '确认理解', icon: '👌' },
             // 🆕 v1.8.11: 新增字幕开关语音命令
-            '开字幕': { action: 'toggleSubtitle', desc: '开启字幕', icon: '📝' },
-            '显示字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
-            '关字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
-            '字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '📝' },
+            '开字幕': { action: 'toggleSubtitle', desc: '开启字幕', icon: '👁️' },
+            '显示字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '👁️' },
+            '关字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '👁️' },
+            '字幕': { action: 'toggleSubtitle', desc: '切换字幕', icon: '👁️' },
             // 🆕 v1.8.17: 新增更多实用语音命令
             '没听清': { action: 'repeat', desc: '请AI重复', icon: '👂' },
             '再说一次': { action: 'repeat', desc: '请AI重复', icon: '👂' },
@@ -895,7 +901,15 @@ class UIController {
             '换人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
             '切换人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
             '换个人': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
-            '换个人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' }
+            '换个人设': { action: 'randomPersonality', desc: '随机切换人设', icon: '🎲' },
+            // 🆕 v1.8.25: 新增实用语音命令
+            '重置人设': { action: 'resetPersonality', desc: '恢复默认人设', icon: '🔄' },
+            '恢复默认': { action: 'resetPersonality', desc: '恢复默认人设', icon: '🔄' },
+            '默认人设': { action: 'resetPersonality', desc: '恢复默认人设', icon: '🔄' },
+            '下载截图': { action: 'downloadScreenshot', desc: '下载截图到本地', icon: '💾' },
+            '保存截图': { action: 'downloadScreenshot', desc: '下载截图到本地', icon: '💾' },
+            '复制截图': { action: 'copyScreenshot', desc: '复制截图到剪贴板', icon: '📋' },
+            '复制图片': { action: 'copyScreenshot', desc: '复制截图到剪贴板', icon: '📋' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1974,6 +1988,25 @@ class UIController {
                 this.exportMessages();
                 this.addMessage('system', '📤 对话已导出');
                 break;
+            
+            // 🆕 v1.8.25: 新增截图下载和复制命令
+            case 'downloadScreenshot':
+                this.takeScreenshot();
+                this.addMessage('system', `${icon} 截图已保存到本地`);
+                break;
+            
+            case 'copyScreenshot':
+                // 先截图，然后复制到剪贴板
+                this.takeScreenshot(true);
+                this.addMessage('system', `${icon} 正在复制截图到剪贴板...`);
+                break;
+            
+            // 🆕 v1.8.25: 新增重置人设命令
+            case 'resetPersonality':
+                localStorage.removeItem('ai-third-eye-personality');
+                this.selectPersonality('little-deer'); // 默认小鹿人设
+                this.addMessage('system', `${icon} 已恢复默认人设（小鹿）`);
+                break;
         }
     }
     
@@ -2971,7 +3004,7 @@ class UIController {
         this.addMessage('system', message);
     }
     
-    takeScreenshot() {
+    takeScreenshot(copyToClipboard = false) {
         const video = document.getElementById('localVideo');
         if (!video) return;
         
@@ -3023,6 +3056,29 @@ class UIController {
         
         // Get image data
         const dataUrl = canvas.toDataURL('image/png');
+        
+        // 🆕 v1.8.25: 支持复制到剪贴板
+        if (copyToClipboard) {
+            // 将 dataURL 转换为 Blob
+            const response = { ok: true, targetId: '31', url: 'https://summerlv.github.io/ai-third-eye/' };
+            canvas.toBlob(async (blob) => {
+                if (blob) {
+                    try {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': blob })
+                        ]);
+                        this.addMessage('system', `📋 截图已复制到剪贴板！（水印: ${personalityName}）`);
+                        this.incrementStat('screenshots');
+                        this.playScreenshotSound();
+                    } catch (err) {
+                        console.error('Failed to copy screenshot:', err);
+                        this.addMessage('system', '⚠️ 复制失败，请手动截图或使用下载功能');
+                    }
+                }
+            }, 'image/png');
+            canvas.remove();
+            return;
+        }
         
         // Create download link
         const a = document.createElement('a');
