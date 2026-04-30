@@ -1,7 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.14
+ * 版本: v1.8.15
  * 
+ * v1.8.15 更新:
+ * - 更正语音命令统计 - action数量19→20
+ * - README.md 同步更新
+ *
  * v1.8.14 更新:
  * - 修复 index.html 版本号显示不一致问题
  * - README.md 同步更新
@@ -180,7 +184,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.14';
+const APP_VERSION = 'v1.8.15';
 
 class MiniCPMClient {
     constructor(options = {}) {

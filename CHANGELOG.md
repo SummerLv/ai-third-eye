@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.15] - 2026-04-30
+
+### Fixed
+- 📊 更正语音命令统计 - action数量19→20（实际为20种action）
+- 📝 CHANGELOG.md 统计数字修正
+
+---
+
 ## [v1.8.14] - 2026-04-30
 
 ### Fixed
