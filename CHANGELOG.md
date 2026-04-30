@@ -61,7 +61,7 @@ All notable changes to this project will be documented in this file.
   - 增强对话互动的流畅性
 
 ### Fixed
-- 📊 更正语音命令统计 - 实际 46 个关键词，19 种 action
+- 📊 更正语音命令统计 - 实际 46 个关键词，20 种 action
   - 之前统计不准确，现已更正
   - 语音命令帮助面板显示完整列表
 
