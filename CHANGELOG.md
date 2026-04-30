@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.22] - 2026-04-30
+
+### Added
+- 🎯 增强快捷命令栏 - 新增4个实用按钮
+  - 🔇 静音切换 - 快速开关麦克风
+  - 🗑️ 清空对话 - 一键清除聊天记录
+  - 📤 导出对话 - 快速导出聊天内容
+  - 按钮分组显示：操作类 / 工具类 / 结束类
+- 🛠️ executeVoiceCommand 新增 mute/clear/export 命令支持
+- 📱 移动端快捷操作更便捷，减少键盘依赖
+
+---
+
 ## [v1.8.21] - 2026-04-30
 
 ### Added

@@ -1,7 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.21
+ * 版本: v1.8.22
  * 
+ * v1.8.22 更新:
+ * - 增强快捷命令栏：添加静音、清空、导出、字幕开关按钮
+ * - 快捷命令栏按钮分组：操作类、工具类、结束类
+ * - executeVoiceCommand 新增 mute/clear/export 命令支持
+ * - 移动端快捷操作更便捷
+ *
  * v1.8.20 更新:
  * - 修复语音命令关键词重复定义问题（移除 v1.5.1 区的 '大声点'/'小声点'）
  * - 语音命令关键词总数修正为 71 个
@@ -207,7 +213,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.21';
+const APP_VERSION = 'v1.8.22';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1947,6 +1953,21 @@ class UIController {
                 const randomP = getRandomPersonality();
                 this.selectPersonality(randomP.key);
                 this.addMessage('system', `${icon} 已切换为 ${randomP.name}`);
+                break;
+            
+            // 🆕 v1.8.22: 快捷命令栏增强支持
+            case 'mute':
+                this.toggleMute();
+                break;
+            
+            case 'clear':
+                this.clearMessages();
+                this.addMessage('system', '🗑️ 对话已清空');
+                break;
+            
+            case 'export':
+                this.exportMessages();
+                this.addMessage('system', '📤 对话已导出');
                 break;
         }
     }

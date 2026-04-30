@@ -607,7 +607,7 @@
     <div class="app-container">
         <header>
             <h1>🦐 AI 第三只眼</h1>
-            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.21</span></p>
+            <p class="subtitle">MiniCPM-o 4.5 实时视觉助手 · 边看边听边说 · <span id="versionBadge" style="color:var(--accent-secondary)">v1.8.22</span></p>
         </header>
         
         <div class="main-content">
@@ -726,14 +726,22 @@
                 <button class="btn btn-danger" id="stopBtn" style="display:none;">⏹️ 结束对话</button>
             </div>
             
-            <!-- 🆕 v1.8.21: Quick Commands Bar - 快捷命令栏 -->
+            <!-- 🆕 v1.8.22: Quick Commands Bar - 快捷命令栏增强 -->
             <div id="quickCommandsBar" style="display:none;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px;padding:10px;background:rgba(0,0,0,0.15);border-radius:12px;">
+                <!-- 操作类 -->
                 <button class="qc-btn" data-cmd="pause" title="暂停AI">⏸️</button>
                 <button class="qc-btn" data-cmd="continue" title="继续">▶️</button>
                 <button class="qc-btn" data-cmd="repeat" title="重复">🔁</button>
+                <button class="qc-btn" data-cmd="mute" title="静音">🔇</button>
+                <span class="qc-divider" style="width:1px;height:28px;background:rgba(255,255,255,0.2);margin:6px 4px;"></span>
+                <!-- 工具类 -->
                 <button class="qc-btn" data-cmd="screenshot" title="截图">📸</button>
                 <button class="qc-btn" data-cmd="summarize" title="总结">📝</button>
+                <button class="qc-btn" data-cmd="clear" title="清空">🗑️</button>
+                <button class="qc-btn" data-cmd="export" title="导出">📤</button>
                 <button class="qc-btn" data-cmd="randomPersonality" title="换人设">🎲</button>
+                <span class="qc-divider" style="width:1px;height:28px;background:rgba(255,255,255,0.2);margin:6px 4px;"></span>
+                <!-- 结束类 -->
                 <button class="qc-btn" data-cmd="goodbye" title="再见">👋</button>
             </div>
         </div>
