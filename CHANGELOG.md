@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - 🐛 修复 index.html 版本号显示不一致（v1.8.12 → v1.8.13）
-- ✅ 所有文件版本号现已同步至 v1.8.13
+- 📝 README.md 同步更新版本号
+- ✅ 所有文件版本号现已同步至 v1.8.14
 
 ---
 
