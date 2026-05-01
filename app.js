@@ -1,11 +1,20 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.31
+ * 版本: v1.8.32
  * 
+ * v1.8.32 更新:
+ * - 🌤️ 新增天气询问语音命令（8个关键词）
+ *   - "天气怎么样/今天天气/天气如何/什么天气" - 让AI观察并描述天气
+ *   - "会下雨吗/要下雨吗" - AI观察云层预测是否下雨
+ *   - "会出太阳吗" - AI观察天空判断阳光情况
+ *   - "看起来天气" - AI描述当前天气状态
+ * - 📊 语音命令关键词扩展至 104 个
+ * - 📝 添加 .gitignore 文件
+ *
  * v1.8.31 更新:
  * - 🥗 新增「营养师」人设 - 饮食分析，营养建议
  * - 🎤 新增健康饮食语音命令: 有营养吗/健康吗/卡路里/热量
- * - 📊 语音命令关键词扩展至 96 个（新增 8 个健康饮食命令）
+ * - 📊 语音命令关键词扩展至 104 个（新增 8 个天气询问命令）
  * - 🎭 人设总数扩展至 23 种
  * - 🔄 智能推荐增加营养师（下午和深夜时段）
  *
@@ -248,7 +257,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.31';
+const APP_VERSION = 'v1.8.32';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -953,7 +962,16 @@ class UIController {
             '卡路里': { action: 'calories', desc: '询问卡路里', icon: '🔥' },
             '热量': { action: 'calories', desc: '询问热量', icon: '🔥' },
             '多少热量': { action: 'calories', desc: '询问热量', icon: '🔥' },
-            '这个吃了': { action: 'eatAdvice', desc: '询问是否可以吃', icon: '🍽️' }
+            '这个吃了': { action: 'eatAdvice', desc: '询问是否可以吃', icon: '🍽️' },
+            // 🆕 v1.8.32: 新增天气询问语音命令
+            '天气怎么样': { action: 'weather', desc: '询问天气', icon: '🌤️' },
+            '今天天气': { action: 'weather', desc: '询问天气', icon: '🌤️' },
+            '天气如何': { action: 'weather', desc: '询问天气', icon: '🌤️' },
+            '什么天气': { action: 'weather', desc: '询问天气', icon: '🌤️' },
+            '会下雨吗': { action: 'weather', desc: '询问天气', icon: '🌧️' },
+            '要下雨吗': { action: 'weather', desc: '询问天气', icon: '🌧️' },
+            '会出太阳吗': { action: 'weather', desc: '询问天气', icon: '☀️' },
+            '看起来天气': { action: 'weather', desc: '询问天气', icon: '🌤️' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1586,7 +1604,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 104个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
