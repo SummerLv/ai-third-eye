@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.60] - 2026-05-02
+
+### Added
+- 👗 新增「时尚顾问」人设 - 穿搭建议、风格搭配
+- 🎭 人设总数扩展至 30 种
+- 🔄 智能推荐增加时尚顾问（早上和下午时段）
+
+---
+
 ## [v1.8.59] - 2026-05-02
 
 ### Changed

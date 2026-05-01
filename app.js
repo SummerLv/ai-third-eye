@@ -1,8 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.59
+ * 版本: v1.8.60
  *
- * v1.8.58 更新:
+ * v1.8.60 更新:
+ * - 👗 新增「时尚顾问」人设 - 穿搭建议、风格搭配
+ * - 🎭 人设总数扩展至 30 种
+ * - 🔄 智能推荐增加时尚顾问（早上和下午时段）
+ *
+ * v1.8.59 更新:
  * - 🐛 修复聊天历史加载时系统消息图标重复累积 bug
  * - 🐛 修复首页推荐横幅重复显示问题
  * - 🔧 优化 saveChatHistory 去除图标前缀再保存
@@ -366,7 +371,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.59';
+const APP_VERSION = 'v1.8.60';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1767,7 +1772,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">29种人设 | 151个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">30种人设 | 151个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

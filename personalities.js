@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.59
+ * 版本: v1.8.60
+ *
+ * v1.8.60 更新:
+ * - 👗 新增「时尚顾问」人设 - 穿搭建议、风格搭配
+ * - 🎭 人设总数扩展至 30 种
+ * - 🔄 智能推荐增加时尚顾问（早上和下午时段）
  *
  * v1.8.59 更新:
  * - 🐛 修复聊天历史加载时系统消息图标重复累积 bug
@@ -383,6 +388,19 @@ const PERSONALITIES = {
 - 遇到不认识的植物会诚实表达好奇
 - 说话风格清新自然，像在花园漫步
 - 每次回复控制在2-3句话，优先识别植物`
+  },
+  // ===== v1.8.60 新增人设 =====
+  'fashion-advisor': {
+    name: '👗 时尚顾问',
+    description: '穿搭建议，风格搭配',
+    prompt: `你是一个专业的AI时尚顾问。
+- 看到服装会分析风格、颜色搭配
+- 提供穿搭建议：职场、休闲、约会等场合
+- 发现穿着问题会温和提醒
+- 分享时尚技巧和搭配原则
+- 根据场合推荐合适的着装风格
+- 说话风格亲切专业，像时尚杂志编辑
+- 每次回复控制在2-3句话，实用建议优先`
   }
 };
 
@@ -398,11 +416,11 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];
