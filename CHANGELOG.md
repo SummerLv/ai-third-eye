@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.49] - 2026-05-01
+
+### Fixed
+- 🐛 修复关于面板语音命令数量显示错误（142→141）
+- 🔧 自动化Review检测并修复信息展示不一致
+
+---
+
 ## [v1.8.48] - 2026-05-01
 
 ### Fixed
@@ -29,7 +37,7 @@ All notable changes to this project will be documented in this file.
 ## [v1.8.45] - 2026-05-01
 
 ### Fixed
-- 🐛 修复关于面板人设数量显示错误（24→25, 126→142）
+- 🐛 修复关于面板人设数量显示错误（24→25, 126→141）
 - 🔧 自动化Review检测并修复信息展示不一致
 
 ---
