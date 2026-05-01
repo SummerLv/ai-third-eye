@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.55
+ * 版本: v1.8.56
+ *
+ * v1.8.56 更新:
+ * - 🐛 修复 README.md 人设表格缺失「植物学家」
+ * - 🔧 自动化Review检测并修复文档不一致
  *
  * v1.8.55 更新:
  * - 🌸 新增「植物学家」人设 - 识别植物，分享植物知识
@@ -359,7 +363,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.55';
+const APP_VERSION = 'v1.8.56';
 
 class MiniCPMClient {
     constructor(options = {}) {

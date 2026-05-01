@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.56] - 2026-05-02
+
+### Fixed
+- 🐛 修复 README.md 人设表格缺失「植物学家」
+- 🐛 修复 README.md 人设表格格式问题（阅读助手单独列出）
+- 🔧 自动化Review检测并修复文档不一致
+
+---
+
 ## [v1.8.55] - 2026-05-02
 
 ### Added
