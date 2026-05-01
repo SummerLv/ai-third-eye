@@ -1,27 +1,42 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.43
+ * 版本: v1.8.44
+ *
+ * v1.8.44 更新:
+ * - 📅 新增「日程助手」人设 - 日程管理,时间提醒
+ * - 🎤 新增日程管理语音命令(8个关键词)
+ *   - "提醒我" - 设置提醒
+ *   - "别忘了" - 记住重要事项
+ *   - "几点了" - 询问时间
+ *   - "今天安排" - 查看今日日程
+ *   - "明天计划" - 规划明天
+ *   - "还有多久" - 时间倒计时
+ *   - "日程" - 查看日程
+ *   - "待办" - 查看待办事项
+ * - 📊 语音命令关键词扩展至 142 个
+ * - 🎭 人设总数扩展至 25 种
+ * - 🔄 智能推荐增加日程助手(早上和下午时段)
  *
  * v1.8.43 更新:
  * - 🏃 新增「运动打卡」语音命令 - 打卡/健身打卡/运动打卡
  * - 🎉 新增「完成运动」语音命令 - 完成了/做完了/练完了
  * - 🎯 新增「查看目标」语音命令 - 今天目标/运动目标
  * - 📊 语音命令关键词扩展至 134 个
- * - 🔥 增强健身教练人设互动体验，支持连续打卡统计
+ * - 🔥 增强健身教练人设互动体验,支持连续打卡统计
  *
  * v1.8.42 更新:
  * - 🐛 修复语音命令对象末尾缺少逗号导致 JavaScript 语法错误
  * - 🔧 自动化Review检测并修复代码结构问题
  *
  * v1.8.41 更新:
- * - 💰 新增「记账助手」人设 - 开支记录，预算提醒
- * * - 🔍 新增记账语音命令（8个关键词）
+ * - 💰 新增「记账助手」人设 - 开支记录,预算提醒
+ * * - 🔍 新增记账语音命令(8个关键词)
  * - 📊 语音命令关键词扩展至 126 个
  * - 🎭 人设总数扩展至 24 种
- * - 🔄 智能推荐增加记账助手（下午和深夜时段）
+ * - 🔄 智能推荐增加记账助手(下午和深夜时段)
  *
  * v1.8.40 更新:
- * - 🔄 本轮自动化Review修复版本号显示不一致（index.html v1.8.38→v1.8.39）
+ * - 🔄 本轮自动化Review修复版本号显示不一致(index.html v1.8.38→v1.8.39)
  * - 📝 更新 CHANGELOG.md 记录本轮修复
  *
  * v1.8.39 更新:
@@ -36,7 +51,7 @@
  * - 🔧 自动化Review检测并修复功能缺失问题
  *
  * v1.8.33 更新:
- * - 🔍 新增物体识别语音命令（12个关键词）
+ * - 🔍 新增物体识别语音命令(12个关键词)
  *   - "这是什么/这个是什么" - 让AI识别当前物体
  *   - "什么牌子/什么品牌" - AI识别商品品牌
  *   - "多少钱/贵不贵/便宜吗" - AI查询价格信息
@@ -46,7 +61,7 @@
  * - 📊 语音命令关键词扩展至 118 个
  *
  * v1.8.32 更新:
- * - 🌤️ 新增天气询问语音命令（8个关键词）
+ * - 🌤️ 新增天气询问语音命令(8个关键词)
  *   - "天气怎么样/今天天气/天气如何/什么天气" - 让AI观察并描述天气
  *   - "会下雨吗/要下雨吗" - AI观察云层预测是否下雨
  *   - "会出太阳吗" - AI观察天空判断阳光情况
@@ -55,27 +70,27 @@
  * - 📝 添加 .gitignore 文件
  *
  * v1.8.31 更新:
- * - 🥗 新增「营养师」人设 - 饮食分析，营养建议
+ * - 🥗 新增「营养师」人设 - 饮食分析,营养建议
  * - 🎤 新增健康饮食语音命令: 有营养吗/健康吗/卡路里/热量
- * - 📊 语音命令关键词扩展至 104 个（新增 8 个天气询问命令）
+ * - 📊 语音命令关键词扩展至 104 个(新增 8 个天气询问命令)
  * - 🎭 人设总数扩展至 23 种
- * - 🔄 智能推荐增加营养师（下午和深夜时段）
+ * - 🔄 智能推荐增加营养师(下午和深夜时段)
  *
  * v1.8.30 更新:
  * - 🐛 修复 manifest.json 版本号不一致问题 (1.8.28→1.8.29)
  * - 自动化 Review 检测并修复版本同步问题
  *
  * v1.8.29 更新:
- * - 🐛 修复关于面板人设数量显示错误（21→22）
+ * - 🐛 修复关于面板人设数量显示错误(21→22)
  * - 自动化 Review 检测并修复文档不一致
  *
- * - 🌍 新增「翻译官」人设 - 实时翻译，语言桥梁
- * - 🎤 新增语音命令：暂停计时/继续计时/讲个笑话/翻译一下
+ * - 🌍 新增「翻译官」人设 - 实时翻译,语言桥梁
+ * - 🎤 新增语音命令:暂停计时/继续计时/讲个笑话/翻译一下
  * - 📊 语音命令关键词扩展至 88 个
  * - 🎭 人设总数扩展至 22 种
  *
  * v1.8.26 更新:
- * - 🐛 修复语音命令关键词数量统计错误（77→78）
+ * - 🐛 修复语音命令关键词数量统计错误(77→78)
  * - 自动化 Review 检测并修复文档不一致
  *
  * v1.8.25 更新:
@@ -85,27 +100,27 @@
  * - 提升截图操作便捷性
  *
  * v1.8.24 更新:
- * - 🎨 优化快捷命令栏UI：字幕按钮 emoji 从 📝 改为 👁️，避免与总结按钮混淆
- * - 提升用户体验，按钮区分度更高
+ * - 🎨 优化快捷命令栏UI:字幕按钮 emoji 从 📝 改为 👁️,避免与总结按钮混淆
+ * - 提升用户体验,按钮区分度更高
  * - 所有文件版本号同步至 v1.8.24
  *
  * v1.8.22 更新:
- * - 增强快捷命令栏：添加静音、清空、导出按钮
- * - 快捷命令栏按钮分组：操作类、工具类、结束类
+ * - 增强快捷命令栏:添加静音、清空、导出按钮
+ * - 快捷命令栏按钮分组:操作类、工具类、结束类
  * - executeVoiceCommand 新增 mute/clear/export 命令支持
  * - 移动端快捷操作更便捷
  *
  * v1.8.20 更新:
- * - 修复语音命令关键词重复定义问题（移除 v1.5.1 区的 '大声点'/'小声点'）
+ * - 修复语音命令关键词重复定义问题(移除 v1.5.1 区的 '大声点'/'小声点')
  * - 语音命令关键词总数修正为 71 个
  * - 自动化 Review 检测并修复
- * 
+ *
  * v1.8.19 更新:
  * - 新增人设切换语音命令: "换人设"/"切换人设"/"换个人"/"换个人设" 随机切换AI人设
- * - 修正语音命令关键词数量统计（69→73个）
- * 
+ * - 修正语音命令关键词数量统计(69→73个)
+ *
  * v1.8.18 更新:
- * - 新增全屏模式语音命令: "全屏"进入全屏，"退出全屏"取消全屏
+ * - 新增全屏模式语音命令: "全屏"进入全屏,"退出全屏"取消全屏
  * - 新增更多音量控制关键词: "声音大点"、"声音小点"
  * - 语音命令总数扩展至 64 个关键词
  * - README.md 同步更新版本描述
@@ -128,95 +143,95 @@
  * - 所有文件版本号同步
  *
  * v1.8.13 更新:
- * - 完善快捷键帮助面板，添加V键（语音命令帮助）说明
- * - 更新底部快捷键提示栏，补充 Ctrl+F、B、V 等新快捷键
+ * - 完善快捷键帮助面板,添加V键(语音命令帮助)说明
+ * - 更新底部快捷键提示栏,补充 Ctrl+F、B、V 等新快捷键
  *
  * v1.8.12 更新:
  * - 新增对话搜索功能 - 快速查找历史对话内容
  * - 支持快捷键 Ctrl+F 打开搜索
- * - 搜索结果高亮显示，可上下导航
+ * - 搜索结果高亮显示,可上下导航
  * - 实时显示匹配数量
  *
  * v1.8.11 更新:
- * - 新增实时字幕显示功能 - 在视频上方显示AI回复，适合听障用户
+ * - 新增实时字幕显示功能 - 在视频上方显示AI回复,适合听障用户
  * - 字幕支持自动淡出、智能换行、美观动画
  * - 可在设置中开关字幕显示
  * - 增强导出功能 - 支持导出为Markdown格式
  *
  * v1.8.10 更新:
  * - 新增「好的/明白」语音命令 - 常用确认回应
- * - 更正语音命令统计（42个关键词，19种action）
+ * - 更正语音命令统计(42个关键词,19种action)
  * - 优化语音命令帮助面板显示
  *
  * v1.8.9 更新:
- * - 新增「谢谢」语音命令 - 说"谢谢"、"感谢"表达感谢，AI友好回应
+ * - 新增「谢谢」语音命令 - 说"谢谢"、"感谢"表达感谢,AI友好回应
  * - 新增「不错」语音命令 - 说"不错"、"很好"表达认可
- * - 语音命令总数扩展至 42 个关键词，增强用户反馈表达
- * 
+ * - 语音命令总数扩展至 42 个关键词,增强用户反馈表达
+ *
  * v1.8.8 更新:
- * - 新增结束对话音效 - 三音符舒缓告别旋律，温暖结束对话体验
- * - 音效系统完整覆盖：开始、结束、截图、人设切换、静音、断线重连
- * 
+ * - 新增结束对话音效 - 三音符舒缓告别旋律,温暖结束对话体验
+ * - 音效系统完整覆盖:开始、结束、截图、人设切换、静音、断线重连
+ *
  * v1.8.7 更新:
- * - 新增静音切换音效 - 双音符提示，清晰反馈静音状态变化
+ * - 新增静音切换音效 - 双音符提示,清晰反馈静音状态变化
  * - LICENSE 年份更新至 2026
- * 
+ *
  * v1.8.6 更新:
- * - 新增人设切换音效 - 活泼的四音符旋律，更有仪式感
+ * - 新增人设切换音效 - 活泼的四音符旋律,更有仪式感
  * - 修复 APP_VERSION 常量版本号遗漏问题
- * - 音效系统进一步完善，覆盖更多交互场景
- * 
+ * - 音效系统进一步完善,覆盖更多交互场景
+ *
  * v1.8.4 更新:
  * - 新增开始对话音效 - 更有仪式感的对话启动体验
  * - 新增断线重连成功音效 - 网络恢复时的即时反馈
  * - 新增语音命令"你是谁" - 让AI自我介绍当前人设
- * - 音效体系完善：开始对话、断线重连、截图成功
- * 
+ * - 音效体系完善:开始对话、断线重连、截图成功
+ *
  * v1.8.3 更新:
  * - 新增截图成功音效反馈 - 更有成就感的截图体验
- * - 使用 Web Audio API 合成清脆"叮"声，无需外部资源
- * 
+ * - 使用 Web Audio API 合成清脆"叮"声,无需外部资源
+ *
  * 实现全双工实时音视频对话
- * 
+ *
  * v1.8.1 更新:
- * - 新增「育儿助手」人设 - 关爱孩子，分享育儿知识
+ * - 新增「育儿助手」人设 - 关爱孩子,分享育儿知识
  * - 人设总数扩展至 21 种
- * - 智能推荐增加育儿助手（早上和下午时段）
- * 
+ * - 智能推荐增加育儿助手(早上和下午时段)
+ *
  * v1.8.0 更新:
  * - 新增截图水印功能 - 自动添加人设名称、时间戳、版本号
- * - 水印样式优雅，采用渐变背景
+ * - 水印样式优雅,采用渐变背景
  * - 截图更具纪念意义和分享价值
- * 
+ *
  * v1.7.9 更新:
- * - 新增「心理咨询师」人设 - 温暖倾听，情绪支持
+ * - 新增「心理咨询师」人设 - 温暖倾听,情绪支持
  * - 新增「帮助」语音命令 - 语音获取使用指导
  * - 人设总数扩展至 20 种
- * 
+ *
  * v1.7.8 更新:
- * - 新增「摄影师」人设 - 拍照指导，构图建议
+ * - 新增「摄影师」人设 - 拍照指导,构图建议
  * - 人设总数扩展至 19 种
- * 
+ *
  * v1.7.7 更新:
  * - 新增「再见」语音命令 - 说"再见"、"拜拜"自动结束会话
  * - 新增「结束」语音命令 - 快速结束当前对话
  * - 语音命令总数扩展至 24 种
- * 
+ *
  * v1.7.6 更新:
- * - 新增「安全卫士」人设 - 专注安全提醒，发现潜在危险
- * - 新增「语言老师」人设 - 语言学习辅助，纠正发音
+ * - 新增「安全卫士」人设 - 专注安全提醒,发现潜在危险
+ * - 新增「语言老师」人设 - 语言学习辅助,纠正发音
  * - 人设总数扩展至 18 种
- * 
+ *
  * v1.7.4 更新:
- * - 新增「宠物专家」人设 - 关爱毛孩子，分享养宠知识
- * - 新增「技术顾问」人设 - 识别设备，解答技术问题
+ * - 新增「宠物专家」人设 - 关爱毛孩子,分享养宠知识
+ * - 新增「技术顾问」人设 - 识别设备,解答技术问题
  * - 人设总数扩展至 16 种
- * - 优化智能推荐，下午时段推荐宠物专家
- * 
+ * - 优化智能推荐,下午时段推荐宠物专家
+ *
  * v1.7.3 更新:
  * - 同步更新所有文件版本号
  * - 修复版本号注释不一致问题
- * 
+ *
  * v1.5.9 更新:
  * - 新增「智能人设推荐」功能 - 根据时间段自动推荐合适的人设
  * - 早上推荐学习助手/健身教练
@@ -225,8 +240,8 @@
  * - 深夜推荐健康护士/小鹿
  *
  * v1.5.8 更新:
- * - 新增「旅行向导」人设 - 发现风景，讲述故事
- * - 新增「健康护士」人设 - 关注健康，提醒防护
+ * - 新增「旅行向导」人设 - 发现风景,讲述故事
+ * - 新增「健康护士」人设 - 关注健康,提醒防护
  * - 人设总数扩展至 14 种
  *
  * v1.5.7 更新:
@@ -234,7 +249,7 @@
  * - README 开发日志同步更新
  *
  * v1.5.6 更新:
- * - 修复 manifest.json JSON 语法错误（多余括号导致 PWA 解析失败）
+ * - 修复 manifest.json JSON 语法错误(多余括号导致 PWA 解析失败)
  *
  * v1.5.5 更新:
  * - 新增"AI正在思考"视觉指示器
@@ -243,64 +258,64 @@
  *
  * v1.5.3 更新:
  * - 新增语音命令触发动画反馈
- * - 新增关于面板（项目信息）
- * - 优化主题切换体验（颜色预览）
+ * - 新增关于面板(项目信息)
+ * - 优化主题切换体验(颜色预览)
  * - 改进错误处理和 localStorage 容错
- * 
+ *
  * v1.5.2 更新:
  * - 修复版本号显示不一致
  * - 修复语音截图命令调用方法名错误
  * - 新增 CHANGELOG.md 记录版本变更
- * 
+ *
  * v1.5.1 更新:
- * - 新增语音命令：截图/拍照、大声点、小声点、慢一点、快一点
- * - 扩展常用语按钮：不明白、再说一遍、太棒了
- * - 优化用户体验，语音控制更丰富
- * 
+ * - 新增语音命令:截图/拍照、大声点、小声点、慢一点、快一点
+ * - 扩展常用语按钮:不明白、再说一遍、太棒了
+ * - 优化用户体验,语音控制更丰富
+ *
  * v1.5.0 更新:
- * - 新增语音快捷命令系统（暂停/换话题/再说一遍/安静/看得清楚吗）
+ * - 新增语音快捷命令系统(暂停/换话题/再说一遍/安静/看得清楚吗)
  * - AI 能识别用户意图并执行相应操作
- * - 添加命令提示面板，帮助用户快速掌握快捷命令
- * - 优化用户体验，减少手动点击操作
- * 
+ * - 添加命令提示面板,帮助用户快速掌握快捷命令
+ * - 优化用户体验,减少手动点击操作
+ *
  * v1.4.2 更新:
  * - 修复用户语音转写正式保存到对话记录
- * - 用户说完话后，对话内容会持久保存
- * 
+ * - 用户说完话后,对话内容会持久保存
+ *
  * v1.4.1 更新:
  * - 完善用户语音识别实时显示功能
  * - 新增说话动态效果
- * 
+ *
  * v1.3.1 更新:
- * - 新增语音识别文字显示（用户说话时实时显示文字）
+ * - 新增语音识别文字显示(用户说话时实时显示文字)
  * - 新增常用语快速发送按钮
  * - 优化用户消息显示样式
- * 
+ *
  * v1.3.0 更新:
- * - 新增网络状态警告横幅（断网时醒目提示）
- * - 改进音量指示器视觉效果（渐变颜色）
+ * - 新增网络状态警告横幅(断网时醒目提示)
+ * - 改进音量指示器视觉效果(渐变颜色)
  * - 新增会话时长计时器
  * - 优化移动端按钮布局
- * 
+ *
  * v1.2.0 更新:
- * - 新增实时音量指示器（显示用户说话音量）
- * - 新增网络状态检测（断网时明显提示）
+ * - 新增实时音量指示器(显示用户说话音量)
+ * - 新增网络状态检测(断网时明显提示)
  * - 新增摄像头镜像开关
  * - 修复 Service Worker 缓存版本号同步问题
  *
  * v1.1.0 更新:
- * - 新增对话历史持久化（刷新页面后恢复对话）
+ * - 新增对话历史持久化(刷新页面后恢复对话)
  * - 清空对话时同步清除本地存储
  * - 修复 manifest.json 版本号同步问题
  *
  * v1.0.9 更新:
- * - 新增 4 个实用型人设（学习助手、健身教练、美食家、面试官）
+ * - 新增 4 个实用型人设(学习助手、健身教练、美食家、面试官)
  * - 新增快捷键帮助面板
- * - PWA shortcuts 扩展（人设、统计）
+ * - PWA shortcuts 扩展(人设、统计)
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.43';
+const APP_VERSION = 'v1.8.44';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -313,7 +328,7 @@ class MiniCPMClient {
         this.isListening = false;
         this.isMuted = false;
         this.kvCacheLength = 0;
-        
+
         // Audio settings
         this.sampleRate = 16000;
         this.audioContext = null;
@@ -321,20 +336,20 @@ class MiniCPMClient {
         this.audioStream = null;
         this.audioQueue = [];
         this.isPlaying = false;
-        
+
         // Video settings
         this.videoStream = null;
         this.canvas = null;
         this.ctx = null;
         this.frameInterval = null;
-        this.fps = options.fps || 1; // 帧率可配置，默认 1 fps
-        
+        this.fps = options.fps || 1; // 帧率可配置,默认 1 fps
+
         // Reconnection settings
         this.reconnectAttempts = 0;
         this.maxReconnectAttempts = 3;
         this.reconnectDelay = 2000;
         this.autoReconnect = options.autoReconnect || true;
-        
+
         // Callbacks
         this.onMessage = options.onMessage || (() => {});
         this.onStatusChange = options.onStatusChange || (() => {});
@@ -344,28 +359,28 @@ class MiniCPMClient {
         this.onInterrupt = options.onInterrupt || (() => {});
         this.onSpeakingChange = options.onSpeakingChange || (() => {});
         this.onVolumeChange = options.onVolumeChange || (() => {}); // 🆕 音量回调
-        
+
         // 🆕 镜像设置
         this.isMirrored = options.isMirrored !== undefined ? options.isMirrored : true;
     }
-    
+
     async connect() {
         return new Promise((resolve, reject) => {
             const url = `${this.wsEndpoint}?mode=${this.mode}`;
-            
+
             try {
                 this.ws = new WebSocket(url);
-                
+
                 this.ws.onopen = () => {
                     console.log('WebSocket connected');
                     this.onStatusChange('connecting', '正在连接...');
                 };
-                
+
                 this.ws.onmessage = async (event) => {
                     try {
                         const data = JSON.parse(event.data);
                         await this.handleMessage(data);
-                        
+
                         if (data.type === 'session.queue_done') {
                             this.sendStatusUpdate('ready', '已就绪');
                             resolve();
@@ -374,25 +389,25 @@ class MiniCPMClient {
                         console.error('Message parse error:', e);
                     }
                 };
-                
+
                 this.ws.onerror = (error) => {
                     console.error('WebSocket error:', error);
                     this.onError(error);
                     reject(error);
                 };
-                
+
                 this.ws.onclose = (event) => {
                     console.log('WebSocket closed:', event);
                     const wasConnected = this.isConnected;
                     this.isConnected = false;
-                    
+
                     // Try to reconnect if was connected and auto reconnect enabled
                     if (wasConnected && this.autoReconnect && this.reconnectAttempts < this.maxReconnectAttempts) {
                         this.reconnectAttempts++;
                         const delay = this.reconnectDelay * this.reconnectAttempts;
-                        this.onStatusChange('reconnecting', `连接断开，${delay/1000}秒后重试 (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
-                        this.onMessage('system', `⚠️ 连接断开，正在重连... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
-                        
+                        this.onStatusChange('reconnecting', `连接断开,${delay/1000}秒后重试 (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+                        this.onMessage('system', `⚠️ 连接断开,正在重连... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+
                         setTimeout(async () => {
                             try {
                                 await this.connect();
@@ -407,79 +422,79 @@ class MiniCPMClient {
                         this.cleanup();
                     }
                 };
-                
+
             } catch (e) {
                 reject(e);
             }
         });
     }
-    
+
     async handleMessage(data) {
         const type = data.type;
-        
+
         switch (type) {
             case 'session.queued':
                 this.onStatusChange('queued', `排队中 (${data.position}位)`);
-                this.onMessage('system', `⏳ 排队中，前方还有 ${data.position - 1} 人...`);
+                this.onMessage('system', `⏳ 排队中,前方还有 ${data.position - 1} 人...`);
                 break;
-                
+
             case 'session.queue_update':
                 this.onStatusChange('queued', `排队中 (${data.position}位)`);
                 break;
-                
+
             case 'session.queue_done':
                 this.onStatusChange('ready', 'Worker 已分配');
                 // Send session update
                 await this.sendSessionUpdate();
                 break;
-                
+
             case 'session.created':
                 this.sessionId = data.session_id;
                 this.isConnected = true;
                 this.onStatusChange('connected', `会话已建立`);
-                this.onMessage('system', `✅ AI 已就绪！Session: ${this.sessionId}`);
-                
+                this.onMessage('system', `✅ AI 已就绪!Session: ${this.sessionId}`);
+
                 // Start sending audio/video
                 if (this.mode === 'video') {
                     this.startVideoStreaming();
                 }
                 this.startAudioStreaming();
                 break;
-                
+
             case 'response.output_audio.delta':
                 // Handle AI response
                 const text = data.text || '';
                 const audio = data.audio;
                 const endOfTurn = data.end_of_turn;
                 this.kvCacheLength = data.kv_cache_length || 0;
-                
+
                 if (text) {
                     this.onMessage('ai', text, !endOfTurn);
                 }
-                
+
                 if (audio && !this.isMuted) {
                     this.onSpeakingChange && this.onSpeakingChange(true);
                     await this.playAudio(audio);
                 }
-                
+
                 if (endOfTurn) {
                     this.onSpeakingChange && this.onSpeakingChange(false);
                     this.updateAIStatus('listening', '正在听...');
                 }
                 break;
-                
+
             case 'response.listen':
                 this.isListening = true;
                 this.updateAIStatus('listening', '正在听...');
                 break;
-                
-            // 🆕 用户语音识别结果（实时显示用户说的话）
+
+            // 🆕 用户语音识别结果(实时显示用户说的话)
             case 'response.user_transcript':
             case 'input_audio_buffer.speech_started':
                 // 用户开始说话
                 this.onMessage('user_speaking', '', true);
                 break;
-                
+
             case 'response.transcript':
             case 'input_audio_buffer.transcript':
                 // 用户说话的实时文字
@@ -487,28 +502,28 @@ class MiniCPMClient {
                     this.onMessage('user_transcript', data.text || data.transcript, true);
                 }
                 break;
-                
+
             case 'input_audio_buffer.speech_stopped':
                 // 用户停止说话
                 this.onMessage('user_transcript_done', '', false);
                 break;
-                
+
             case 'session.closed':
                 this.onMessage('system', `🚪 会话已关闭: ${data.reason}`);
                 this.onStatusChange('closed', `已关闭: ${data.reason}`);
                 this.cleanup();
                 break;
-                
+
             case 'error':
                 this.onError(data.error);
                 this.onMessage('system', `❌ 错误: ${data.error?.message || data.error}`);
                 break;
-                
+
             default:
                 console.log('Unknown message type:', type, data);
         }
     }
-    
+
     async sendSessionUpdate() {
         const msg = {
             type: 'session.update',
@@ -516,13 +531,13 @@ class MiniCPMClient {
                 instructions: this.systemPrompt
             }
         };
-        
+
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify(msg));
             console.log('Sent session.update');
         }
     }
-    
+
     async startVideoStreaming() {
         try {
             // Get video stream
@@ -530,52 +545,52 @@ class MiniCPMClient {
                 video: { facingMode: 'user', width: 640, height: 480 },
                 audio: false
             });
-            
+
             // Create canvas for frame capture
             this.canvas = document.createElement('canvas');
             this.canvas.width = 320;
             this.canvas.height = 240;
             this.ctx = this.canvas.getContext('2d');
-            
+
             // Create video element
             const video = document.getElementById('localVideo');
             video.srcObject = this.videoStream;
-            
+
             // Start capturing frames
             this.frameInterval = setInterval(() => {
                 if (this.isConnected) {
                     this.captureFrame();
                 }
             }, 1000 / this.fps);
-            
+
             console.log(`Video streaming started at ${this.fps} fps`);
-            
+
         } catch (e) {
             console.error('Video stream error:', e);
             this.onError(e);
         }
     }
-    
+
     captureFrame() {
         if (!this.ctx || !this.canvas) return;
-        
+
         const video = document.getElementById('localVideo');
         this.ctx.drawImage(video, 0, 0, this.canvas.width, this.canvas.height);
-        
+
         // Convert to JPEG base64
         const jpegData = this.canvas.toDataURL('image/jpeg', 0.7);
         const base64Data = jpegData.split(',')[1];
-        
+
         return base64Data;
     }
-    
+
     async startAudioStreaming() {
         try {
             // Initialize audio context
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
                 sampleRate: this.sampleRate
             });
-            
+
             // Get audio stream
             this.audioStream = await navigator.mediaDevices.getUserMedia({
                 audio: {
@@ -585,81 +600,81 @@ class MiniCPMClient {
                     noiseSuppression: true
                 }
             });
-            
+
             const source = this.audioContext.createMediaStreamSource(this.audioStream);
-            
+
             // Use ScriptProcessor for processing
             const processor = this.audioContext.createScriptProcessor(4096, 1, 1);
-            
+
             processor.onaudioprocess = (event) => {
                 if (!this.isConnected || this.isMuted) return;
-                
+
                 const inputData = event.inputBuffer.getChannelData(0);
-                
+
                 // 🆕 计算音量 (RMS)
                 const volume = this.calculateVolume(inputData);
                 this.onVolumeChange(volume);
-                
+
                 // Resample to 16kHz if needed
                 const resampledData = this.resampleTo16kHz(inputData);
-                
+
                 // Convert to base64
                 const base64Audio = this.float32ToBase64(resampledData);
-                
+
                 // Send to server
                 this.sendAudioChunk(base64Audio);
             };
-            
+
             source.connect(processor);
             processor.connect(this.audioContext.destination);
-            
+
             this.audioProcessor = processor;
-            
+
         } catch (e) {
             console.error('Audio stream error:', e);
             this.onError(e);
         }
     }
-    
+
     resampleTo16kHz(data) {
         // Simple decimation (if original is 48kHz)
         const ratio = Math.round(this.audioContext.sampleRate / this.sampleRate);
         const result = [];
-        
+
         for (let i = 0; i < data.length; i += ratio) {
             result.push(data[i]);
         }
-        
+
         return new Float32Array(result);
     }
-    
+
     float32ToBase64(float32Array) {
         // Convert Float32 to base64
         const buffer = new ArrayBuffer(float32Array.length * 4);
         const view = new DataView(buffer);
-        
+
         for (let i = 0; i < float32Array.length; i++) {
             view.setFloat32(i * 4, float32Array[i], true);
         }
-        
+
         // Convert to base64
         let binary = '';
         const bytes = new Uint8Array(buffer);
         for (let i = 0; i < bytes.length; i++) {
             binary += String.fromCharCode(bytes[i]);
         }
-        
+
         return btoa(binary);
     }
-    
+
     sendAudioChunk(audioBase64, videoFrames = null) {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
-        
+
         const msg = {
             type: 'input_audio_buffer.append',
             audio: audioBase64
         };
-        
+
         // Add video frames in video mode
         if (this.mode === 'video' && videoFrames === null) {
             const frame = this.captureFrame();
@@ -669,20 +684,20 @@ class MiniCPMClient {
         } else if (videoFrames && videoFrames.length > 0) {
             msg.video_frames = videoFrames;
         }
-        
+
         this.ws.send(JSON.stringify(msg));
     }
-    
+
     // Audio playback queue to prevent overlapping
     audioPlaybackQueue = [];
     audioPlaybackContext = null;
     isAudioPlaying = false;
-    
+
     async playAudio(audioBase64) {
         try {
             // Add to queue
             this.audioPlaybackQueue.push(audioBase64);
-            
+
             // Process queue if not already playing
             if (!this.isAudioPlaying) {
                 await this.processAudioQueue();
@@ -691,25 +706,25 @@ class MiniCPMClient {
             console.error('Audio playback error:', e);
         }
     }
-    
+
     async processAudioQueue() {
         if (this.audioPlaybackQueue.length === 0) {
             this.isAudioPlaying = false;
             return;
         }
-        
+
         this.isAudioPlaying = true;
         this.updateAIStatus('speaking', '正在说话...');
-        
+
         // Initialize audio context once
         if (!this.audioPlaybackContext) {
             this.audioPlaybackContext = new (window.AudioContext || window.webkitAudioContext)({
                 sampleRate: 24000
             });
         }
-        
+
         const audioBase64 = this.audioPlaybackQueue.shift();
-        
+
         try {
             // Decode base64 to float32 PCM
             const binaryString = atob(audioBase64);
@@ -717,18 +732,18 @@ class MiniCPMClient {
             for (let i = 0; i < binaryString.length; i++) {
                 bytes[i] = binaryString.charCodeAt(i);
             }
-            
+
             const float32View = new Float32Array(bytes.buffer);
-            
+
             // Create audio buffer
             const audioBuffer = this.audioPlaybackContext.createBuffer(1, float32View.length, 24000);
             audioBuffer.getChannelData(0).set(float32View);
-            
+
             // Play
             const source = this.audioPlaybackContext.createBufferSource();
             source.buffer = audioBuffer;
             source.connect(this.audioPlaybackContext.destination);
-            
+
             await new Promise(resolve => {
                 source.onended = resolve;
                 source.start(0);
@@ -736,11 +751,11 @@ class MiniCPMClient {
         } catch (e) {
             console.error('Audio decode error:', e);
         }
-        
+
         // Process next item in queue
         await this.processAudioQueue();
     }
-    
+
     updateAIStatus(status, text) {
         const statusEl = document.getElementById('aiStatus');
         if (statusEl) {
@@ -748,28 +763,28 @@ class MiniCPMClient {
             statusEl.dataset.status = status;
         }
     }
-    
+
     sendStatusUpdate(status, text) {
         this.onStatusChange(status, text);
     }
-    
+
     // 🆕 静音功能
     setMuted(muted) {
         this.isMuted = muted;
         this.onMuteChange(muted);
-        
+
         // 清空音频播放队列
         if (muted) {
             this.audioPlaybackQueue = [];
             this.isAudioPlaying = false;
         }
     }
-    
+
     toggleMute() {
         this.setMuted(!this.isMuted);
         return this.isMuted;
     }
-    
+
     // 🆕 计算音量 (RMS)
     calculateVolume(audioData) {
         let sum = 0;
@@ -779,13 +794,13 @@ class MiniCPMClient {
         const rms = Math.sqrt(sum / audioData.length);
         return Math.min(1, rms * 5); // 放大并限制到 0-1 范围
     }
-    
+
     // 🆕 设置视频帧率
     setFps(fps) {
         const validFps = Math.max(0.5, Math.min(10, fps)); // 限制 0.5-10 fps
         this.fps = validFps;
-        
-        // 如果正在推流，重新设置间隔
+
+        // 如果正在推流,重新设置间隔
         if (this.frameInterval && this.isConnected) {
             clearInterval(this.frameInterval);
             this.frameInterval = setInterval(() => {
@@ -794,10 +809,10 @@ class MiniCPMClient {
                 }
             }, 1000 / this.fps);
         }
-        
+
         return validFps;
     }
-    
+
     // 🆕 设置视频镜像
     setMirrored(mirrored) {
         this.isMirrored = mirrored;
@@ -806,29 +821,29 @@ class MiniCPMClient {
             video.style.transform = mirrored ? 'scaleX(-1)' : 'scaleX(1)';
         }
     }
-    
+
     toggleMirror() {
         this.setMirrored(!this.isMirrored);
         return this.isMirrored;
     }
-    
+
     // 🆕 打断功能
     interrupt() {
         // 清空音频播放队列并停止当前播放
         this.audioPlaybackQueue = [];
         this.isAudioPlaying = false;
-        
+
         // 关闭播放上下文
         if (this.audioPlaybackContext) {
             this.audioPlaybackContext.close();
             this.audioPlaybackContext = null;
         }
-        
-        this.updateAIStatus('listening', '已打断，正在听...');
+
+        this.updateAIStatus('listening', '已打断,正在听...');
         this.onInterrupt();
         this.onMessage('system', '⏸️ 已打断 AI 发言');
     }
-    
+
     close() {
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify({
@@ -839,37 +854,37 @@ class MiniCPMClient {
         }
         this.cleanup();
     }
-    
+
     cleanup() {
         this.isConnected = false;
-        
+
         // Stop video
         if (this.frameInterval) {
             clearInterval(this.frameInterval);
             this.frameInterval = null;
         }
-        
+
         if (this.videoStream) {
             this.videoStream.getTracks().forEach(track => track.stop());
             this.videoStream = null;
         }
-        
+
         // Stop audio
         if (this.audioContext) {
             this.audioContext.close();
             this.audioContext = null;
         }
-        
+
         if (this.audioProcessor) {
             this.audioProcessor.disconnect();
             this.audioProcessor = null;
         }
-        
+
         if (this.audioStream) {
             this.audioStream.getTracks().forEach(track => track.stop());
             this.audioStream = null;
         }
-        
+
         // Clean up playback
         if (this.audioPlaybackContext) {
             this.audioPlaybackContext.close();
@@ -892,7 +907,7 @@ class UIController {
         this.volumeLevel = 0; // 🆕 音量级别
         this.subtitleEnabled = true; // 🆕 v1.8.11: 字幕开关
         this.subtitleTimeout = null; // 🆕 v1.8.11: 字幕自动隐藏定时器
-        
+
         // 🆕 语音快捷命令系统
         this.voiceCommands = {
             '暂停': { action: 'pause', desc: '暂停AI发言', icon: '⏸️' },
@@ -914,7 +929,7 @@ class UIController {
             '截图': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             '拍照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             '拍张照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
-            // '大声点' '小声点' 移至 v1.8.18 区块，避免重复定义
+            // '大声点' '小声点' 移至 v1.8.18 区块,避免重复定义
             '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
             '快一点': { action: 'faster', desc: '请求快点说', icon: '🐇' },
             // 🆕 v1.7.7 新增语音命令
@@ -1048,17 +1063,26 @@ class UIController {
             '练完了': { action: 'workoutComplete', desc: '完成运动', icon: '🎉' },
             '今天目标': { action: 'todayGoal', desc: '查看目标', icon: '🎯' },
             '运动目标': { action: 'todayGoal', desc: '查看目标', icon: '🎯' },
+            // ===== v1.8.44 新增日程管理语音命令 =====
+            '提醒我': { action: 'setReminder', desc: '设置提醒', icon: '⏰' },
+            '别忘了': { action: 'setReminder', desc: '设置提醒', icon: '📝' },
+            '几点了': { action: 'askTime', desc: '询问时间', icon: '🕐' },
+            '今天安排': { action: 'todaySchedule', desc: '今日日程', icon: '📅' },
+            '明天计划': { action: 'tomorrowPlan', desc: '规划明天', icon: '📆' },
+            '还有多久': { action: 'countdown', desc: '时间倒计时', icon: '⏳' },
+            '日程': { action: 'showSchedule', desc: '查看日程', icon: '📋' },
+            '待办': { action: 'showTodos', desc: '待办事项', icon: '✅' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
-        
+
         // 🆕 v1.5.3: 初始化语音命令反馈动画样式
         this.initVoiceCommandStyles();
-        
+
         // 🆕 v1.5.4: 思考指示器状态
         this.isAIThinking = false;
         this.thinkingTimeout = null;
-        
+
         this.init();
         this.initTheme();
         this.initStats();
@@ -1068,7 +1092,7 @@ class UIController {
         this.initFpsControl(); // 🆕 初始化帧率控制
         this.loadChatHistory(); // 加载历史对话
     }
-    
+
     // 🆕 v1.5.3: 初始化语音命令反馈动画样式
     initVoiceCommandStyles() {
         if (document.getElementById('voiceCommandStyles')) return;
@@ -1137,34 +1161,34 @@ class UIController {
         `;
         document.head.appendChild(style);
     }
-    
+
     // 🆕 v1.5.3: 显示语音命令触发动画
     showVoiceCommandFeedback(icon, keyword) {
         const toast = document.createElement('div');
         toast.className = 'voice-command-toast';
         toast.innerHTML = `${icon} <span style="font-size:16px;font-weight:normal;">"${keyword}"</span>`;
         document.body.appendChild(toast);
-        
+
         // 1秒后开始淡出
         setTimeout(() => {
             toast.style.animation = 'voiceCommandFade 0.3s ease forwards';
         }, 800);
-        
+
         // 1.3秒后移除
         setTimeout(() => {
             toast.remove();
         }, 1100);
     }
-    
+
     // 🆕 v1.5.4: 显示AI思考指示器
     showAIThinkingIndicator() {
         if (this.isAIThinking) return;
         this.isAIThinking = true;
-        
+
         // 创建思考指示器
         const messagesContainer = document.getElementById('messagesContainer');
         if (!messagesContainer) return;
-        
+
         const indicator = document.createElement('div');
         indicator.id = 'aiThinkingIndicator';
         indicator.className = 'message ai thinking-indicator';
@@ -1180,35 +1204,35 @@ class UIController {
         `;
         messagesContainer.appendChild(indicator);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
-        // 设置超时自动隐藏（防止一直显示）
+
+        // 设置超时自动隐藏(防止一直显示)
         this.thinkingTimeout = setTimeout(() => {
             this.hideAIThinkingIndicator();
         }, 10000);
     }
-    
+
     // 🆕 v1.5.4: 隐藏AI思考指示器
     hideAIThinkingIndicator() {
         if (!this.isAIThinking) return;
         this.isAIThinking = false;
-        
+
         if (this.thinkingTimeout) {
             clearTimeout(this.thinkingTimeout);
             this.thinkingTimeout = null;
         }
-        
+
         const indicator = document.getElementById('aiThinkingIndicator');
         if (indicator) {
             indicator.remove();
         }
     }
-    
+
     // 🆕 初始化会话计时器
     initSessionTimer() {
         this.sessionSeconds = 0;
         this.sessionTimer = null;
     }
-    
+
     // 🆕 开始会话计时
     startSessionTimer() {
         this.sessionSeconds = 0;
@@ -1217,7 +1241,7 @@ class UIController {
             this.updateSessionTimerDisplay();
         }, 1000);
     }
-    
+
     // 🆕 停止会话计时
     stopSessionTimer() {
         if (this.sessionTimer) {
@@ -1225,7 +1249,7 @@ class UIController {
             this.sessionTimer = null;
         }
     }
-    
+
     // 🆕 更新计时显示
     updateSessionTimerDisplay() {
         const timerEl = document.getElementById('sessionTimer');
@@ -1235,30 +1259,30 @@ class UIController {
             timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
     }
-    
+
     init() {
         // Setup event listeners
         document.getElementById('startBtn').addEventListener('click', () => this.start());
         document.getElementById('stopBtn').addEventListener('click', () => this.stop());
-        
+
         // 🆕 v1.7.1: 显示首页推荐横幅
         this.showHomepageRecommendation();
-        
+
         // 🆕 静音按钮
         const muteBtn = document.getElementById('muteBtn');
         if (muteBtn) {
             muteBtn.addEventListener('click', () => this.toggleMute());
         }
-        
+
         // 🆕 打断按钮
         const interruptBtn = document.getElementById('interruptBtn');
         if (interruptBtn) {
             interruptBtn.addEventListener('click', () => this.interrupt());
         }
-        
+
         // Global keyboard shortcuts
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
-        
+
         // Mode buttons
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1267,48 +1291,48 @@ class UIController {
                 this.currentMode = btn.dataset.mode;
             });
         });
-        
+
         // Settings
         document.getElementById('settingsBtn').addEventListener('click', () => {
             document.getElementById('settingsPanel').classList.add('show');
             this.loadPersonalityGrid();
         });
-        
+
         document.getElementById('closeSettings').addEventListener('click', () => {
             document.getElementById('settingsPanel').classList.remove('show');
         });
-        
+
         document.getElementById('saveSettings').addEventListener('click', () => {
             this.saveSettings();
             document.getElementById('settingsPanel').classList.remove('show');
         });
-        
+
         // Random personality button
         document.getElementById('randomPersonalityBtn')?.addEventListener('click', () => {
             const personality = getRandomPersonality();
             this.selectPersonality(personality.key);
         });
-        
+
         // Screenshot button
         document.getElementById('screenshotBtn')?.addEventListener('click', () => {
             this.takeScreenshot();
         });
-        
+
         // 🆕 Clear messages button
         document.getElementById('clearBtn')?.addEventListener('click', () => {
             this.clearMessages();
         });
-        
+
         // 🆕 Export messages button
         document.getElementById('exportBtn')?.addEventListener('click', () => {
             this.exportMessages();
         });
-        
+
         // 🆕 Mirror button
         document.getElementById('mirrorBtn')?.addEventListener('click', () => {
             this.toggleMirror();
         });
-        
+
         // 🆕 v1.8.12: Search button
         document.getElementById('searchBtn')?.addEventListener('click', () => {
             this.toggleSearchBar();
@@ -1325,23 +1349,23 @@ class UIController {
         document.getElementById('searchInput')?.addEventListener('input', (e) => {
             this.searchMessages(e.target.value);
         });
-        
+
         this.loadSettings();
         this.initAudioVisualizer();
         this.initQuickPhrases(); // 🆕 初始化常用语按钮
         this.initQuickCommands(); // 🆕 v1.8.21: 初始化快捷命令栏
         this.showWelcomeTip();
         this.updateVersionDisplay();
-        
+
         // 🆕 v1.8.11: 加载字幕设置
         this.subtitleEnabled = localStorage.getItem('ai-third-eye-subtitle') !== 'false';
     }
-    
+
     // 🆕 初始化常用语快速发送
     initQuickPhrases() {
         const phrasesContainer = document.getElementById('quickPhrases');
         if (!phrasesContainer) return;
-        
+
         phrasesContainer.querySelectorAll('.phrase-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const phrase = btn.dataset.phrase;
@@ -1353,12 +1377,12 @@ class UIController {
             });
         });
     }
-    
+
     // 🆕 v1.8.21: 初始化快捷命令栏
     initQuickCommands() {
         const bar = document.getElementById('quickCommandsBar');
         if (!bar) return;
-        
+
         bar.querySelectorAll('.qc-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const cmd = btn.dataset.cmd;
@@ -1371,24 +1395,24 @@ class UIController {
             });
         });
     }
-    
+
     // 🆕 v1.8.21: 执行快捷命令
     executeQuickCommand(cmd) {
         // 复用语音命令的执行逻辑
         this.executeVoiceCommand(cmd, cmd);
     }
-    
+
     // 🆕 发送文本消息
     sendTextMessage(text) {
         if (!this.client || !this.client.ws || this.client.ws.readyState !== WebSocket.OPEN) return;
-        
+
         const msg = {
             type: 'input_text',
             text: text
         };
         this.client.ws.send(JSON.stringify(msg));
     }
-    
+
     // 🆕 更新版本显示
     updateVersionDisplay() {
         const versionBadge = document.getElementById('versionBadge');
@@ -1396,7 +1420,7 @@ class UIController {
             versionBadge.textContent = APP_VERSION;
         }
     }
-    
+
     // 🆕 主题系统
     initTheme() {
         this.themes = ['auto', 'default', 'light', 'sunset', 'ocean'];
@@ -1407,7 +1431,7 @@ class UIController {
             'sunset': '🌅 日落',
             'ocean': '🌊 海洋'
         };
-        
+
         // 🆕 监听系统主题变化
         this.systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
         this.systemDarkMode.addEventListener('change', (e) => {
@@ -1415,11 +1439,11 @@ class UIController {
                 this.applyAutoTheme();
             }
         });
-        
+
         // Load saved theme
         const savedTheme = localStorage.getItem('ai-third-eye-theme') || 'auto';
         this.setTheme(savedTheme);
-        
+
         // Theme button
         const themeBtn = document.getElementById('themeBtn');
         if (themeBtn) {
@@ -1427,8 +1451,8 @@ class UIController {
             this.updateThemeButton();
         }
     }
-    
-    // 🆕 应用自动主题（跟随系统）
+
+    // 🆕 应用自动主题(跟随系统)
     applyAutoTheme() {
         const isDark = this.systemDarkMode.matches;
         document.body.className = '';
@@ -1436,11 +1460,11 @@ class UIController {
             document.body.classList.add('theme-light');
         }
     }
-    
+
     setTheme(theme) {
         this.currentTheme = theme;
         localStorage.setItem('ai-third-eye-theme', theme);
-        
+
         document.body.className = '';
         if (theme === 'auto') {
             this.applyAutoTheme();
@@ -1449,14 +1473,14 @@ class UIController {
         }
         this.updateThemeButton();
     }
-    
+
     cycleTheme() {
         const currentIndex = this.themes.indexOf(this.currentTheme);
         const nextIndex = (currentIndex + 1) % this.themes.length;
         this.setTheme(this.themes[nextIndex]);
         this.addMessage('system', `🎨 已切换到 ${this.themeNames[this.currentTheme]} 主题`);
     }
-    
+
     updateThemeButton() {
         const themeBtn = document.getElementById('themeBtn');
         if (themeBtn) {
@@ -1466,23 +1490,23 @@ class UIController {
             themeBtn.title = `当前主题: ${name} (点击切换)`;
         }
     }
-    
+
     // 🆕 统计系统
     initStats() {
         this.stats = this.loadStats();
-        
+
         // Stats button
         const statsBtn = document.getElementById('statsBtn');
         if (statsBtn) {
             statsBtn.addEventListener('click', () => this.showStats());
         }
-        
+
         // Reset stats button
         const resetStatsBtn = document.getElementById('resetStats');
         if (resetStatsBtn) {
             resetStatsBtn.addEventListener('click', () => this.resetStats());
         }
-        
+
         // Close stats button
         const closeStatsBtn = document.getElementById('closeStats');
         if (closeStatsBtn) {
@@ -1490,26 +1514,26 @@ class UIController {
                 document.getElementById('statsPanel').classList.remove('show');
             });
         }
-        
+
         // 🆕 Help button
         const helpBtn = document.getElementById('helpBtn');
         if (helpBtn) {
             helpBtn.addEventListener('click', () => this.showHelp());
         }
-        
+
         // 🆕 Voice commands button
         const voiceCmdBtn = document.getElementById('voiceCmdBtn');
         if (voiceCmdBtn) {
             voiceCmdBtn.addEventListener('click', () => this.showVoiceCommandsHelp());
         }
-        
+
         // 🆕 v1.5.3: About button - click version badge to show
         const versionBadge = document.getElementById('versionBadge');
         if (versionBadge) {
             versionBadge.style.cursor = 'pointer';
             versionBadge.addEventListener('click', () => this.showAbout());
         }
-        
+
         // Close help button
         const closeHelpBtn = document.getElementById('closeHelp');
         if (closeHelpBtn) {
@@ -1518,7 +1542,7 @@ class UIController {
             });
         }
     }
-    
+
     loadStats() {
         const saved = localStorage.getItem('ai-third-eye-stats');
         return saved ? JSON.parse(saved) : {
@@ -1529,22 +1553,22 @@ class UIController {
             lastSession: null
         };
     }
-    
+
     saveStats() {
         localStorage.setItem('ai-third-eye-stats', JSON.stringify(this.stats));
     }
-    
+
     incrementStat(key) {
         this.stats[key]++;
         this.saveStats();
     }
-    
+
     recordSessionStart() {
         this.sessionStartTime = Date.now();
         this.stats.sessions++;
         this.saveStats();
     }
-    
+
     recordSessionEnd() {
         if (this.sessionStartTime) {
             const duration = Math.floor((Date.now() - this.sessionStartTime) / 1000);
@@ -1554,11 +1578,11 @@ class UIController {
             this.sessionStartTime = null;
         }
     }
-    
+
     showStats() {
         const panel = document.getElementById('statsPanel');
         const content = document.getElementById('statsContent');
-        
+
         const formatDuration = (seconds) => {
             if (seconds < 60) return `${seconds}秒`;
             if (seconds < 3600) return `${Math.floor(seconds / 60)}分${seconds % 60}秒`;
@@ -1566,7 +1590,7 @@ class UIController {
             const mins = Math.floor((seconds % 3600) / 60);
             return `${hours}时${mins}分`;
         };
-        
+
         // 🆕 v1.6.3: 获取人设使用统计
         let personalityStatsHtml = '';
         if (typeof getPersonalityUsageStats === 'function') {
@@ -1590,7 +1614,7 @@ class UIController {
                 `;
             }
         }
-        
+
         content.innerHTML = `
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;">
                 <div style="background:rgba(0,0,0,0.2);padding:15px;border-radius:8px;text-align:center;">
@@ -1615,10 +1639,10 @@ class UIController {
                 <div style="color:var(--text-secondary);">最后会话: ${this.stats.lastSession ? new Date(this.stats.lastSession).toLocaleString() : '暂无'}</div>
             </div>
         `;
-        
+
         panel.classList.add('show');
     }
-    
+
     resetStats() {
         this.stats = {
             sessions: 0,
@@ -1631,7 +1655,7 @@ class UIController {
         this.showStats();
         this.addMessage('system', '📊 统计数据已重置');
     }
-    
+
     // 🆕 显示帮助
     showHelp() {
         const panel = document.getElementById('helpPanel');
@@ -1639,7 +1663,7 @@ class UIController {
             panel.classList.add('show');
         }
     }
-    
+
     // 🆕 v1.5.3: 显示关于面板
     showAbout() {
         const existing = document.getElementById('aboutPanel');
@@ -1647,7 +1671,7 @@ class UIController {
             existing.remove();
             return;
         }
-        
+
         const panel = document.createElement('div');
         panel.id = 'aboutPanel';
         panel.style.cssText = `
@@ -1664,18 +1688,18 @@ class UIController {
             border: 1px solid rgba(0,212,255,0.3);
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         `;
-        
+
         panel.innerHTML = `
             <div style="text-align:center;margin-bottom:20px;">
                 <div style="font-size:48px;margin-bottom:10px;">🦐</div>
                 <h2 style="color:var(--accent-primary);margin:0;font-size:24px;">AI 第三只眼</h2>
                 <div style="color:var(--accent-secondary);font-size:14px;margin-top:5px;">${APP_VERSION}</div>
             </div>
-            
+
             <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:15px;margin-bottom:20px;">
                 <p style="margin:0 0 10px 0;color:var(--text-primary);font-size:14px;line-height:1.6;">
                     基于 MiniCPM-o 4.5 的实时视觉助手<br>
-                    边看边听边说，AI 主动提醒
+                    边看边听边说,AI 主动提醒
                 </p>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
@@ -1684,7 +1708,7 @@ class UIController {
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
-            
+
             <div style="margin-bottom:20px;">
                 <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
                     <span style="color:var(--text-secondary);font-size:13px;">作者</span>
@@ -1699,21 +1723,21 @@ class UIController {
                     <span style="color:var(--accent-secondary);font-size:13px;">MIT License</span>
                 </div>
             </div>
-            
+
             <div style="display:flex;gap:10px;">
-                <a href="https://github.com/SummerLv/ai-third-eye" target="_blank" 
+                <a href="https://github.com/SummerLv/ai-third-eye" target="_blank"
                    style="flex:1;background:rgba(0,212,255,0.2);color:var(--accent-primary);padding:10px;border-radius:8px;text-decoration:none;text-align:center;font-size:13px;">
                     📦 GitHub
                 </a>
-                <button onclick="document.getElementById('aboutPanel').remove()" 
+                <button onclick="document.getElementById('aboutPanel').remove()"
                         style="flex:1;background:rgba(255,255,255,0.1);color:var(--text-primary);padding:10px;border-radius:8px;border:none;cursor:pointer;font-size:13px;">
                     关闭
                 </button>
             </div>
         `;
-        
+
         document.body.appendChild(panel);
-        
+
         // 点击外部关闭
         setTimeout(() => {
             document.addEventListener('click', function closeAbout(e) {
@@ -1724,7 +1748,7 @@ class UIController {
             });
         }, 100);
     }
-    
+
     // 🆕 初始化用户语音显示区域
     initUserSpeechDisplay() {
         let container = document.getElementById('userSpeechDisplay');
@@ -1749,16 +1773,16 @@ class UIController {
             }
         }
     }
-    
+
     // 🆕 更新用户语音显示
     updateUserSpeechDisplay(text, speaking = false, done = false) {
         const container = document.getElementById('userSpeechDisplay');
         if (!container) return;
-        
+
         const textEl = container.querySelector('.speech-text');
-        
+
         if (speaking && !text) {
-            // 开始说话，显示打字效果
+            // 开始说话,显示打字效果
             container.style.display = 'block';
             if (textEl) textEl.innerHTML = '<span style="animation: blink 1s infinite;">正在听...</span>';
             // 重置转写缓存
@@ -1772,7 +1796,7 @@ class UIController {
             // 保存转写文字
             this.lastUserTranscript = text;
         } else if (done) {
-            // 说话结束，将用户说的话正式添加到对话记录
+            // 说话结束,将用户说的话正式添加到对话记录
             if (this.lastUserTranscript && this.lastUserTranscript.trim()) {
                 this.addMessage('user', this.lastUserTranscript.trim());
             }
@@ -1786,13 +1810,13 @@ class UIController {
             container.style.display = 'none';
         }
     }
-    
+
     // 🆕 检测并执行语音命令
     detectVoiceCommand(text) {
         if (!text || !this.client || !this.client.isConnected) return false;
-        
+
         const normalizedText = text.trim().toLowerCase();
-        
+
         for (const [keyword, cmd] of Object.entries(this.voiceCommands)) {
             if (normalizedText.includes(keyword.toLowerCase())) {
                 this.executeVoiceCommand(cmd.action, keyword);
@@ -1801,57 +1825,57 @@ class UIController {
         }
         return false;
     }
-    
+
     // 🆕 执行语音命令
     executeVoiceCommand(action, keyword) {
         const cmd = Object.values(this.voiceCommands).find(c => c.action === action);
         const icon = cmd ? cmd.icon : '⚡';
-        
+
         switch (action) {
             case 'pause':
                 this.interrupt();
                 this.addMessage('system', `${icon} 已暂停AI发言`);
                 break;
-                
+
             case 'quiet':
                 this.isQuietMode = !this.isQuietMode;
                 if (this.isQuietMode) {
-                    this.addMessage('system', `${icon} 已开启安静模式（减少主动描述）`);
+                    this.addMessage('system', `${icon} 已开启安静模式(减少主动描述)`);
                 } else {
                     this.addMessage('system', `${icon} 已关闭安静模式`);
                 }
                 break;
-                
+
             case 'changeTopic':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '让我们换个话题吧，聊点别的有趣的事情。'
+                        text: '让我们换个话题吧,聊点别的有趣的事情。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在切换话题...`);
                 }
                 break;
-                
+
             case 'repeat':
                 if (this.lastAIMessage) {
-                    this.addMessage('ai', `好的，我再说一遍：${this.lastAIMessage}`);
+                    this.addMessage('ai', `好的,我再说一遍:${this.lastAIMessage}`);
                 } else {
                     this.addMessage('system', `${icon} 暂无上次内容可重复`);
                 }
                 break;
-                
+
             case 'checkVision':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '你现在看得清楚吗？画面清晰度如何？'
+                        text: '你现在看得清楚吗?画面清晰度如何?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在询问画面状态...`);
                 }
                 break;
-                
+
             case 'continue':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
@@ -1861,7 +1885,7 @@ class UIController {
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-                
+
             case 'summarize':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
@@ -1872,81 +1896,81 @@ class UIController {
                     this.addMessage('system', `${icon} 正在生成总结...`);
                 }
                 break;
-            
+
             // 🆕 v1.5.1 新增命令处理
             case 'screenshot':
                 this.takeScreenshot();
                 break;
-            
+
             case 'louder':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请你大声一点说话，我听得不太清楚。'
+                        text: '请你大声一点说话,我听得不太清楚。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在请求大声说话...`);
                 }
                 break;
-            
+
             case 'quieter':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请你小声一点说话，声音有点大。'
+                        text: '请你小声一点说话,声音有点大。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在请求小声说话...`);
                 }
                 break;
-            
+
             case 'slower':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请你慢一点说话，我需要时间理解。'
+                        text: '请你慢一点说话,我需要时间理解。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在请求慢点说...`);
                 }
                 break;
-            
+
             case 'faster':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请你快一点说话，我准备好了。'
+                        text: '请你快一点说话,我准备好了。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在请求快点说...`);
                 }
                 break;
-            
+
             // 🆕 v1.7.7 新增命令处理
             case 'goodbye':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '我们要结束了，跟用户说再见吧！'
+                        text: '我们要结束了,跟用户说再见吧!'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在告别...`);
                     // 3秒后自动结束会话
                     setTimeout(() => {
                         this.stop();
-                        this.addMessage('system', '👋 会话已结束，期待下次相见！');
+                        this.addMessage('system', '👋 会话已结束,期待下次相见!');
                     }, 3000);
                 } else {
                     this.stop();
-                    this.addMessage('system', `${icon} 会话已结束，再见！`);
+                    this.addMessage('system', `${icon} 会话已结束,再见!`);
                 }
                 break;
-            
+
             case 'endSession':
                 this.stop();
                 this.addMessage('system', `${icon} 对话已结束`);
                 break;
-            
+
             // 🆕 v1.7.9 新增帮助命令
             case 'help':
                 this.showVoiceCommandsHelp();
@@ -1955,25 +1979,25 @@ class UIController {
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户需要帮助，请简洁介绍你可以做什么，以及常用的语音命令。'
+                        text: '用户需要帮助,请简洁介绍你可以做什么,以及常用的语音命令。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-            
+
             // 🆕 v1.8.4 新增"你是谁"命令
             case 'whoAreYou':
                 // 获取当前人设信息
                 const savedPers = localStorage.getItem('ai-third-eye-personality');
-                const currentPers = savedPers ? 
+                const currentPers = savedPers ?
                     ((typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[savedPers] : null) || getAllPersonalities()[savedPers]) : null;
                 const persName = currentPers ? currentPers.name : '🦐 AI 助手';
                 const persDesc = currentPers ? currentPers.description : '友好的AI助手';
-                
+
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: `请用有趣的方式向用户介绍你自己，你是「${persName}」，特点是：${persDesc}。用符合你人设的语气来介绍，控制在2-3句话。`
+                        text: `请用有趣的方式向用户介绍你自己,你是「${persName}」,特点是:${persDesc}。用符合你人设的语气来介绍,控制在2-3句话。`
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} ${persName} 正在自我介绍...`);
@@ -1981,73 +2005,73 @@ class UIController {
                     this.addMessage('system', `${icon} 当前人设: ${persName} - ${persDesc}`);
                 }
                 break;
-            
+
             // 🆕 v1.8.9: 新增感谢命令
             case 'thanks':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '谢谢！用户表示感谢。'
+                        text: '谢谢!用户表示感谢。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
-                    this.addMessage('system', `${icon} 不客气！很高兴能帮到你`);
+                    this.addMessage('system', `${icon} 不客气!很高兴能帮到你`);
                 } else {
-                    this.addMessage('system', `${icon} 不客气！`);
+                    this.addMessage('system', `${icon} 不客气!`);
                 }
                 break;
-            
+
             // 🆕 v1.8.9: 新增认可命令
             case 'praise':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户表示认可和赞赏，继续保持！'
+                        text: '用户表示认可和赞赏,继续保持!'
                     };
                     this.client.ws.send(JSON.stringify(msg));
-                    this.addMessage('system', `${icon} 谢谢你的认可！`);
+                    this.addMessage('system', `${icon} 谢谢你的认可!`);
                 } else {
-                    this.addMessage('system', `${icon} 谢谢认可！`);
+                    this.addMessage('system', `${icon} 谢谢认可!`);
                 }
                 break;
-            
+
             // 🆕 v1.8.10: 新增确认命令
             case 'okay':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户确认明白了，继续观察和描述。'
+                        text: '用户确认明白了,继续观察和描述。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
-                    this.addMessage('system', `${icon} 好的，继续...`);
+                    this.addMessage('system', `${icon} 好的,继续...`);
                 } else {
-                    this.addMessage('system', `${icon} 收到！`);
+                    this.addMessage('system', `${icon} 收到!`);
                 }
                 break;
-            
+
             // 🆕 v1.8.11: 新增字幕开关命令
             case 'toggleSubtitle':
                 this.toggleSubtitle();
                 break;
-            
+
             // 🆕 v1.8.17: 新增更多实用命令
             case 'restart':
                 // 清空对话并重新开始
                 this.clearChat();
-                this.addMessage('system', `${icon} 对话已重置，让我们重新开始！`);
+                this.addMessage('system', `${icon} 对话已重置,让我们重新开始!`);
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户想要重新开始对话。请用你的方式打个招呼，重新介绍自己并询问今天想聊什么。'
+                        text: '用户想要重新开始对话。请用你的方式打个招呼,重新介绍自己并询问今天想聊什么。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-            
+
             case 'timer':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户需要计时。请询问需要计时多久，然后开始倒计时提醒。'
+                        text: '用户需要计时。请询问需要计时多久,然后开始倒计时提醒。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 已请求计时功能`);
@@ -2055,7 +2079,7 @@ class UIController {
                     this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
                 }
                 break;
-            
+
             case 'whatTime':
                 const nowTime = new Date();
                 const timeStr = nowTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
@@ -2063,12 +2087,12 @@ class UIController {
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: `告诉用户现在的时间是${timeStr}，并简单聊两句。`
+                        text: `告诉用户现在的时间是${timeStr},并简单聊两句。`
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-            
+
             case 'whatDate':
                 const nowDate = new Date();
                 const dateStr = nowDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
@@ -2076,12 +2100,12 @@ class UIController {
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: `告诉用户今天是${dateStr}，并简单聊两句。`
+                        text: `告诉用户今天是${dateStr},并简单聊两句。`
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-            
+
             // 🆕 v1.8.18: 全屏控制
             case 'fullscreen':
                 if (document.documentElement.requestFullscreen) {
@@ -2094,7 +2118,7 @@ class UIController {
                     this.addMessage('system', `${icon} 当前浏览器不支持全屏`);
                 }
                 break;
-            
+
             case 'exitFullscreen':
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
@@ -2104,48 +2128,48 @@ class UIController {
                     this.addMessage('system', `${icon} 已退出全屏模式`);
                 }
                 break;
-            
+
             // 🆕 v1.8.19: 随机切换人设
             case 'randomPersonality':
                 const randomP = getRandomPersonality();
                 this.selectPersonality(randomP.key);
                 this.addMessage('system', `${icon} 已切换为 ${randomP.name}`);
                 break;
-            
+
             // 🆕 v1.8.22: 快捷命令栏增强支持
             case 'mute':
                 this.toggleMute();
                 break;
-            
+
             case 'clear':
                 this.clearMessages();
                 this.addMessage('system', '🗑️ 对话已清空');
                 break;
-            
+
             case 'export':
                 this.exportMessages();
                 this.addMessage('system', '📤 对话已导出');
                 break;
-            
+
             // 🆕 v1.8.25: 新增截图下载和复制命令
             case 'downloadScreenshot':
                 this.takeScreenshot();
                 this.addMessage('system', `${icon} 截图已保存到本地`);
                 break;
-            
+
             case 'copyScreenshot':
-                // 先截图，然后复制到剪贴板
+                // 先截图,然后复制到剪贴板
                 this.takeScreenshot(true);
                 this.addMessage('system', `${icon} 正在复制截图到剪贴板...`);
                 break;
-            
+
             // 🆕 v1.8.25: 新增重置人设命令
             case 'resetPersonality':
                 localStorage.removeItem('ai-third-eye-personality');
                 this.selectPersonality('little-deer'); // 默认小鹿人设
-                this.addMessage('system', `${icon} 已恢复默认人设（小鹿）`);
+                this.addMessage('system', `${icon} 已恢复默认人设(小鹿)`);
                 break;
-            
+
             // 🆕 v1.8.28: 修复计时控制命令 - 改为发送给 AI 处理
             case 'pauseTimer':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
@@ -2159,7 +2183,7 @@ class UIController {
                     this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
                 }
                 break;
-            
+
             case 'resumeTimer':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
@@ -2172,189 +2196,189 @@ class UIController {
                     this.addMessage('system', `${icon} 请先开始对话再使用计时功能`);
                 }
                 break;
-            
+
             // 🆕 v1.8.27: 新增笑话命令
             case 'tellJoke':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请讲一个简短的、有趣的笑话，控制在30字以内。'
+                        text: '请讲一个简短的、有趣的笑话,控制在30字以内。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在想一个笑话...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.27: 新增翻译命令
             case 'translate':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请把你看到的内容翻译成中文，如果没有看到文字就告诉用户。'
+                        text: '请把你看到的内容翻译成中文,如果没有看到文字就告诉用户。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在翻译...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.31: 新增健康饮食语音命令
             case 'nutrition':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请分析你看到的食物的营养价值，有哪些营养成分？'
+                        text: '请分析你看到的食物的营养价值,有哪些营养成分?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析营养成分...`);
                 }
                 break;
-            
+
             case 'healthCheck':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请评估你看到的食物或生活习惯是否健康，给出建议。'
+                        text: '请评估你看到的食物或生活习惯是否健康,给出建议。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在评估健康程度...`);
                 }
                 break;
-            
+
             case 'calories':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请估算你看到的食物大概有多少卡路里（热量）。'
+                        text: '请估算你看到的食物大概有多少卡路里(热量)。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在估算热量...`);
                 }
                 break;
-            
+
             case 'eatAdvice':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请告诉我这个食物是否适合吃，有什么注意事项？'
+                        text: '请告诉我这个食物是否适合吃,有什么注意事项?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析饮食建议...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.32 新增天气询问命令处理 (修复遗漏)
             case 'weather':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请根据当前画面或天气状况，告诉我今天天气怎么样？需要注意什么？'
+                        text: '请根据当前画面或天气状况,告诉我今天天气怎么样?需要注意什么?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析天气状况...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.33 新增物体识别和购物命令处理 (修复遗漏)
             case 'identifyObject':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请识别画面中的物体，告诉我这是什么？'
+                        text: '请识别画面中的物体,告诉我这是什么?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在识别物体...`);
                 }
                 break;
-            
+
             case 'identifyBrand':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请识别画面中物品的品牌或商标是什么？'
+                        text: '请识别画面中物品的品牌或商标是什么?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在识别品牌...`);
                 }
                 break;
-            
+
             case 'checkPrice':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请估算画面中物品的大概价格范围，并告诉我是否值得购买。'
+                        text: '请估算画面中物品的大概价格范围,并告诉我是否值得购买。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在查询价格...`);
                 }
                 break;
-            
+
             case 'shoppingAdvice':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请根据画面中的物品，给我一些购物建议：是否值得买？有什么替代品？'
+                        text: '请根据画面中的物品,给我一些购物建议:是否值得买?有什么替代品?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析购物建议...`);
                 }
                 break;
-            
+
             case 'whereToBuy':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请告诉我画面中的物品可以在哪里购买？有哪些购买渠道？'
+                        text: '请告诉我画面中的物品可以在哪里购买?有哪些购买渠道?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在查询购买渠道...`);
                 }
                 break;
-            
+
             case 'identifyColor':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请识别画面中主要物品的颜色是什么？'
+                        text: '请识别画面中主要物品的颜色是什么?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在识别颜色...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.41: 新增记账语音命令处理
             case 'recordExpense':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请帮我记录这笔开支，告诉我这是什么消费以及大概多少钱。'
+                        text: '请帮我记录这笔开支,告诉我这是什么消费以及大概多少钱。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在记录开支...`);
                 }
                 break;
-            
+
             case 'askPrice':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请帮我看看画面中的物品大概多少钱？是否值得购买？'
+                        text: '请帮我看看画面中的物品大概多少钱?是否值得购买?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析花费...`);
                 }
                 break;
-            
+
             case 'checkBudget':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请帮我分析画面中的消费是否在合理预算范围内？有什么建议？'
+                        text: '请帮我分析画面中的消费是否在合理预算范围内?有什么建议?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在检查预算...`);
                 }
                 break;
-            
+
             case 'showBills':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
@@ -2365,18 +2389,18 @@ class UIController {
                     this.addMessage('system', `${icon} 正在分析账单...`);
                 }
                 break;
-            
+
             case 'priceCompare':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '请帮我比较画面中物品的性价比，是否划算？有什么更优选择？'
+                        text: '请帮我比较画面中物品的性价比,是否划算?有什么更优选择?'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在比较价格...`);
                 }
                 break;
-            
+
             // 🆕 v1.8.43: 新增运动打卡语音命令处理
             case 'checkIn':
                 // 记录打卡时间到本地存储
@@ -2384,36 +2408,36 @@ class UIController {
                 const now = new Date();
                 const today = now.toDateString();
                 const existingToday = checkInData.find(c => new Date(c.time).toDateString() === today);
-                
+
                 if (existingToday) {
-                    this.addMessage('system', `${icon} 今天已经打卡过了！继续保持！💪`);
+                    this.addMessage('system', `${icon} 今天已经打卡过了!继续保持!💪`);
                 } else {
                     checkInData.push({ time: now.toISOString(), type: 'workout' });
                     localStorage.setItem('ai-third-eye-fitness-checkins', JSON.stringify(checkInData));
                     const streak = this.calculateStreak(checkInData);
-                    this.addMessage('system', `${icon} 打卡成功！已连续运动 ${streak} 天！🏆`);
+                    this.addMessage('system', `${icon} 打卡成功!已连续运动 ${streak} 天!🏆`);
                 }
-                
+
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户完成运动打卡！请用热情的语气鼓励用户，并询问今天练了什么。'
+                        text: '用户完成运动打卡!请用热情的语气鼓励用户,并询问今天练了什么。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
-            
+
             case 'workoutComplete':
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
-                        text: '用户完成了今天的运动！请给予热情的鼓励和祝贺，让用户感到成就感！'
+                        text: '用户完成了今天的运动!请给予热情的鼓励和祝贺,让用户感到成就感!'
                     };
                     this.client.ws.send(JSON.stringify(msg));
-                    this.addMessage('system', `${icon} 太棒了！今天的运动完成了！`);
+                    this.addMessage('system', `${icon} 太棒了!今天的运动完成了!`);
                 }
                 break;
-            
+
             case 'todayGoal':
                 const goals = JSON.parse(localStorage.getItem('ai-third-eye-fitness-goals') || 'null');
                 if (goals && goals.todayGoal) {
@@ -2426,7 +2450,7 @@ class UIController {
                         this.client.ws.send(JSON.stringify(msg));
                     }
                 } else {
-                    this.addMessage('system', `${icon} 还没设置今日目标，说"我要做XX"来设置吧！`);
+                    this.addMessage('system', `${icon} 还没设置今日目标，说“我要做XX”来设置吧！`);
                     if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                         const msg = {
                             type: 'input_text',
@@ -2436,35 +2460,141 @@ class UIController {
                     }
                 }
                 break;
+            
+            // ===== v1.8.44: 新增日程管理语音命令处理 =====
+            case 'setReminder':
+                this.addMessage('system', `${icon} 请告诉我提醒的内容和时间，我会帮你记住！`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想要设置提醒。请询问用户提醒的内容和时间，然后给出确认。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'askTime':
+                const nowTime = new Date();
+                const hours = nowTime.getHours();
+                const minutes = nowTime.getMinutes();
+                const timeStr = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+                this.addMessage('system', `${icon} 现在是 ${timeStr}`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: `现在是${hours}点${minutes}分。请告诉用户当前时间，并询问是否有什么安排。`
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'todaySchedule':
+                const schedules = JSON.parse(localStorage.getItem('ai-third-eye-schedules') || '[]');
+                if (schedules.length > 0) {
+                    const todaySchedules = schedules.filter(s => {
+                        const scheduleDate = new Date(s.time);
+                        return scheduleDate.toDateString() === new Date().toDateString();
+                    });
+                    if (todaySchedules.length > 0) {
+                        this.addMessage('system', `${icon} 今日日程：${todaySchedules.map(s => s.content).join('、')}`);
+                    } else {
+                        this.addMessage('system', `${icon} 今天暂时没有安排的日程`);
+                    }
+                } else {
+                    this.addMessage('system', `${icon} 还没有记录日程，说“提醒我XX”来添加吧！`);
+                }
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想查看今日日程安排。请帮助用户回顾今天的计划，如果有空余时间可以建议安排。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'tomorrowPlan':
+                this.addMessage('system', `${icon} 让我们为明天做个计划吧！`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想规划明天的日程。请询问用户明天有什么重要事项或目标，帮助用户制定合理的计划。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'countdown':
+                this.addMessage('system', `${icon} 请告诉我你想倒数什么事件，我会帮你计算时间！`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想知道某个事件还有多久。请询问用户具体是什么事件或时间点，然后帮助计算剩余时间。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'showSchedule':
+                const allSchedules = JSON.parse(localStorage.getItem('ai-third-eye-schedules') || '[]');
+                if (allSchedules.length > 0) {
+                    this.addMessage('system', `${icon} 共有 ${allSchedules.length} 个日程记录`);
+                } else {
+                    this.addMessage('system', `${icon} 暂无日程记录，说“提醒我XX”来添加吧！`);
+                }
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想查看日程列表。请帮助用户回顾近期的重要安排，如果有遗漏可以提醒补充。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'showTodos':
+                const todos = JSON.parse(localStorage.getItem('ai-third-eye-todos') || '[]');
+                if (todos.length > 0) {
+                    const pendingTodos = todos.filter(t => !t.done);
+                    this.addMessage('system', `${icon} 待办事项：${pendingTodos.length} 项待完成`);
+                } else {
+                    this.addMessage('system', `${icon} 暂无待办事项，说“别忘了XX”来添加吧！`);
+                }
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想查看待办事项列表。请帮助用户回顾未完成的任务，并提供完成建议。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
         }
     }
-    
+
     // 🆕 v1.8.43: 计算连续打卡天数
     calculateStreak(checkInData) {
         if (!checkInData || checkInData.length === 0) return 0;
-        
+
         // 按时间排序
         const sorted = checkInData
             .map(c => new Date(c.time))
             .sort((a, b) => b - a);
-        
+
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        
+
         let streak = 0;
         let checkDate = today;
-        
+
         for (let i = 0; i < sorted.length; i++) {
             const date = new Date(sorted[i]);
             date.setHours(0, 0, 0, 0);
-            
+
             const diffDays = Math.floor((checkDate - date) / (1000 * 60 * 60 * 24));
-            
+
             if (diffDays === 0) {
                 streak++;
                 checkDate = new Date(checkDate.getTime() - 24 * 60 * 60 * 1000);
             } else if (diffDays === 1) {
-                // 昨天也打卡了，继续计算
+                // 昨天也打卡了,继续计算
                 streak++;
                 checkDate = new Date(checkDate.getTime() - 24 * 60 * 60 * 1000);
             } else {
@@ -2472,10 +2602,10 @@ class UIController {
                 break;
             }
         }
-        
+
         return streak;
     }
-    
+
     // 🆕 显示语音命令帮助
     showVoiceCommandsHelp() {
         const existing = document.getElementById('voiceCommandsHelp');
@@ -2483,7 +2613,7 @@ class UIController {
             existing.remove();
             return;
         }
-        
+
         const container = document.createElement('div');
         container.id = 'voiceCommandsHelp';
         container.style.cssText = `
@@ -2501,18 +2631,18 @@ class UIController {
             overflow-y: auto;
             border: 1px solid rgba(255,255,255,0.1);
         `;
-        
+
         let html = `
             <div style="color: #00d4ff; font-weight: bold; margin-bottom: 20px; font-size: 18px; display: flex; justify-content: space-between; align-items: center;">
                 <span>🎤 语音快捷命令</span>
                 <span style="cursor: pointer; font-size: 20px;" onclick="document.getElementById('voiceCommandsHelp').remove()">✕</span>
             </div>
             <div style="color: #888; font-size: 12px; margin-bottom: 15px;">
-                💡 直接说出这些词，AI会自动识别并执行相应操作
+                💡 直接说出这些词,AI会自动识别并执行相应操作
             </div>
             <div style="display: grid; gap: 10px;">
         `;
-        
+
         // 去重显示
         const shownActions = new Set();
         for (const [keyword, cmd] of Object.entries(this.voiceCommands)) {
@@ -2528,18 +2658,18 @@ class UIController {
                 </div>
             `;
         }
-        
+
         html += '</div>';
         container.innerHTML = html;
         document.body.appendChild(container);
     }
-    
+
     handleKeyboard(e) {
         // Escape - 关闭设置面板
         if (e.key === 'Escape') {
             document.getElementById('settingsPanel').classList.remove('show');
         }
-        // Space - 开始/结束对话（需要焦点不在输入框）
+        // Space - 开始/结束对话(需要焦点不在输入框)
         if (e.key === ' ' && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
             e.preventDefault();
             if (this.client && this.client.isConnected) {
@@ -2592,19 +2722,19 @@ class UIController {
             }
         }
     }
-    
+
     // 🆕 v1.7.1: 首页智能推荐横幅
     showHomepageRecommendation() {
         // 检查今天是否已显示过
         const today = new Date().toDateString();
         const lastShown = localStorage.getItem('ai-third-eye-banner-date');
         const dismissed = localStorage.getItem('ai-third-eye-banner-dismissed');
-        
+
         if (lastShown === today && dismissed === 'true') return;
-        
+
         // 获取推荐人设
         const recommended = getRecommendedPersonality();
-        
+
         // 创建横幅
         const banner = document.createElement('div');
         banner.id = 'homeRecommendationBanner';
@@ -2626,11 +2756,11 @@ class UIController {
             width: calc(100% - 40px);
             animation: bannerSlideIn 0.5s ease;
         `;
-        
+
         banner.innerHTML = `
             <span style="font-size: 32px;">${recommended.name.split(' ')[0]}</span>
             <div>
-                <div style="font-size: 14px; opacity: 0.8;">${recommended.timeDesc}，推荐人设</div>
+                <div style="font-size: 14px; opacity: 0.8;">${recommended.timeDesc},推荐人设</div>
                 <div style="font-size: 20px; font-weight: bold;">${recommended.name}</div>
                 <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">${recommended.description}</div>
             </div>
@@ -2653,7 +2783,7 @@ class UIController {
                 padding: 8px;
             ">✕</button>
         `;
-        
+
         // 添加动画样式
         if (!document.getElementById('bannerAnimStyles')) {
             const style = document.createElement('style');
@@ -2670,61 +2800,61 @@ class UIController {
             `;
             document.head.appendChild(style);
         }
-        
+
         document.body.appendChild(banner);
-        
+
         // 绑定事件
         document.getElementById('useRecommendedPersonality').addEventListener('click', () => {
             this.selectPersonality(recommended.key);
             this.removeBanner(banner);
         });
-        
+
         document.getElementById('dismissBanner').addEventListener('click', () => {
             this.removeBanner(banner);
             localStorage.setItem('ai-third-eye-banner-dismissed', 'true');
             localStorage.setItem('ai-third-eye-banner-date', today);
         });
-        
+
         // 10秒后自动隐藏
         setTimeout(() => {
             this.removeBanner(banner);
         }, 10000);
     }
-    
+
     removeBanner(banner) {
         if (banner && banner.parentNode) {
             banner.style.animation = 'bannerSlideOut 0.3s ease forwards';
             setTimeout(() => banner.remove(), 300);
         }
     }
-    
+
     showWelcomeTip() {
         // 首次访问显示使用提示
         const hasVisited = localStorage.getItem('ai-third-eye-visited');
         if (!hasVisited) {
             setTimeout(() => {
-                this.addMessage('system', '💡 使用提示: 空格键开始/结束对话，Ctrl+S截图，M静音，V语音命令，Esc关闭面板');
+                this.addMessage('system', '💡 使用提示: 空格键开始/结束对话,Ctrl+S截图,M静音,V语音命令,Esc关闭面板');
                 localStorage.setItem('ai-third-eye-visited', 'true');
             }, 1500);
         }
     }
-    
+
     loadPersonalityGrid() {
         const grid = document.getElementById('personalityGrid');
         if (!grid) return;
-        
+
         grid.innerHTML = '';
         const personalities = getAllPersonalities();
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
         const favorites = getFavoritePersonalities();
-        
+
         // 🆕 v1.6.0: 收藏区域
         if (favorites.length > 0) {
             const favDiv = document.createElement('div');
             favDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 10px; background: rgba(255,215,0,0.1); border-radius: 12px; border: 1px solid rgba(255,215,0,0.3);';
             favDiv.innerHTML = `<div style="font-size:12px; color:#ffd700; margin-bottom:8px;">⭐ 我的收藏</div><div style="display:flex;flex-wrap:wrap;gap:8px;" id="favoriteButtons"></div>`;
             grid.appendChild(favDiv);
-            
+
             const favContainer = favDiv.querySelector('#favoriteButtons');
             favorites.forEach(key => {
                 if (personalities[key]) {
@@ -2738,7 +2868,7 @@ class UIController {
                 }
             });
         }
-        
+
         // 🆕 v1.5.9: 智能人设推荐
         const recommended = getRecommendedPersonality();
         const recommendationDiv = document.createElement('div');
@@ -2747,7 +2877,7 @@ class UIController {
             <div style="display:flex; align-items:center; gap:10px;">
                 <span style="font-size:20px;">💡</span>
                 <div>
-                    <div style="font-size:13px; color:#888;">${recommended.timeDesc}，推荐人设</div>
+                    <div style="font-size:13px; color:#888;">${recommended.timeDesc},推荐人设</div>
                     <div style="font-size:16px; font-weight:600; color:var(--accent-primary); margin-top:4px;">${recommended.name}</div>
                 </div>
                 <button id="useRecommendedBtn" style="margin-left:auto; padding:6px 12px; font-size:12px; border-radius:6px;" class="btn btn-primary">使用</button>
@@ -2755,22 +2885,22 @@ class UIController {
             <div style="font-size:12px; color:#888; margin-top:8px;">${recommended.description}</div>
         `;
         grid.appendChild(recommendationDiv);
-        
+
         // 绑定推荐按钮事件
         document.getElementById('useRecommendedBtn')?.addEventListener('click', () => {
             this.selectPersonality(recommended.key);
         });
-        
+
         // 🆕 v1.6.2: 自定义人设区域
         const customPersonalities = typeof getCustomPersonalities === 'function' ? getCustomPersonalities() : {};
         const customKeys = Object.keys(customPersonalities);
-        
+
         if (customKeys.length > 0) {
             const customDiv = document.createElement('div');
             customDiv.style.cssText = 'grid-column: 1 / -1; margin-bottom: 10px; padding: 10px; background: rgba(138,43,226,0.1); border-radius: 12px; border: 1px solid rgba(138,43,226,0.3);';
             customDiv.innerHTML = `<div style="font-size:12px; color:#ba55d3; margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;"><span>✨ 我的自定义人设</span><button id="addCustomBtn" style="padding:2px 8px;font-size:11px;border-radius:4px;" class="btn btn-secondary">+ 新建</button></div><div style="display:flex;flex-direction:column;gap:6px;" id="customList"></div>`;
             grid.appendChild(customDiv);
-            
+
             const customList = customDiv.querySelector('#customList');
             customKeys.forEach(key => {
                 const p = customPersonalities[key];
@@ -2779,7 +2909,7 @@ class UIController {
                 item.innerHTML = `<span style="flex:1;font-size:12px;">${p.name}</span><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="use">使用</button><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="edit">编辑</button><button class="btn btn-secondary" style="padding:2px 6px;font-size:10px;" data-custom="${key}" data-action="delete">删除</button>`;
                 customList.appendChild(item);
             });
-            
+
             // 绑定自定义人设按钮事件
             customList.querySelectorAll('button').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -2791,7 +2921,7 @@ class UIController {
                     else if (action === 'delete') this.deleteCustomPersonalityUI(key);
                 });
             });
-            
+
             // 新建按钮
             customDiv.querySelector('#addCustomBtn')?.addEventListener('click', () => this.showCreateCustomPersonalityUI());
         } else {
@@ -2802,46 +2932,46 @@ class UIController {
             createDiv.addEventListener('click', () => this.showCreateCustomPersonalityUI());
             grid.appendChild(createDiv);
         }
-        
+
         // 所有人设列表
         const allHeader = document.createElement('div');
         allHeader.style.cssText = 'grid-column: 1 / -1; font-size:12px; color:#888; margin-top:5px;';
-        allHeader.textContent = '🎭 内置人设（点击⭐收藏，🔥表示热度）';
+        allHeader.textContent = '🎭 内置人设(点击⭐收藏,🔥表示热度)';
         grid.appendChild(allHeader);
-        
+
         // 🆕 v1.6.1: 获取热度统计
         const usageStats = typeof getPersonalityUsageStats === 'function' ? getPersonalityUsageStats() : [];
         const maxUsage = usageStats.length > 0 ? usageStats[0].count : 1;
-        
+
         for (const [key, personality] of Object.entries(personalities)) {
             const wrapper = document.createElement('div');
             wrapper.style.cssText = 'display:flex;align-items:center;gap:4px;';
-            
+
             // 🆕 v1.6.1: 获取使用次数和计算热度图标
             const usageCount = typeof getPersonalityUsage === 'function' ? getPersonalityUsage(key) : 0;
             const hotness = maxUsage > 0 ? usageCount / maxUsage : 0;
             const hotIcon = usageCount > 0 ? (hotness > 0.7 ? '🔥' : hotness > 0.3 ? '🔥' : '') : '';
-            
+
             const btn = document.createElement('button');
             btn.className = 'btn btn-secondary';
             btn.style.cssText = 'padding: 8px; font-size: 11px; text-align: left; flex:1;';
             btn.dataset.personality = key;
             btn.innerHTML = `${personality.name}${hotIcon ? '<span style="margin-left:4px">' + hotIcon + '</span>' : ''}<br><span style="color:#888">${personality.description}</span>${usageCount > 0 ? '<span style="color:#666;font-size:10px;"> · ' + usageCount + '次</span>' : ''}`;
-            
+
             // 推荐的人设高亮显示
             if (key === recommended.key) {
                 btn.style.borderColor = 'var(--accent-primary)';
                 btn.style.boxShadow = '0 0 10px rgba(0,212,255,0.3)';
             }
-            
+
             if (savedPersonality === key) {
                 btn.classList.remove('btn-secondary');
                 btn.classList.add('btn-primary');
             }
-            
+
             btn.addEventListener('click', () => this.selectPersonality(key));
             wrapper.appendChild(btn);
-            
+
             // 收藏按钮
             const favBtn = document.createElement('button');
             favBtn.className = 'btn btn-secondary';
@@ -2853,11 +2983,11 @@ class UIController {
                 this.toggleFavoritePersonality(key);
             });
             wrapper.appendChild(favBtn);
-            
+
             grid.appendChild(wrapper);
         }
     }
-    
+
     // 🆕 v1.6.0: 切换人设收藏
     toggleFavoritePersonality(key) {
         const personality = getAllPersonalitiesWithCustom ? getAllPersonalitiesWithCustom()[key] : getAllPersonalities()[key];
@@ -2870,14 +3000,14 @@ class UIController {
         }
         this.loadPersonalityGrid();
     }
-    
+
     // 🆕 v1.6.2: 显示创建自定义人设界面
     showCreateCustomPersonalityUI(editKey = null) {
         const existing = document.getElementById('customPersonalityModal');
         if (existing) existing.remove();
-        
+
         const editData = editKey && typeof getCustomPersonalities === 'function' ? getCustomPersonalities()[editKey] : null;
-        
+
         const modal = document.createElement('div');
         modal.id = 'customPersonalityModal';
         modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;';
@@ -2885,15 +3015,15 @@ class UIController {
             <div style="background:var(--bg-secondary);border-radius:16px;padding:24px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto;border:1px solid rgba(138,43,226,0.3);">
                 <div style="color:#ba55d3;font-size:18px;font-weight:bold;margin-bottom:16px;">${editKey ? '✏️ 编辑人设' : '✨ 创建自定义人设'}</div>
                 <div style="margin-bottom:12px;">
-                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设名称（带emoji更生动）</label>
-                    <input id="customName" type="text" placeholder="例：🧙 巫师" value="${editData?.name?.replace(/^[^a-zA-Z\u4e00-\u9fa5]+/, '') || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
+                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设名称(带emoji更生动)</label>
+                    <input id="customName" type="text" placeholder="例:🧙 巫师" value="${editData?.name?.replace(/^[^a-zA-Z\u4e00-\u9fa5]+/, '') || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
                 </div>
                 <div style="margin-bottom:12px;">
                     <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">简短描述</label>
-                    <input id="customDesc" type="text" placeholder="例：神秘预言，洞察命运" value="${editData?.description || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
+                    <input id="customDesc" type="text" placeholder="例:神秘预言,洞察命运" value="${editData?.description || ''}" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);">
                 </div>
                 <div style="margin-bottom:16px;">
-                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设提示词（AI将按此行事）</label>
+                    <label style="display:block;color:#888;font-size:12px;margin-bottom:4px;">人设提示词(AI将按此行事)</label>
                     <textarea id="customPrompt" placeholder="描述这个角色的性格、说话风格、关注点等..." style="width:100%;height:120px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:var(--text-primary);resize:vertical;">${editData?.prompt || ''}</textarea>
                 </div>
                 <div style="display:flex;gap:8px;justify-content:flex-end;">
@@ -2903,14 +3033,14 @@ class UIController {
             </div>
         `;
         document.body.appendChild(modal);
-        
+
         // 绑定事件
         modal.querySelector('#cancelCustomBtn').addEventListener('click', () => modal.remove());
         modal.querySelector('#saveCustomBtn').addEventListener('click', () => {
             const name = document.getElementById('customName').value.trim();
             const desc = document.getElementById('customDesc').value.trim();
             const prompt = document.getElementById('customPrompt').value.trim();
-            
+
             if (!name) {
                 this.addMessage('system', '⚠️ 请输入人设名称');
                 return;
@@ -2919,10 +3049,10 @@ class UIController {
                 this.addMessage('system', '⚠️ 请输入人设提示词');
                 return;
             }
-            
-            // 添加 emoji 前缀（如果用户没有添加）
+
+            // 添加 emoji 前缀(如果用户没有添加)
             const fullName = name.match(/^[\u{1F300}-\u{1F9FF}]/u) ? name : `✨ ${name}`;
-            
+
             if (editKey) {
                 if (typeof updateCustomPersonality === 'function') {
                     updateCustomPersonality(editKey, fullName, desc, prompt);
@@ -2938,28 +3068,28 @@ class UIController {
                     }
                 }
             }
-            
+
             modal.remove();
             this.loadPersonalityGrid();
         });
-        
+
         // 点击背景关闭
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.remove();
         });
     }
-    
+
     // 🆕 v1.6.2: 编辑自定义人设
     editCustomPersonality(key) {
         this.showCreateCustomPersonalityUI(key);
     }
-    
-    // 🆕 v1.6.2: 删除自定义人设（带确认）
+
+    // 🆕 v1.6.2: 删除自定义人设(带确认)
     deleteCustomPersonalityUI(key) {
         const personality = typeof getCustomPersonalities === 'function' ? getCustomPersonalities()[key] : null;
         if (!personality) return;
-        
-        if (confirm(`确定要删除人设「${personality.name}」吗？`)) {
+
+        if (confirm(`确定要删除人设「${personality.name}」吗?`)) {
             if (typeof deleteCustomPersonality === 'function') {
                 deleteCustomPersonality(key);
                 this.addMessage('system', `🗑️ 已删除人设「${personality.name}」`);
@@ -2967,22 +3097,22 @@ class UIController {
             }
         }
     }
-    
+
     selectPersonality(key) {
         const personality = (typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[key] : null) || getAllPersonalities()[key];
         if (!personality) return;
-        
+
         localStorage.setItem('ai-third-eye-personality', key);
         document.getElementById('systemPrompt').value = personality.prompt;
-        
+
         // 🆕 v1.6.1: 记录使用热度
         if (typeof recordPersonalityUsage === 'function') {
             recordPersonalityUsage(key);
         }
-        
+
         // 🆕 v1.8.6: 播放人设切换音效
         this.playPersonalitySound();
-        
+
         // Update grid buttons
         const grid = document.getElementById('personalityGrid');
         grid.querySelectorAll('button').forEach(btn => {
@@ -2993,10 +3123,10 @@ class UIController {
                 btn.classList.add('btn-primary');
             }
         });
-        
+
         this.addMessage('system', `🎭 已切换到 ${personality.name} 人设`);
     }
-    
+
     // 🆕 加载历史对话记录
     loadChatHistory() {
         const saved = localStorage.getItem('ai-third-eye-chat-history');
@@ -3035,7 +3165,7 @@ class UIController {
             document.getElementById('systemPrompt').value = settings.systemPrompt || '';
             document.getElementById('apiEndpoint').value = settings.apiEndpoint || '';
         }
-        
+
         // Load saved personality (支持自定义人设)
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
         if (savedPersonality) {
@@ -3045,7 +3175,7 @@ class UIController {
             }
         }
     }
-    
+
     saveSettings() {
         const settings = {
             systemPrompt: document.getElementById('systemPrompt').value,
@@ -3053,7 +3183,7 @@ class UIController {
         };
         localStorage.setItem('ai-third-eye-settings', JSON.stringify(settings));
     }
-    
+
     initAudioVisualizer() {
         const visualizer = document.getElementById('audioVisualizer');
         for (let i = 0; i < 20; i++) {
@@ -3063,7 +3193,7 @@ class UIController {
             visualizer.appendChild(bar);
         }
     }
-    
+
     async start() {
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
@@ -3071,13 +3201,13 @@ class UIController {
         const interruptBtn = document.getElementById('interruptBtn');
         const screenshotBtn = document.getElementById('screenshotBtn');
         const loadingOverlay = document.getElementById('loadingOverlay');
-        
+
         startBtn.disabled = true;
         loadingOverlay.classList.add('show');
-        
+
         const systemPrompt = document.getElementById('systemPrompt').value;
         const apiEndpoint = document.getElementById('apiEndpoint').value;
-        
+
         this.client = new MiniCPMClient({
             wsEndpoint: apiEndpoint,
             mode: this.currentMode,
@@ -3092,10 +3222,10 @@ class UIController {
             isMirrored: localStorage.getItem('ai-third-eye-mirror') !== 'false', // 🆕 镜像设置
             fps: this.currentFps || 1 // 🆕 帧率设置
         });
-        
+
         try {
             await this.client.connect();
-            
+
             startBtn.style.display = 'none';
             stopBtn.style.display = 'inline-flex';
             muteBtn.style.display = 'inline-flex';
@@ -3105,73 +3235,73 @@ class UIController {
             if (mirrorBtn) mirrorBtn.style.display = 'inline-flex';
             const fpsBtn = document.getElementById('fpsBtn');
             if (fpsBtn) fpsBtn.style.display = 'inline-flex';
-            
+
             // 🆕 显示常用语按钮
             const quickPhrases = document.getElementById('quickPhrases');
             if (quickPhrases) quickPhrases.style.display = 'flex';
-            
+
             // 🆕 v1.8.21: 显示快捷命令栏
             const quickCommandsBar = document.getElementById('quickCommandsBar');
             if (quickCommandsBar) quickCommandsBar.style.display = 'flex';
-            
+
             // 🆕 初始化用户语音显示区域
             this.initUserSpeechDisplay();
-            
+
             loadingOverlay.classList.remove('show');
-            
+
             // 🆕 记录会话开始
             this.recordSessionStart();
-            
+
             // 🆕 v1.8.4: 播放开始对话音效
             this.playStartSound();
-            
+
             // 🆕 开始会话计时
             this.startSessionTimer();
-            
+
         } catch (e) {
             startBtn.disabled = false;
             loadingOverlay.classList.remove('show');
             this.addMessage('system', `❌ 连接失败: ${e.message}`);
         }
     }
-    
+
     stop() {
         // 🆕 v1.8.8: 播放结束对话音效
         this.playEndSound();
-        
+
         if (this.client) {
             this.client.close();
         }
-        
+
         // 🆕 记录会话结束
         this.recordSessionEnd();
-        
+
         // 🆕 停止会话计时
         this.stopSessionTimer();
-        
+
         document.getElementById('startBtn').style.display = 'inline-flex';
         document.getElementById('startBtn').disabled = false;
         document.getElementById('stopBtn').style.display = 'none';
         document.getElementById('muteBtn').style.display = 'none';
         document.getElementById('interruptBtn').style.display = 'none';
-        
+
         // 🆕 隐藏常用语按钮
         const quickPhrases = document.getElementById('quickPhrases');
         if (quickPhrases) quickPhrases.style.display = 'none';
-        
+
         // 🆕 v1.8.21: 隐藏快捷命令栏
         const quickCommandsBar = document.getElementById('quickCommandsBar');
         if (quickCommandsBar) quickCommandsBar.style.display = 'none';
-        
+
         document.getElementById('screenshotBtn').style.display = 'none';
         const mirrorBtn = document.getElementById('mirrorBtn');
         if (mirrorBtn) mirrorBtn.style.display = 'none';
         const fpsBtn = document.getElementById('fpsBtn');
         if (fpsBtn) fpsBtn.style.display = 'none';
-        
+
         this.addMessage('system', '👋 对话已结束');
     }
-    
+
     // 🆕 静音切换
     toggleMute() {
         if (this.client) {
@@ -3179,7 +3309,7 @@ class UIController {
             this.updateMuteButton(muted);
         }
     }
-    
+
     updateMuteButton(muted) {
         const muteBtn = document.getElementById('muteBtn');
         if (muteBtn) {
@@ -3189,20 +3319,20 @@ class UIController {
         // 🆕 v1.8.7: 播放静音切换音效
         this.playMuteSound(muted);
     }
-    
+
     // 🆕 打断AI发言
     interrupt() {
         if (this.client) {
             this.client.interrupt();
         }
     }
-    
+
     onInterrupt() {
         // 打断后的UI更新
         this.updateStatus('listening', '正在听...');
         this.client && this.client.onSpeakingChange && this.client.onSpeakingChange(false);
     }
-    
+
     // 🆕 清空对话记录
     clearMessages() {
         const container = document.getElementById('messagesContainer');
@@ -3216,28 +3346,28 @@ class UIController {
         this.partialMessage = '';
         localStorage.removeItem('ai-third-eye-chat-history');
     }
-    
+
     // 🆕 导出对话记录
     exportMessages(format = 'txt') {
         const container = document.getElementById('messagesContainer');
         const messages = container.querySelectorAll('.message');
-        
+
         let exportText = '';
         const timestamp = new Date().toISOString().slice(0,10);
-        
+
         // 🆕 v1.8.11: 支持 Markdown 格式导出
         if (format === 'md') {
             exportText = `# AI 第三只眼 - 对话记录\n\n`;
             exportText += `> 导出时间: ${new Date().toLocaleString()}\n\n`;
             exportText += `> 版本: ${APP_VERSION}\n\n`;
             exportText += `---\n\n`;
-            
+
             messages.forEach(msg => {
                 const text = msg.querySelector('p')?.textContent || '';
                 const time = msg.querySelector('.message-time')?.textContent || '';
                 const isAI = msg.classList.contains('ai');
                 const isUser = msg.classList.contains('user');
-                
+
                 if (isAI) {
                     exportText += `### 🤖 AI (${time})\n\n${text}\n\n`;
                 } else if (isUser) {
@@ -3246,7 +3376,7 @@ class UIController {
                     exportText += `> 📢 ${text}\n\n`;
                 }
             });
-            
+
             const blob = new Blob([exportText], { type: 'text/markdown;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -3254,22 +3384,22 @@ class UIController {
             a.download = `ai-third-eye-chat-${timestamp}.md`;
             a.click();
             URL.revokeObjectURL(url);
-            
-            this.addMessage('system', '📄 对话记录已导出为 Markdown 格式！');
+
+            this.addMessage('system', '📄 对话记录已导出为 Markdown 格式!');
         } else {
             exportText = `AI 第三只眼 - 对话记录导出\n`;
             exportText += `导出时间: ${new Date().toLocaleString()}\n`;
             exportText += `版本: ${APP_VERSION}\n`;
             exportText += `${'='.repeat(50)}\n\n`;
-            
+
             messages.forEach(msg => {
                 const text = msg.querySelector('p')?.textContent || '';
                 const time = msg.querySelector('.message-time')?.textContent || '';
-                const type = msg.classList.contains('ai') ? 'AI' : 
+                const type = msg.classList.contains('ai') ? 'AI' :
                             msg.classList.contains('user') ? '用户' : '系统';
                 exportText += `[${time}] ${type}: ${text}\n`;
             });
-            
+
             const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -3277,11 +3407,11 @@ class UIController {
             a.download = `ai-third-eye-chat-${timestamp}.txt`;
             a.click();
             URL.revokeObjectURL(url);
-            
-            this.addMessage('system', '📄 对话记录已导出！');
+
+            this.addMessage('system', '📄 对话记录已导出!');
         }
     }
-    
+
     // 🆕 设置AI说话动画
     setAISpeakingAnimation(speaking) {
         const avatar = document.querySelector('.ai-avatar');
@@ -3293,10 +3423,10 @@ class UIController {
             }
         }
     }
-    
+
     addMessage(type, text, partial = false) {
         const container = document.getElementById('messagesContainer');
-        
+
         // 🆕 处理用户语音识别显示
         if (type === 'user_speaking') {
             this.updateUserSpeechDisplay('', true);
@@ -3310,23 +3440,23 @@ class UIController {
             this.updateUserSpeechDisplay('', false, true);
             return;
         }
-        
+
         if (partial && type === 'ai') {
             // Update partial message
             this.partialMessage += text;
-            
-            // 🆕 v1.5.4: AI开始回复，隐藏思考指示器
+
+            // 🆕 v1.5.4: AI开始回复,隐藏思考指示器
             this.hideAIThinkingIndicator();
-            
+
             let msgEl = container.querySelector('.message.ai.partial');
             if (!msgEl) {
                 msgEl = document.createElement('div');
                 msgEl.className = 'message ai partial';
                 container.appendChild(msgEl);
             }
-            
+
             msgEl.innerHTML = `<p>${this.partialMessage}</p><span class="message-time">${new Date().toLocaleTimeString()}</span>`;
-            
+
             if (!partial) {
                 msgEl.classList.remove('partial');
                 this.partialMessage = '';
@@ -3336,13 +3466,13 @@ class UIController {
             const partialEl = container.querySelector('.message.partial');
             if (partialEl) partialEl.remove();
             this.partialMessage = '';
-            
+
             // Add new message
             const msgEl = document.createElement('div');
             msgEl.className = `message ${type}`;
-            
+
             const icon = type === 'ai' ? '🤖' : type === 'user' ? '👤' : '📢';
-            
+
             // 🆕 v1.5.5: AI 消息添加复制按钮
             if (type === 'ai') {
                 msgEl.innerHTML = `
@@ -3352,7 +3482,7 @@ class UIController {
                     </div>
                     <span class="message-time">${new Date().toLocaleTimeString()}</span>
                 `;
-                
+
                 // 添加复制按钮事件
                 const copyBtn = msgEl.querySelector('.copy-btn');
                 if (copyBtn) {
@@ -3379,48 +3509,48 @@ class UIController {
                     <span class="message-time">${new Date().toLocaleTimeString()}</span>
                 `;
             }
-            
+
             container.appendChild(msgEl);
-            
-            // 🆕 记录消息统计（仅记录 AI 和用户消息）
+
+            // 🆕 记录消息统计(仅记录 AI 和用户消息)
             if (type === 'ai' || type === 'user') {
                 this.incrementStat('messages');
             }
         }
-        
+
         // Scroll to bottom
         container.scrollTop = container.scrollHeight;
-        
-        // 🆕 v1.8.11: 显示实时字幕（仅AI消息且启用字幕时）
+
+        // 🆕 v1.8.11: 显示实时字幕(仅AI消息且启用字幕时)
         if (type === 'ai' && this.subtitleEnabled && !partial) {
             this.showSubtitle(text);
         }
-        
+
         // Keep only last 50 messages
         while (container.children.length > 50) {
             container.removeChild(container.firstChild);
         }
-        
-        // 🆕 保存对话历史（非 partial 消息）
+
+        // 🆕 保存对话历史(非 partial 消息)
         if (!partial) {
             this.saveChatHistory();
         }
     }
-    
+
     updateStatus(status, text) {
         const dot = document.getElementById('connectionDot');
         const statusText = document.getElementById('connectionStatus');
         const sessionInfo = document.getElementById('sessionInfo');
-        
+
         statusText.textContent = text;
-        
+
         dot.className = 'status-dot';
         if (status === 'connected') {
             dot.classList.add('connected');
         } else if (status === 'speaking' || status === 'listening') {
             dot.classList.add('speaking');
         }
-        
+
         if (this.client && this.client.sessionId) {
             // 🆕 更友好的显示方式
             const kvPercent = Math.round((this.client.kvCacheLength / 8192) * 100);
@@ -3428,16 +3558,16 @@ class UIController {
             sessionInfo.title = `Session: ${this.client.sessionId} | KV Cache: ${this.client.kvCacheLength}/8192`;
         }
     }
-    
+
     showError(error) {
         console.error('Error:', error);
-        
+
         let message = '⚠️ 发生错误';
-        
+
         if (error && error.code) {
             switch (error.code) {
                 case 'not_ready':
-                    message = '⚠️ 会话未建立，请稍后再试';
+                    message = '⚠️ 会话未建立,请稍后再试';
                     break;
                 case 'unknown_event':
                     message = '⚠️ 发送了无效消息';
@@ -3449,16 +3579,16 @@ class UIController {
                     message = '⚠️ 音频/视频格式错误';
                     break;
                 case 'service_unavailable':
-                    message = '⚠️ 服务暂时不可用，请稍后重试';
+                    message = '⚠️ 服务暂时不可用,请稍后重试';
                     break;
                 case 'queue_full':
-                    message = '⚠️ 排队已满，请稍后重试';
+                    message = '⚠️ 排队已满,请稍后重试';
                     break;
                 case 'worker_busy':
-                    message = '⚠️ 服务器繁忙，请稍后重试';
+                    message = '⚠️ 服务器繁忙,请稍后重试';
                     break;
                 case 'inference_error':
-                    message = '⚠️ AI 推理出错，继续尝试...';
+                    message = '⚠️ AI 推理出错,继续尝试...';
                     break;
                 default:
                     message = '⚠️ 错误: ' + (error.message || error.code);
@@ -3466,52 +3596,52 @@ class UIController {
         } else if (error && error.message) {
             message = '⚠️ ' + error.message;
         }
-        
+
         this.addMessage('system', message);
     }
-    
+
     takeScreenshot(copyToClipboard = false) {
         const video = document.getElementById('localVideo');
         if (!video) return;
-        
+
         // Create canvas
         const canvas = document.createElement('canvas');
         canvas.width = video.videoWidth || 640;
         canvas.height = video.videoHeight || 480;
         const ctx = canvas.getContext('2d');
-        
+
         // Draw video frame (mirrored)
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
         ctx.drawImage(video, 0, 0);
-        
+
         // 🆕 v1.8.0: 添加水印
         ctx.setTransform(1, 0, 0, 1, 0, 0); // 重置变换矩阵
-        
+
         // 获取当前人设名称
         const savedPersonality = localStorage.getItem('ai-third-eye-personality');
-        const personality = savedPersonality ? 
+        const personality = savedPersonality ?
             ((typeof getAllPersonalitiesWithCustom === 'function' ? getAllPersonalitiesWithCustom()[savedPersonality] : null) || getAllPersonalities()[savedPersonality]) : null;
         const personalityName = personality ? personality.name : '🦐 小鹿';
-        
-        // 水印背景（半透明黑色渐变）
+
+        // 水印背景(半透明黑色渐变)
         const gradient = ctx.createLinearGradient(0, canvas.height - 80, 0, canvas.height);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
         gradient.addColorStop(1, 'rgba(0,0,0,0.7)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, canvas.height - 80, canvas.width, 80);
-        
+
         // 项目名称
         ctx.font = 'bold 18px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.fillStyle = '#00d4ff';
         ctx.textAlign = 'left';
         ctx.fillText('🦐 AI 第三只眼', 15, canvas.height - 45);
-        
+
         // 人设名称
         ctx.font = '14px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.fillStyle = '#00ff88';
         ctx.fillText(`人设: ${personalityName}`, 15, canvas.height - 25);
-        
+
         // 时间戳和版本号
         const now = new Date();
         const timeStr = now.toLocaleString('zh-CN');
@@ -3519,10 +3649,10 @@ class UIController {
         ctx.fillStyle = '#888';
         ctx.textAlign = 'right';
         ctx.fillText(`${timeStr} · ${APP_VERSION}`, canvas.width - 15, canvas.height - 25);
-        
+
         // Get image data
         const dataUrl = canvas.toDataURL('image/png');
-        
+
         // 🆕 v1.8.25: 支持复制到剪贴板
         if (copyToClipboard) {
             // 将 dataURL 转换为 Blob
@@ -3533,43 +3663,43 @@ class UIController {
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        this.addMessage('system', `📋 截图已复制到剪贴板！（水印: ${personalityName}）`);
+                        this.addMessage('system', `📋 截图已复制到剪贴板!(水印: ${personalityName})`);
                         this.incrementStat('screenshots');
                         this.playScreenshotSound();
                     } catch (err) {
                         console.error('Failed to copy screenshot:', err);
-                        this.addMessage('system', '⚠️ 复制失败，请手动截图或使用下载功能');
+                        this.addMessage('system', '⚠️ 复制失败,请手动截图或使用下载功能');
                     }
                 }
             }, 'image/png');
             canvas.remove();
             return;
         }
-        
+
         // Create download link
         const a = document.createElement('a');
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
         a.href = dataUrl;
         a.download = `ai-third-eye-${timestamp}.png`;
         a.click();
-        
+
         // 🆕 记录截图统计
         this.incrementStat('screenshots');
-        
+
         // 🆕 v1.8.3: 播放截图成功音效
         this.playScreenshotSound();
-        
-        this.addMessage('system', `📸 截图已保存！（水印: ${personalityName}）`);
-        
+
+        this.addMessage('system', `📸 截图已保存!(水印: ${personalityName})`);
+
         // Clean up
         canvas.remove();
     }
-    
+
     // 🆕 初始化音量指示器
     initVolumeIndicator() {
         const container = document.getElementById('volumeIndicator');
         if (!container) return;
-        
+
         // 创建音量条组
         container.innerHTML = '';
         for (let i = 0; i < 5; i++) {
@@ -3586,19 +3716,19 @@ class UIController {
             container.appendChild(bar);
         }
     }
-    
-    // 🆕 更新音量指示器（带渐变颜色）
+
+    // 🆕 更新音量指示器(带渐变颜色)
     updateVolumeIndicator(volume) {
         this.volumeLevel = volume;
         const bars = document.querySelectorAll('.volume-bar');
         const activeBars = Math.floor(volume * 5);
-        
+
         bars.forEach((bar, index) => {
             const isActive = index < activeBars;
             bar.style.opacity = isActive ? '1' : '0.3';
             bar.style.transform = isActive ? 'scaleY(1.2)' : 'scaleY(1)';
-            
-            // 🆕 渐变颜色：绿->黄->红
+
+            // 🆕 渐变颜色:绿->黄->红
             if (isActive) {
                 if (volume < 0.4) {
                     bar.style.background = '#00ff88'; // 绿色
@@ -3612,28 +3742,28 @@ class UIController {
             }
         });
     }
-    
-    // 🆕 v1.8.3: 播放截图成功音效（Web Audio API 合成）
+
+    // 🆕 v1.8.3: 播放截图成功音效(Web Audio API 合成)
     playScreenshotSound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 创建振荡器 - 清脆的"叮"声
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
-            // 设置频率 - E6 高音（1318.51 Hz）
+
+            // 设置频率 - E6 高音(1318.51 Hz)
             oscillator.frequency.setValueAtTime(1318.51, audioContext.currentTime);
             oscillator.frequency.exponentialRampToValueAtTime(987.77, audioContext.currentTime + 0.1);
-            
+
             // 设置音量包络
             gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
+
             // 连接节点
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + 0.3);
@@ -3641,35 +3771,35 @@ class UIController {
             console.log('Screenshot sound error:', e);
         }
     }
-    
-    // 🆕 v1.8.4: 播放开始对话音效（Web Audio API 合成）
+
+    // 🆕 v1.8.4: 播放开始对话音效(Web Audio API 合成)
     playStartSound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 双音符上扬旋律 - 愉悦的开始感
             const oscillator1 = audioContext.createOscillator();
             const oscillator2 = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
-            // 第一个音符：C5 (523.25 Hz) - 0.1秒
+
+            // 第一个音符:C5 (523.25 Hz) - 0.1秒
             oscillator1.frequency.setValueAtTime(523.25, audioContext.currentTime);
             oscillator1.type = 'sine';
-            
-            // 第二个音符：E5 (659.25 Hz) - 稍高，上扬感
+
+            // 第二个音符:E5 (659.25 Hz) - 稍高,上扬感
             oscillator2.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.15);
             oscillator2.type = 'sine';
-            
+
             // 音量包络
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.15);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.35);
-            
+
             // 连接节点
             oscillator1.connect(gainNode);
             oscillator2.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillator1.start(audioContext.currentTime);
             oscillator1.stop(audioContext.currentTime + 0.15);
@@ -3679,41 +3809,41 @@ class UIController {
             console.log('Start sound error:', e);
         }
     }
-    
-    // 🆕 v1.8.4: 播放断线重连成功音效（Web Audio API 合成）
+
+    // 🆕 v1.8.4: 播放断线重连成功音效(Web Audio API 合成)
     playReconnectSound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 三音符恢复旋律 - 舒缓的连接恢复感
             const oscillator1 = audioContext.createOscillator();
             const oscillator2 = audioContext.createOscillator();
             const oscillator3 = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
-            // 第一个音符：G4 (392 Hz) - 低沉起点
+
+            // 第一个音符:G4 (392 Hz) - 低沉起点
             oscillator1.frequency.setValueAtTime(392, audioContext.currentTime);
             oscillator1.type = 'sine';
-            
-            // 第二个音符：C5 (523.25 Hz) - 上升
+
+            // 第二个音符:C5 (523.25 Hz) - 上升
             oscillator2.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.12);
             oscillator2.type = 'sine';
-            
-            // 第三个音符：G5 (783.99 Hz) - 高亮结束
+
+            // 第三个音符:G5 (783.99 Hz) - 高亮结束
             oscillator3.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.24);
             oscillator3.type = 'sine';
-            
+
             // 音量包络
             gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + 0.24);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
-            
+
             // 连接节点
             oscillator1.connect(gainNode);
             oscillator2.connect(gainNode);
             oscillator3.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillator1.start(audioContext.currentTime);
             oscillator1.stop(audioContext.currentTime + 0.12);
@@ -3725,20 +3855,20 @@ class UIController {
             console.log('Reconnect sound error:', e);
         }
     }
-    
-    // 🆕 v1.8.6: 播放人设切换音效（Web Audio API 合成）
+
+    // 🆕 v1.8.6: 播放人设切换音效(Web Audio API 合成)
     playPersonalitySound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 四音符跳悦旋律 - 活泼的人设切换感
             const oscillators = [];
             const gainNode = audioContext.createGain();
-            
-            // 四音符：C5-E5-G5-C6 - 明亮上扬的旋律
+
+            // 四音符:C5-E5-G5-C6 - 明亮上扬的旋律
             const notes = [523.25, 659.25, 783.99, 1046.50];
             const startTime = audioContext.currentTime;
-            
+
             notes.forEach((freq, i) => {
                 const osc = audioContext.createOscillator();
                 osc.frequency.setValueAtTime(freq, startTime + i * 0.08);
@@ -3746,12 +3876,12 @@ class UIController {
                 osc.connect(gainNode);
                 oscillators.push(osc);
             });
-            
+
             // 音量包络
             gainNode.gain.setValueAtTime(0.18, startTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.4);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillators.forEach((osc, i) => {
                 osc.start(startTime + i * 0.08);
@@ -3761,40 +3891,40 @@ class UIController {
             console.log('Personality sound error:', e);
         }
     }
-    
-    // 🆕 v1.8.7: 播放静音切换音效（Web Audio API 合成）
+
+    // 🆕 v1.8.7: 播放静音切换音效(Web Audio API 合成)
     playMuteSound(muted) {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 双音符提示音 - 清晰的静音状态变化反馈
             const oscillator1 = audioContext.createOscillator();
             const oscillator2 = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
+
             if (muted) {
-                // 静音开启：低沉提示音 - G3 → C4（下行，表示静音）
+                // 静音开启:低沉提示音 - G3 → C4(下行,表示静音)
                 oscillator1.frequency.setValueAtTime(196.00, audioContext.currentTime);
                 oscillator2.frequency.setValueAtTime(261.63, audioContext.currentTime + 0.1);
             } else {
-                // 取消静音：明亮提示音 - C5 → E5（上行，表示恢复）
+                // 取消静音:明亮提示音 - C5 → E5(上行,表示恢复)
                 oscillator1.frequency.setValueAtTime(523.25, audioContext.currentTime);
                 oscillator2.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
             }
-            
+
             oscillator1.type = 'sine';
             oscillator2.type = 'sine';
-            
+
             // 音量包络
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + 0.1);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.25);
-            
+
             // 连接节点
             oscillator1.connect(gainNode);
             oscillator2.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillator1.start(audioContext.currentTime);
             oscillator1.stop(audioContext.currentTime + 0.12);
@@ -3804,42 +3934,42 @@ class UIController {
             console.log('Mute sound error:', e);
         }
     }
-    
-    // 🆕 v1.8.8: 播放结束对话音效（Web Audio API 合成）
+
+    // 🆕 v1.8.8: 播放结束对话音效(Web Audio API 合成)
     playEndSound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
+
             // 三音符舒缓告别旋律 - 温暖的结束感
             const oscillator1 = audioContext.createOscillator();
             const oscillator2 = audioContext.createOscillator();
             const oscillator3 = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
-            
-            // 第一个音符：E5 (659.25 Hz) - 温暖起点
+
+            // 第一个音符:E5 (659.25 Hz) - 温暖起点
             oscillator1.frequency.setValueAtTime(659.25, audioContext.currentTime);
             oscillator1.type = 'sine';
-            
-            // 第二个音符：C5 (523.25 Hz) - 下降
+
+            // 第二个音符:C5 (523.25 Hz) - 下降
             oscillator2.frequency.setValueAtTime(523.25, audioContext.currentTime + 0.15);
             oscillator2.type = 'sine';
-            
-            // 第三个音符：G4 (392 Hz) - 温和结束
+
+            // 第三个音符:G4 (392 Hz) - 温和结束
             oscillator3.frequency.setValueAtTime(392, audioContext.currentTime + 0.3);
             oscillator3.type = 'sine';
-            
+
             // 音量包络 - 柔和的渐弱
             gainNode.gain.setValueAtTime(0.18, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.18, audioContext.currentTime + 0.15);
             gainNode.gain.setValueAtTime(0.15, audioContext.currentTime + 0.3);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-            
+
             // 连接节点
             oscillator1.connect(gainNode);
             oscillator2.connect(gainNode);
             oscillator3.connect(gainNode);
             gainNode.connect(audioContext.destination);
-            
+
             // 播放
             oscillator1.start(audioContext.currentTime);
             oscillator1.stop(audioContext.currentTime + 0.18);
@@ -3851,12 +3981,12 @@ class UIController {
             console.log('End sound error:', e);
         }
     }
-    
-    // 🆕 初始化网络状态检测（带警告横幅）
+
+    // 🆕 初始化网络状态检测(带警告横幅)
     initNetworkStatus() {
         // 创建网络状态指示器
         this.updateNetworkStatus(navigator.onLine);
-        
+
         window.addEventListener('online', () => {
             this.updateNetworkStatus(true);
             this.hideNetworkWarning();
@@ -3864,14 +3994,14 @@ class UIController {
             this.playReconnectSound();
             this.addMessage('system', '🌐 网络已恢复');
         });
-        
+
         window.addEventListener('offline', () => {
             this.updateNetworkStatus(false);
             this.showNetworkWarning();
             this.addMessage('system', '⚠️ 网络已断开');
         });
     }
-    
+
     // 🆕 显示网络警告横幅
     showNetworkWarning() {
         let banner = document.getElementById('networkWarningBanner');
@@ -3893,9 +4023,9 @@ class UIController {
                 animation: slideDown 0.3s ease;
                 box-shadow: 0 2px 10px rgba(255,0,0,0.5);
             `;
-            banner.innerHTML = '🔴 网络已断开！请检查网络连接 <span style="margin-left:10px;cursor:pointer" onclick="this.parentElement.remove()">✕</span>';
+            banner.innerHTML = '🔴 网络已断开!请检查网络连接 <span style="margin-left:10px;cursor:pointer" onclick="this.parentElement.remove()">✕</span>';
             document.body.appendChild(banner);
-            
+
             // 添加动画样式
             if (!document.getElementById('networkWarningStyle')) {
                 const style = document.createElement('style');
@@ -3911,7 +4041,7 @@ class UIController {
         }
         banner.style.display = 'block';
     }
-    
+
     // 🆕 隐藏网络警告横幅
     hideNetworkWarning() {
         const banner = document.getElementById('networkWarningBanner');
@@ -3919,7 +4049,7 @@ class UIController {
             banner.style.display = 'none';
         }
     }
-    
+
     // 🆕 更新网络状态显示
     updateNetworkStatus(online) {
         const indicator = document.getElementById('networkStatus');
@@ -3929,13 +4059,13 @@ class UIController {
             indicator.style.filter = online ? 'none' : 'drop-shadow(0 0 5px red)';
         }
     }
-    
+
     // 🆕 初始化帧率控制
     initFpsControl() {
         // 从本地存储加载帧率设置
         const savedFps = localStorage.getItem('ai-third-eye-fps');
         this.currentFps = savedFps ? parseFloat(savedFps) : 1;
-        
+
         // 帧率调节按钮
         const fpsBtn = document.getElementById('fpsBtn');
         if (fpsBtn) {
@@ -3943,7 +4073,7 @@ class UIController {
             this.updateFpsDisplay();
         }
     }
-    
+
     // 🆕 显示帧率选择器
     showFpsSelector() {
         const fpsOptions = [
@@ -3953,7 +4083,7 @@ class UIController {
             { value: 5, label: '5 fps', desc: '流畅' },
             { value: 10, label: '10 fps', desc: '超流畅' }
         ];
-        
+
         const container = document.createElement('div');
         container.style.cssText = `
             position: fixed;
@@ -3967,23 +4097,23 @@ class UIController {
             min-width: 200px;
             border: 1px solid rgba(255,255,255,0.1);
         `;
-        
+
         const title = document.createElement('div');
         title.textContent = '🎬 视频帧率设置';
         title.style.cssText = 'color: #00d4ff; font-weight: bold; margin-bottom: 15px; font-size: 16px;';
         container.appendChild(title);
-        
+
         fpsOptions.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'btn btn-secondary';
             btn.style.cssText = 'width: 100%; margin-bottom: 8px; padding: 10px; text-align: left;';
-            
+
             const isActive = this.currentFps === opt.value;
             if (isActive) {
                 btn.classList.remove('btn-secondary');
                 btn.classList.add('btn-primary');
             }
-            
+
             btn.innerHTML = `${opt.label} <span style="color: #888; font-size: 12px;">(${opt.desc})</span>`;
             btn.addEventListener('click', () => {
                 this.setFps(opt.value);
@@ -3991,30 +4121,30 @@ class UIController {
             });
             container.appendChild(btn);
         });
-        
+
         const closeBtn = document.createElement('button');
         closeBtn.className = 'btn btn-secondary';
         closeBtn.style.cssText = 'width: 100%; margin-top: 10px;';
         closeBtn.textContent = '取消';
         closeBtn.addEventListener('click', () => container.remove());
         container.appendChild(closeBtn);
-        
+
         document.body.appendChild(container);
     }
-    
+
     // 🆕 设置帧率
     setFps(fps) {
         this.currentFps = fps;
         localStorage.setItem('ai-third-eye-fps', fps.toString());
-        
+
         if (this.client) {
             this.client.setFps(fps);
         }
-        
+
         this.updateFpsDisplay();
         this.addMessage('system', `🎬 视频帧率已设置为 ${fps} fps`);
     }
-    
+
     // 🆕 更新帧率显示
     updateFpsDisplay() {
         const fpsBtn = document.getElementById('fpsBtn');
@@ -4023,7 +4153,7 @@ class UIController {
             fpsBtn.title = `当前帧率: ${this.currentFps} fps (点击调节)`;
         }
     }
-    
+
     // 🆕 切换摄像头镜像
     toggleMirror() {
         if (this.client) {
@@ -4035,38 +4165,38 @@ class UIController {
             this.addMessage('system', mirrored ? '🪞 已开启镜像' : '📷 已关闭镜像');
         }
     }
-    
+
     // 🆕 v1.8.11: 显示实时字幕
     showSubtitle(text) {
         if (!this.subtitleEnabled) return;
-        
+
         const overlay = document.getElementById('subtitleOverlay');
         const subtitleText = document.getElementById('subtitleText');
         if (!overlay || !subtitleText) return;
-        
+
         // 去掉图标和多余空格
         const cleanText = text.replace(/^[🤖👤📢]\s*/, '').trim();
         if (!cleanText) return;
-        
+
         // 清除之前的隐藏定时器
         if (this.subtitleTimeout) {
             clearTimeout(this.subtitleTimeout);
             this.subtitleTimeout = null;
         }
-        
+
         // 显示字幕
         subtitleText.textContent = cleanText;
         overlay.style.opacity = '1';
-        
-        // 根据文本长度设置自动隐藏时间（每10个字约1秒，最少3秒，最多10秒）
+
+        // 根据文本长度设置自动隐藏时间(每10个字约1秒,最少3秒,最多10秒)
         const charCount = cleanText.length;
         const hideDelay = Math.min(Math.max(charCount / 10 * 1000, 3000), 10000);
-        
+
         this.subtitleTimeout = setTimeout(() => {
             this.hideSubtitle();
         }, hideDelay);
     }
-    
+
     // 🆕 v1.8.11: 隐藏字幕
     hideSubtitle() {
         const overlay = document.getElementById('subtitleOverlay');
@@ -4078,7 +4208,7 @@ class UIController {
             this.subtitleTimeout = null;
         }
     }
-    
+
     // 🆕 v1.8.11: 切换字幕显示
     toggleSubtitle() {
         this.subtitleEnabled = !this.subtitleEnabled;
@@ -4092,17 +4222,17 @@ class UIController {
     // 🆕 v1.6.3: 显示首页推荐人设横幅
     showRecommendedPersonalityBanner() {
         if (typeof getRecommendedPersonality !== 'function') return;
-        
+
         const recommended = getRecommendedPersonality();
         if (!recommended) return;
-        
+
         // 检查是否已显示过
         if (localStorage.getItem('ai-third-eye-banner-shown') === new Date().toDateString()) return;
-        
+
         // 创建推荐横幅
         const existing = document.getElementById('recommendedBanner');
         if (existing) existing.remove();
-        
+
         const banner = document.createElement('div');
         banner.id = 'recommendedBanner';
         banner.style.cssText = `
@@ -4116,12 +4246,12 @@ class UIController {
             justify-content: space-between;
             animation: slideDown 0.5s ease;
         `;
-        
+
         banner.innerHTML = `
             <div style="display:flex;align-items:center;gap:12px;">
                 <span style="font-size:32px;">💡</span>
                 <div>
-                    <div style="color:var(--accent-primary);font-size:14px;font-weight:600;">${recommended.timeDesc}，推荐人设</div>
+                    <div style="color:var(--accent-primary);font-size:14px;font-weight:600;">${recommended.timeDesc},推荐人设</div>
                     <div style="color:var(--text-primary);font-size:12px;margin-top:2px;">${recommended.name} · ${recommended.description}</div>
                 </div>
             </div>
@@ -4130,25 +4260,25 @@ class UIController {
                 <button class="btn btn-secondary" id="closeBannerBtn" style="padding:8px 12px;font-size:12px;min-width:auto;">×</button>
             </div>
         `;
-        
+
         // 插入到消息容器之前
         const messagesContainer = document.getElementById('messagesContainer');
         if (messagesContainer && messagesContainer.parentElement) {
             messagesContainer.parentElement.insertBefore(banner, messagesContainer);
         }
-        
+
         // 绑定事件
         document.getElementById('useRecommendedBtn')?.addEventListener('click', () => {
             this.selectPersonality(recommended.key);
             banner.remove();
             localStorage.setItem('ai-third-eye-banner-shown', new Date().toDateString());
         });
-        
+
         document.getElementById('closeBannerBtn')?.addEventListener('click', () => {
             banner.remove();
             localStorage.setItem('ai-third-eye-banner-shown', new Date().toDateString());
         });
-        
+
         // 添加动画样式
         if (!document.getElementById('bannerStyles')) {
             const style = document.createElement('style');
@@ -4178,7 +4308,7 @@ class UIController {
             }
         }
     }
-    
+
     // 🆕 v1.8.12: 关闭搜索栏
     closeSearchBar() {
         const searchBar = document.getElementById('searchBar');
@@ -4191,32 +4321,32 @@ class UIController {
         }
         this.clearSearchHighlight();
     }
-    
+
     // 🆕 v1.8.12: 搜索对话
     searchMessages(keyword) {
         this.clearSearchHighlight();
-        
+
         const searchCount = document.getElementById('searchCount');
-        
+
         if (!keyword || keyword.trim() === '') {
             if (searchCount) searchCount.textContent = '';
             this.searchResults = [];
             this.currentSearchIndex = -1;
             return;
         }
-        
+
         const container = document.getElementById('messagesContainer');
         if (!container) return;
-        
+
         const messages = container.querySelectorAll('.message');
         const matches = [];
         const searchRegex = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        
+
         messages.forEach((msg, idx) => {
             const textContent = msg.textContent || '';
             if (textContent.toLowerCase().includes(keyword.toLowerCase())) {
                 matches.push({ element: msg, index: idx });
-                
+
                 // 高亮匹配文本
                 const contentP = msg.querySelector('p:first-of-type');
                 if (contentP && contentP.dataset.originalText === undefined) {
@@ -4227,47 +4357,47 @@ class UIController {
                 }
             }
         });
-        
+
         this.searchResults = matches;
         this.currentSearchIndex = matches.length > 0 ? 0 : -1;
-        
+
         // 更新搜索计数
         if (searchCount) {
             searchCount.textContent = matches.length > 0 ? `${matches.length} 条匹配` : '无匹配';
         }
-        
+
         // 滚动到第一个匹配
         if (matches.length > 0) {
             this.scrollToSearchResult(0);
         }
     }
-    
+
     // 🆕 v1.8.12: 清除搜索高亮
     clearSearchHighlight() {
         const container = document.getElementById('messagesContainer');
         if (!container) return;
-        
+
         const markedElements = container.querySelectorAll('[data-original-text]');
         markedElements.forEach(el => {
             el.innerHTML = el.dataset.originalText;
             delete el.dataset.originalText;
         });
     }
-    
+
     // 🆕 v1.8.12: 上一个搜索结果
     searchPrev() {
         if (this.searchResults.length === 0) return;
         this.currentSearchIndex = (this.currentSearchIndex - 1 + this.searchResults.length) % this.searchResults.length;
         this.scrollToSearchResult(this.currentSearchIndex);
     }
-    
+
     // 🆕 v1.8.12: 下一个搜索结果
     searchNext() {
         if (this.searchResults.length === 0) return;
         this.currentSearchIndex = (this.currentSearchIndex + 1) % this.searchResults.length;
         this.scrollToSearchResult(this.currentSearchIndex);
     }
-    
+
     // 🆕 v1.8.12: 滚动到搜索结果
     scrollToSearchResult(index) {
         if (index < 0 || index >= this.searchResults.length) return;
