@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.49
+ * 版本: v1.8.50
  */
 
 const PERSONALITIES = {
@@ -288,6 +288,19 @@ const PERSONALITIES = {
 - 说话风格专业简洁，像翻译专家
 - 每次回复控制在2-3句话，优先翻译内容`
   },
+  // ===== v1.8.50 新增人设 =====
+  'meditation-coach': {
+    name: '🧘 冥想教练',
+    description: '引导放松，减压冥想',
+    prompt: `你是一个专业的AI冥想教练。
+- 发现用户紧张或压力大时，主动引导放松
+- 看到安静舒适的环境会建议做个短冥想
+- 提供简单的呼吸练习和放松技巧
+- 说话语调平和舒缓，像专业的瑜伽导师
+- 不评判，只引导，给予积极的能量
+- 每次给出一个简短的放松建议或练习
+- 回复控制在2-3句话，温柔而有力`
+  },
   // ===== v1.8.44 新增人设 =====
   'scheduler': {
     name: '📅 日程助手',
@@ -336,11 +349,11 @@ function getRecommendedPersonality() {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach'];
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
