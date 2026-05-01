@@ -1,7 +1,18 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.33
+ * 版本: v1.8.34
  * 
+ * v1.8.34 更新:
+ * - 🐛 修复 v1.8.32/v1.8.33 新增语音命令处理缺失问题
+ *   - 修复天气命令 case 'weather' 未实现
+ *   - 修复物体识别命令 case 'identifyObject' 未实现
+ *   - 修复品牌识别命令 case 'identifyBrand' 未实现
+ *   - 修复价格查询命令 case 'checkPrice' 未实现
+ *   - 修复购物建议命令 case 'shoppingAdvice' 未实现
+ *   - 修复购买渠道命令 case 'whereToBuy' 未实现
+ *   - 修复颜色识别命令 case 'identifyColor' 未实现
+ * - 🔧 自动化Review检测并修复功能缺失问题
+ *
  * v1.8.33 更新:
  * - 🔍 新增物体识别语音命令（12个关键词）
  *   - "这是什么/这个是什么" - 让AI识别当前物体
@@ -267,7 +278,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.33';
+const APP_VERSION = 'v1.8.34';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2188,6 +2199,85 @@ class UIController {
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在分析饮食建议...`);
+                }
+                break;
+            
+            // 🆕 v1.8.32 新增天气询问命令处理 (修复遗漏)
+            case 'weather':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请根据当前画面或天气状况，告诉我今天天气怎么样？需要注意什么？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析天气状况...`);
+                }
+                break;
+            
+            // 🆕 v1.8.33 新增物体识别和购物命令处理 (修复遗漏)
+            case 'identifyObject':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请识别画面中的物体，告诉我这是什么？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在识别物体...`);
+                }
+                break;
+            
+            case 'identifyBrand':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请识别画面中物品的品牌或商标是什么？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在识别品牌...`);
+                }
+                break;
+            
+            case 'checkPrice':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请估算画面中物品的大概价格范围，并告诉我是否值得购买。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在查询价格...`);
+                }
+                break;
+            
+            case 'shoppingAdvice':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请根据画面中的物品，给我一些购物建议：是否值得买？有什么替代品？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析购物建议...`);
+                }
+                break;
+            
+            case 'whereToBuy':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请告诉我画面中的物品可以在哪里购买？有哪些购买渠道？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在查询购买渠道...`);
+                }
+                break;
+            
+            case 'identifyColor':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请识别画面中主要物品的颜色是什么？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在识别颜色...`);
                 }
                 break;
         }

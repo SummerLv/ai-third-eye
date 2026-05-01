@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.34] - 2026-05-01
+
+### Fixed
+- 🐛 修复 v1.8.32/v1.8.33 新增语音命令处理缺失问题
+  - 修复天气命令 `case 'weather'` 未实现
+  - 修复物体识别命令 `case 'identifyObject'` 未实现
+  - 修复品牌识别命令 `case 'identifyBrand'` 未实现
+  - 修复价格查询命令 `case 'checkPrice'` 未实现
+  - 修复购物建议命令 `case 'shoppingAdvice'` 未实现
+  - 修复购买渠道命令 `case 'whereToBuy'` 未实现
+  - 修复颜色识别命令 `case 'identifyColor'` 未实现
+- 🔧 自动化Review检测并修复功能缺失问题
+
+---
+
 ## [v1.8.33] - 2026-05-01
 
 ### Added
