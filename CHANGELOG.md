@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.35] - 2026-05-01
+
+### Fixed
+- 🐛 自动化Review修复 sw.js 头部版本注释不一致
+- 🔧 同步所有文件版本号至 v1.8.35
+
+---
+
 ## [v1.8.34] - 2026-05-01
 
 ### Fixed
