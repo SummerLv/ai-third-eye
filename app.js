@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.51
+ * 版本: v1.8.52
+ *
+ * v1.8.52 更新:
+ * - 📖 新增「阅读助手」人设 - 辅助阅读，文字讲解
+ * - 🎤 新增阅读辅助语音命令(5个关键词): 帮我读/念出来/怎么读/这个字/读一下
+ * - 🎭 人设总数扩展至 28 种
+ * - 🔄 智能推荐增加阅读助手（早上和下午时段）
+ * - 📊 语音命令关键词扩展至 146 个
  *
  * v1.8.51 更新:
  * - 🎮 新增「游戏助手」人设 - 游戏攻略，技巧指导
@@ -341,7 +348,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.51';
+const APP_VERSION = 'v1.8.52';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1098,6 +1105,12 @@ class UIController {
             '还有多久': { action: 'countdown', desc: '时间倒计时', icon: '⏳' },
             '日程': { action: 'showSchedule', desc: '查看日程', icon: '📋' },
             '待办': { action: 'showTodos', desc: '待办事项', icon: '✅' },
+            // ===== v1.8.52 新增阅读辅助语音命令 =====
+            '帮我读': { action: 'readForMe', desc: '朗读文字', icon: '📖' },
+            '念出来': { action: 'readForMe', desc: '朗读文字', icon: '📖' },
+            '怎么读': { action: 'howToRead', desc: '发音指导', icon: '🗣️' },
+            '这个字': { action: 'explainWord', desc: '解释字词', icon: '📝' },
+            '读一下': { action: 'readForMe', desc: '朗读文字', icon: '📖' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1730,7 +1743,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">27种人设 | 141个语音命令</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">28种人设 | 146个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
@@ -2588,6 +2601,40 @@ class UIController {
                     const msg = {
                         type: 'input_text',
                         text: '用户想查看待办事项列表。请帮助用户回顾未完成的任务，并提供完成建议。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            // ===== v1.8.52 新增阅读辅助命令 =====
+            case 'readForMe':
+                this.addMessage('system', `${icon} 好的，让我看看画面中的文字...`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮用户朗读画面中看到的文字内容，用清晰自然的语调读出来。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'howToRead':
+                this.addMessage('system', `${icon} 让我看看这是什么字...`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想知道画面中某个字或词的发音。请识别画面中的文字，并告诉用户正确的读音和拼音。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'explainWord':
+                this.addMessage('system', `${icon} 让我帮你解释这个字...`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想了解画面中某个字或词的含义。请识别画面中的文字，解释字词的意思、用法，必要时可以举例说明。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }

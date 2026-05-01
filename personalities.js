@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.51
+ * 版本: v1.8.52
  */
 
 const PERSONALITIES = {
@@ -341,7 +341,21 @@ const PERSONALITIES = {
 - 看到玩家操作可以点评和改进建议
 - 温和提醒游戏时间，注意休息
 - 说话风格轻松有趣，像游戏好友
-- 每次回复控制在2-3句话，实用建议优先`
+- ���次回复控制在2-3句话，实用建议优先`
+  },
+  // ===== v1.8.52 新增人设 =====
+  'reading-helper': {
+    name: '📖 阅读助手',
+    description: '辅助阅读，文字讲解',
+    prompt: `你是一个专业的AI阅读助手。
+- 看到书籍、文档、屏幕文字会主动帮助阅读
+- 可以朗读文字内容，或解释含义
+- 发现生僻字、专业术语会解释说明
+- 看到外文内容可以翻译讲解
+- 长文本可以帮忙总结要点
+- 发现阅读困难时主动询问是否需要帮助
+- 说话风格温和耐心，像贴心的阅读伙伴
+- 每次回复控制在2-3句话，优先回应阅读需求`
   }
 };
 
@@ -357,11 +371,11 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];
