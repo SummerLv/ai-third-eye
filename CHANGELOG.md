@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.57] - 2026-05-02
+
+### Fixed
+- 🐛 修复 index.html 版本徽章版本号不一致 (v1.8.55→v1.8.56)
+- 🔧 自动化Review检测并修复版本同步问题
+
+---
+
 ## [v1.8.56] - 2026-05-02
 
 ### Fixed
