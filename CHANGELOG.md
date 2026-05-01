@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.50] - 2026-05-01
+
+### Added
+- 🧘 新增「冥想教练」人设 - 引导放松，减压冥想
+- 📊 人设总数扩展至 26 种
+- 🔄 深夜时段智能推荐增加冥想教练
+
+---
+
 ## [v1.8.49] - 2026-05-01
 
 ### Fixed
