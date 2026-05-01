@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.63] - 2026-05-02
+
+### Added
+- 💰 新增「理财顾问」人设 - 投资建议、理财规划、财务分析
+- 🎭 人设总数扩展至 31 种
+- 🔄 智能推荐增加理财顾问（下午和深夜时段）
+
+---
+
 ## [v1.8.62] - 2026-05-02
 
 ### Fixed

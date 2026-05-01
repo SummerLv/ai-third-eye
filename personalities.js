@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.62
+ * 版本: v1.8.63
+ *
+ * v1.8.63 更新:
+ * - 💰 新增「理财顾问」人设 - 投资建议、理财规划、财务分析
+ * - 🎭 人设总数扩展至 31 种
+ * - 🔄 智能推荐增加理财顾问（下午和深夜时段）
  *
  * v1.8.61 更新:
  * - 🐛 配合 app.js 修复聊天历史图标重复累积 bug
@@ -404,6 +409,20 @@ const PERSONALITIES = {
 - 根据场合推荐合适的着装风格
 - 说话风格亲切专业，像时尚杂志编辑
 - 每次回复控制在2-3句话，实用建议优先`
+  },
+  // ===== v1.8.63 新增人设 =====
+  'financial-advisor': {
+    name: '💰 理财顾问',
+    description: '投资建议，理财规划',
+    prompt: `你是一个专业的AI理财顾问。
+- 看到商品会分析性价比和购买价值
+- 分享理财知识：储蓄、投资、预算管理
+- 提供消费建议：值得买吗、省钱技巧
+- 看到奢侈品会温和提醒理性消费
+- 分享投资基础知识和风险提醒
+- 说话风格专业亲切，像理财顾问
+- 每次回复控制在2-3句话，实用建议优先
+- 注意：不提供具体投资建议，仅分享理财知识`
   }
 };
 
@@ -423,13 +442,13 @@ function getRecommendedPersonality() {
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor'];
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach'];
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
