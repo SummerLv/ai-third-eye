@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.42
+ * 版本: v1.8.43
+ *
+ * v1.8.43 更新:
+ * - 🏃 新增「运动打卡」语音命令 - 打卡/健身打卡/运动打卡
+ * - 🎉 新增「完成运动」语音命令 - 完成了/做完了/练完了
+ * - 🎯 新增「查看目标」语音命令 - 今天目标/运动目标
+ * - 📊 语音命令关键词扩展至 134 个
+ * - 🔥 增强健身教练人设互动体验，支持连续打卡统计
  *
  * v1.8.42 更新:
  * - 🐛 修复语音命令对象末尾缺少逗号导致 JavaScript 语法错误
@@ -293,7 +300,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.42';
+const APP_VERSION = 'v1.8.43';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1032,6 +1039,15 @@ class UIController {
             '超预算了吗': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
             '账单': { action: 'showBills', desc: '查看账单', icon: '📋' },
             '开支情况': { action: 'showBills', desc: '查看账单', icon: '📋' },
+            // ===== v1.8.43 新增运动打卡语音命令 =====
+            '打卡': { action: 'checkIn', desc: '运动打卡', icon: '✅' },
+            '健身打卡': { action: 'checkIn', desc: '运动打卡', icon: '✅' },
+            '运动打卡': { action: 'checkIn', desc: '运动打卡', icon: '✅' },
+            '完成了': { action: 'workoutComplete', desc: '完成运动', icon: '🎉' },
+            '做完了': { action: 'workoutComplete', desc: '完成运动', icon: '🎉' },
+            '练完了': { action: 'workoutComplete', desc: '完成运动', icon: '🎉' },
+            '今天目标': { action: 'todayGoal', desc: '查看目标', icon: '🎯' },
+            '运动目标': { action: 'todayGoal', desc: '查看目标', icon: '🎯' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -2360,7 +2376,104 @@ class UIController {
                     this.addMessage('system', `${icon} 正在比较价格...`);
                 }
                 break;
+            
+            // 🆕 v1.8.43: 新增运动打卡语音命令处理
+            case 'checkIn':
+                // 记录打卡时间到本地存储
+                const checkInData = JSON.parse(localStorage.getItem('ai-third-eye-fitness-checkins') || '[]');
+                const now = new Date();
+                const today = now.toDateString();
+                const existingToday = checkInData.find(c => new Date(c.time).toDateString() === today);
+                
+                if (existingToday) {
+                    this.addMessage('system', `${icon} 今天已经打卡过了！继续保持！💪`);
+                } else {
+                    checkInData.push({ time: now.toISOString(), type: 'workout' });
+                    localStorage.setItem('ai-third-eye-fitness-checkins', JSON.stringify(checkInData));
+                    const streak = this.calculateStreak(checkInData);
+                    this.addMessage('system', `${icon} 打卡成功！已连续运动 ${streak} 天！🏆`);
+                }
+                
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户完成运动打卡！请用热情的语气鼓励用户，并询问今天练了什么。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'workoutComplete':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户完成了今天的运动！请给予热情的鼓励和祝贺，让用户感到成就感！'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 太棒了！今天的运动完成了！`);
+                }
+                break;
+            
+            case 'todayGoal':
+                const goals = JSON.parse(localStorage.getItem('ai-third-eye-fitness-goals') || 'null');
+                if (goals && goals.todayGoal) {
+                    this.addMessage('system', `${icon} 今日目标：${goals.todayGoal}`);
+                    if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                        const msg = {
+                            type: 'input_text',
+                            text: `用户的今日运动目标是：${goals.todayGoal}。请鼓励用户继续努力！`
+                        };
+                        this.client.ws.send(JSON.stringify(msg));
+                    }
+                } else {
+                    this.addMessage('system', `${icon} 还没设置今日目标，说"我要做XX"来设置吧！`);
+                    if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                        const msg = {
+                            type: 'input_text',
+                            text: '用户还没设置今日运动目标。请询问用户今天想练什么，帮助用户设定一个小目标。'
+                        };
+                        this.client.ws.send(JSON.stringify(msg));
+                    }
+                }
+                break;
         }
+    }
+    
+    // 🆕 v1.8.43: 计算连续打卡天数
+    calculateStreak(checkInData) {
+        if (!checkInData || checkInData.length === 0) return 0;
+        
+        // 按时间排序
+        const sorted = checkInData
+            .map(c => new Date(c.time))
+            .sort((a, b) => b - a);
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        let streak = 0;
+        let checkDate = today;
+        
+        for (let i = 0; i < sorted.length; i++) {
+            const date = new Date(sorted[i]);
+            date.setHours(0, 0, 0, 0);
+            
+            const diffDays = Math.floor((checkDate - date) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                streak++;
+                checkDate = new Date(checkDate.getTime() - 24 * 60 * 60 * 1000);
+            } else if (diffDays === 1) {
+                // 昨天也打卡了，继续计算
+                streak++;
+                checkDate = new Date(checkDate.getTime() - 24 * 60 * 60 * 1000);
+            } else {
+                // 断了
+                break;
+            }
+        }
+        
+        return streak;
     }
     
     // 🆕 显示语音命令帮助
