@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.45] - 2026-05-01
+
+### Fixed
+- 🐛 修复关于面板人设数量显示错误（24→25, 126→142）
+- 🔧 自动化Review检测并修复信息展示不一致
+
+---
+
 ## [v1.8.44] - 2026-05-01
 
 ### Added
