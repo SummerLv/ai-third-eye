@@ -1,7 +1,17 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.32
+ * 版本: v1.8.33
  * 
+ * v1.8.33 更新:
+ * - 🔍 新增物体识别语音命令（12个关键词）
+ *   - "这是什么/这个是什么" - 让AI识别当前物体
+ *   - "什么牌子/什么品牌" - AI识别商品品牌
+ *   - "多少钱/贵不贵/便宜吗" - AI查询价格信息
+ *   - "值得买吗/划算吗/买不买" - AI给出购物建议
+ *   - "哪里买的/哪里有卖" - AI查找购买渠道
+ *   - "颜色是什么/什么颜色" - AI识别物体颜色
+ * - 📊 语音命令关键词扩展至 116 个
+ *
  * v1.8.32 更新:
  * - 🌤️ 新增天气询问语音命令（8个关键词）
  *   - "天气怎么样/今天天气/天气如何/什么天气" - 让AI观察并描述天气
@@ -257,7 +267,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.32';
+const APP_VERSION = 'v1.8.33';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -971,7 +981,22 @@ class UIController {
             '会下雨吗': { action: 'weather', desc: '询问天气', icon: '🌧️' },
             '要下雨吗': { action: 'weather', desc: '询问天气', icon: '🌧️' },
             '会出太阳吗': { action: 'weather', desc: '询问天气', icon: '☀️' },
-            '看起来天气': { action: 'weather', desc: '询问天气', icon: '🌤️' }
+            '看起来天气': { action: 'weather', desc: '询问天气', icon: '🌤️' },
+            // 🆕 v1.8.33: 新增物体识别和购物语音命令
+            '这是什么': { action: 'identifyObject', desc: '识别物体', icon: '🔍' },
+            '这个是什么': { action: 'identifyObject', desc: '识别物体', icon: '🔍' },
+            '什么牌子': { action: 'identifyBrand', desc: '识别品牌', icon: '🏷️' },
+            '什么品牌': { action: 'identifyBrand', desc: '识别品牌', icon: '🏷️' },
+            '多少钱': { action: 'checkPrice', desc: '查询价格', icon: '💰' },
+            '贵不贵': { action: 'checkPrice', desc: '查询价格', icon: '💰' },
+            '便宜吗': { action: 'checkPrice', desc: '查询价格', icon: '💰' },
+            '值得买吗': { action: 'shoppingAdvice', desc: '购物建议', icon: '🛒' },
+            '划算吗': { action: 'shoppingAdvice', desc: '购物建议', icon: '🛒' },
+            '买不买': { action: 'shoppingAdvice', desc: '购物建议', icon: '🛒' },
+            '哪里买的': { action: 'whereToBuy', desc: '购买渠道', icon: '📍' },
+            '哪里有卖': { action: 'whereToBuy', desc: '购买渠道', icon: '📍' },
+            '颜色是什么': { action: 'identifyColor', desc: '识别颜色', icon: '🎨' },
+            '什么颜色': { action: 'identifyColor', desc: '识别颜色', icon: '🎨' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1604,7 +1629,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 104个语音命令</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 116个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
