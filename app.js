@@ -10,7 +10,7 @@
  *   - "值得买吗/划算吗/买不买" - AI给出购物建议
  *   - "哪里买的/哪里有卖" - AI查找购买渠道
  *   - "颜色是什么/什么颜色" - AI识别物体颜色
- * - 📊 语音命令关键词扩展至 116 个
+ * - 📊 语音命令关键词扩展至 118 个
  *
  * v1.8.32 更新:
  * - 🌤️ 新增天气询问语音命令（8个关键词）
@@ -1629,7 +1629,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 116个语音命令</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 118个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
