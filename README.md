@@ -19,7 +19,7 @@
 
 ### 🎭 23种趣味人设 + 自定义人设
 
-💡 **v1.8.39 自动化Review版本同步修复** - 🐛自动化Review检测并修复 APP_VERSION 常量版本号不一致
+💡 **v1.8.40 自动化Review版本同步修复** - 🐛自动化Review检测并修复 APP_VERSION 常量版本号不一致
 
 💡 **v1.8.38 自动化Review版本同步修复** - 🐛自动化Review检测并修复 sw.js CACHE_NAME 版本号不一致
 

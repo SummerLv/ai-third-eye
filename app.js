@@ -1,8 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.39
- * 
- * v1.8.34 更新:
+ * 版本: v1.8.40
+ *
+ * v1.8.40 更新:
+ * - 🔄 本轮自动化Review修复版本号显示不一致（index.html v1.8.38→v1.8.39）
+ * - 📝 更新 CHANGELOG.md 记录本轮修复
+ *
+ * v1.8.39 更新:
  * - 🐛 修复 v1.8.32/v1.8.33 新增语音命令处理缺失问题
  *   - 修复天气命令 case 'weather' 未实现
  *   - 修复物体识别命令 case 'identifyObject' 未实现
@@ -278,7 +282,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.39';
+const APP_VERSION = 'v1.8.40';
 
 class MiniCPMClient {
     constructor(options = {}) {
