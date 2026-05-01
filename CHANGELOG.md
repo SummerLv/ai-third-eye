@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.48] - 2026-05-01
+
+### Fixed
+- 🐛 修复 askTime case 中 nowTime/timeStr 变量重复声明导致 JavaScript 语法错误
+- 🔧 自动化Review检测并修复变量作用域问题（与 whatTime case 冲突）
+
+---
+
+## [v1.8.47] - 2026-05-01
+
+### Fixed
+- 🐛 修复 index.html CSS 注释版本号不一致（v1.8.21→v1.8.46）
+- 🔧 自动化Review检测并修复版本同步问题
+
+---
+
 ## [v1.8.46] - 2026-05-01
 
 ### Fixed

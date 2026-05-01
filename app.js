@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.47
+ * 版本: v1.8.48
+ *
+ * v1.8.48 更新:
+ * - 🐛 修复 askTime case 中 nowTime/timeStr 变量重复声明导致语法错误
+ * - 🔧 自动化Review检测并修复变量作用域问题
  *
  * v1.8.47 更新:
  * - 🐛 修复 index.html CSS注释版本号不一致（v1.8.21→v1.8.46）
@@ -2482,11 +2486,11 @@ class UIController {
                 break;
             
             case 'askTime':
-                const nowTime = new Date();
-                const hours = nowTime.getHours();
-                const minutes = nowTime.getMinutes();
-                const timeStr = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
-                this.addMessage('system', `${icon} 现在是 ${timeStr}`);
+                const askNowTime = new Date();
+                const hours = askNowTime.getHours();
+                const minutes = askNowTime.getMinutes();
+                const askTimeStr = `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
+                this.addMessage('system', `${icon} 现在是 ${askTimeStr}`);
                 if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
                     const msg = {
                         type: 'input_text',
