@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
   - "值得买吗/划算吗/买不买" - AI提供购物建议
   - "哪里买的/哪里有卖" - AI查找购买渠道
   - "颜色是什么/什么颜色" - AI识别物体的颜色
-- 📊 语音命令关键词扩展至 116 个（新增 12 个物体识别命令）
+- 📊 语音命令关键词扩展至 118 个（新增 12 个物体识别命令）
 
 ---
 
