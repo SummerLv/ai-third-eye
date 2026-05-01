@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.59] - 2026-05-02
+
+### Changed
+- 🔧 修正关于面板表述："151个语音命令" → "151个语音关键词"，表述更准确
+- 🤖 自动化Review检测并修复表述不一致
+
+---
+
 ## [v1.8.58] - 2026-05-02
 
 ### Fixed
