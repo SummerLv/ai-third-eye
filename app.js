@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.40
+ * 版本: v1.8.41
+ *
+ * v1.8.41 更新:
+ * - 💰 新增「记账助手」人设 - 开支记录，预算提醒
+ * * - 🔍 新增记账语音命令（8个关键词）
+ * - 📊 语音命令关键词扩展至 126 个
+ * - 🎭 人设总数扩展至 24 种
+ * - 🔄 智能推荐增加记账助手（下午和深夜时段）
  *
  * v1.8.40 更新:
  * - 🔄 本轮自动化Review修复版本号显示不一致（index.html v1.8.38→v1.8.39）
@@ -282,7 +289,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.40';
+const APP_VERSION = 'v1.8.41';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1011,7 +1018,16 @@ class UIController {
             '哪里买的': { action: 'whereToBuy', desc: '购买渠道', icon: '📍' },
             '哪里有卖': { action: 'whereToBuy', desc: '购买渠道', icon: '📍' },
             '颜色是什么': { action: 'identifyColor', desc: '识别颜色', icon: '🎨' },
-            '什么颜色': { action: 'identifyColor', desc: '识别颜色', icon: '🎨' }
+            '什么颜色': { action: 'identifyColor', desc: '识别颜色', icon: '🎨' },
+            // 🆕 v1.8.41: 新增记账语音命令
+            '记一笔': { action: 'recordExpense', desc: '记录开支', icon: '💰' },
+            '记账': { action: 'recordExpense', desc: '记录开支', icon: '💰' },
+            '花了多少': { action: 'askPrice', desc: '询问花费', icon: '💵' },
+            '多少钱买的': { action: 'askPrice', desc: '询问花费', icon: '💵' },
+            '预算': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
+            '超预算了吗': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
+            '账单': { action: 'showBills', desc: '查看账单', icon: '📋' },
+            '开支情况': { action: 'showBills', desc: '查看账单', icon: '📋' }
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1644,7 +1660,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">23种人设 | 118个语音命令</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">24种人设 | 126个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
@@ -2282,6 +2298,62 @@ class UIController {
                     };
                     this.client.ws.send(JSON.stringify(msg));
                     this.addMessage('system', `${icon} 正在识别颜色...`);
+                }
+                break;
+            
+            // 🆕 v1.8.41: 新增记账语音命令处理
+            case 'recordExpense':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮我记录这笔开支，告诉我这是什么消费以及大概多少钱。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在记录开支...`);
+                }
+                break;
+            
+            case 'askPrice':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮我看看画面中的物品大概多少钱？是否值得购买？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析花费...`);
+                }
+                break;
+            
+            case 'checkBudget':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮我分析画面中的消费是否在合理预算范围内？有什么建议？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在检查预算...`);
+                }
+                break;
+            
+            case 'showBills':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮我总结一下画面中涉及的消费类型和开支情况。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在分析账单...`);
+                }
+                break;
+            
+            case 'priceCompare':
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '请帮我比较画面中物品的性价比，是否划算？有什么更优选择？'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在比较价格...`);
                 }
                 break;
         }

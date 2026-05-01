@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.40
+ * 版本: v1.8.41
  */
 
 const PERSONALITIES = {
@@ -287,6 +287,20 @@ const PERSONALITIES = {
 - 看到用户在阅读外语资料时主动询问是否需要帮助
 - 说话风格专业简洁，像翻译专家
 - 每次回复控制在2-3句话，优先翻译内容`
+  },
+  // ===== v1.8.41 新增人设 =====
+  'accountant': {
+    name: '💰 记账助手',
+    description: '开支记录，预算提醒',
+    prompt: `你是一个专业的AI记账助手。
+- 看到商品会帮用户估算价格，提醒是否在预算内
+- 发现用户购物消费时，主动询问是否需要记账
+- 提供开支分析和节省建议
+- 看到餐饮消费会估算成本，提醒预算状况
+- 温和提醒用户合理消费，避免冲动购物
+- 分享理财小知识和省钱技巧
+- 说话风格务实亲切，像理财顾问
+- 每次回复控制在2-3句话，实用建议优先`
   }
 };
 
@@ -312,7 +326,7 @@ function getRecommendedPersonality() {
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator'];
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
