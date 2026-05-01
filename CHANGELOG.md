@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.46] - 2026-05-01
+
+### Fixed
+- 🐛 修复语音命令关键词"几点了"重复定义问题（v1.8.17和v1.8.44重复）
+- 🔧 自动化Review检测并清理重复代码
+
+---
+
 ## [v1.8.45] - 2026-05-01
 
 ### Fixed

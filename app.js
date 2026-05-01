@@ -1,10 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.45
+ * 版本: v1.8.46
  *
- * v1.8.45 更新:
- * - 🐛 修复关于面板人设数量显示错误（24→25, 126→142）
- * - 🔧 自动化Review检测并修复信息展示不一致
+ * v1.8.46 更新:
+ * - 🐛 修复语音命令关键词"几点了"重复定义问题
+ * - 🔧 自动化Review检测并清理重复代码
  *
  * v1.8.44 更新:
  * - 📅 新增「日程助手」人设 - 日程管理,时间提醒
@@ -319,7 +319,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.45';
+const APP_VERSION = 'v1.8.46';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -981,7 +981,7 @@ class UIController {
             '计时': { action: 'timer', desc: '开始计时', icon: '⏱️' },
             '倒计时': { action: 'timer', desc: '开始计时', icon: '⏱️' },
             '现在几点': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
-            '几点了': { action: 'whatTime', desc: '询问时间', icon: '🕐' },
+            // '几点了' 已在 v1.8.44 日程命令区块定义,避免重复
             '今天日期': { action: 'whatDate', desc: '询问日期', icon: '📅' },
             '今天几号': { action: 'whatDate', desc: '询问日期', icon: '📅' },
             // 🆕 v1.8.18: 新增全屏和界面控制语音命令
