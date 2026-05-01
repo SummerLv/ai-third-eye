@@ -2,10 +2,10 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.61
+ * 版本: v1.8.62
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.61';
+const CACHE_NAME = 'ai-third-eye-v1.8.62';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

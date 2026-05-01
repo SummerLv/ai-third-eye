@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.62] - 2026-05-02
+
+### Fixed
+- 🐛 自动化Review修复 APP_VERSION 常量版本号不一致 (v1.8.60→v1.8.61)
+- 🔧 同步所有文件版本号至 v1.8.62
+
+---
+
 ## [v1.8.61] - 2026-05-02
 
 ### Fixed

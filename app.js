@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.61
+ * 版本: v1.8.62
  *
  * v1.8.61 更新:
  * - 🐛 修复聊天历史加载时图标重复累积 bug
@@ -376,7 +376,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.60';
+const APP_VERSION = 'v1.8.62';
 
 class MiniCPMClient {
     constructor(options = {}) {
