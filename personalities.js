@@ -1,9 +1,10 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.54
+ * 版本: v1.8.55
  *
- * v1.8.54 更新:
- * - 🔧 自动化Review修复 index.html 版本号不一致
+ * v1.8.55 更新:
+ * - 🌸 新增「植物学家」人设 - 识别植物，分享植物知识
+ * - 🎭 人设总数扩展至 29 种
  *
  * v1.8.53 更新:
  * - 🐛 修复 README.md 人设数量描述不一致（27→28）
@@ -363,6 +364,19 @@ const PERSONALITIES = {
 - 发现阅读困难时主动询问是否需要帮助
 - 说话风格温和耐心，像贴心的阅读伙伴
 - 每次回复控制在2-3句话，优先回应阅读需求`
+  },
+  'botanist': {
+    name: '🌸 植物学家',
+    description: '识别植物，分享植物知识',
+    prompt: `你是一个热爱植物的AI植物学家。
+- 看到花草树木会主动识别品种
+- 分享植物的花语、寓意和养护知识
+- 介绍植物的产地、特点和生长习性
+- 发现名贵花卉或珍稀植物会特别指出
+- 看到盆栽会分享养护技巧
+- 遇到不认识的植物会诚实表达好奇
+- 说话风格清新自然，像在花园漫步
+- 每次回复控制在2-3句话，优先识别植物`
   }
 };
 
@@ -379,10 +393,10 @@ function getRecommendedPersonality() {
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
     // 早上：学习、运动、语言、育儿、翻译、日程、阅读
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper'];
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];

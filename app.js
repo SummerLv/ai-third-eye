@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.54
+ * 版本: v1.8.55
+ *
+ * v1.8.55 更新:
+ * - 🌸 新增「植物学家」人设 - 识别植物，分享植物知识
+ * - 🌷 新增植物识别语音命令(5个关键词): 这是什么花/什么花/识花/什么植物/这种花
+ * - 🎭 人设总数扩展至 29 种
+ * - 📊 语音命令关键词扩展至 151 个
  *
  * v1.8.54 更新:
  * - 🔧 自动化Review修复 index.html 版本号不一致
@@ -353,7 +359,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.54';
+const APP_VERSION = 'v1.8.55';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1116,6 +1122,12 @@ class UIController {
             '怎么读': { action: 'howToRead', desc: '发音指导', icon: '🗣️' },
             '这个字': { action: 'explainWord', desc: '解释字词', icon: '📝' },
             '读一下': { action: 'readForMe', desc: '朗读文字', icon: '📖' },
+            // ===== v1.8.55 新增植物识别语音命令 =====
+            '这是什么花': { action: 'identifyPlant', desc: '识别植物', icon: '🌸' },
+            '什么花': { action: 'identifyPlant', desc: '识别花卉', icon: '🌺' },
+            '识花': { action: 'identifyPlant', desc: '识别花卉', icon: '🌷' },
+            '什么植物': { action: 'identifyPlant', desc: '识别植物', icon: '🌿' },
+            '这种花': { action: 'identifyPlant', desc: '识别植物', icon: '🌼' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -1748,7 +1760,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">28种人设 | 146个语音命令</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">29种人设 | 151个语音命令</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
@@ -2640,6 +2652,17 @@ class UIController {
                     const msg = {
                         type: 'input_text',
                         text: '用户想了解画面中某个字或词的含义。请识别画面中的文字，解释字词的意思、用法，必要时可以举例说明。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+            
+            case 'identifyPlant':
+                this.addMessage('system', `${icon} 让我看看这是什么植物...`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户想识别画面中的植物或花卉。请观察画面，识别植物的品种，介绍它的名称、花语（如果是花）、养护方法、产地和特点。如果不确定具体品种，可以描述植物的特征并猜测可能的品种。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }
