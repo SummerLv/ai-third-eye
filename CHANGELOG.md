@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.58] - 2026-05-02
+
+### Fixed
+- 🐛 修复聊天历史加载时系统消息图标重复累积 bug
+- 🐛 修复首页推荐横幅重复显示问题
+
+### Changed
+- 🔧 优化 saveChatHistory 去除图标前缀再保存
+- 🔧 移除重复的推荐横幅调用逻辑
+
+---
+
 ## [v1.8.57] - 2026-05-02
 
 ### Fixed

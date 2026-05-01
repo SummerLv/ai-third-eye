@@ -1,10 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.57
+ * 版本: v1.8.58
  *
- * v1.8.57 更新:
- * - 🐛 修复 index.html 版本徽章版本号不一致 (v1.8.55→v1.8.56)
- * - 🔧 自动化Review检测并修复版本同步问题
+ * v1.8.58 更新:
+ * - 🐛 修复聊天历史加载时系统消息图标重复累积 bug
+ * - 🐛 修复首页推荐横幅重复显示问题
+ * - 🔧 优化 saveChatHistory 去除图标前缀再保存
  *
  * v1.8.56 更新:
  * - 🐛 修复 README.md 人设表格缺失「植物学家」
@@ -365,7 +366,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.57';
+const APP_VERSION = 'v1.8.58';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -3256,7 +3257,9 @@ class UIController {
         const messages = container.querySelectorAll('.message');
         const history = [];
         messages.forEach(msg => {
-            const text = msg.querySelector('p')?.textContent || '';
+            let text = msg.querySelector('p')?.textContent || '';
+            // 🐛 v1.8.58: 移除图标前缀，避免加载时重复添加
+            text = text.replace(/^[🤖👤📢]\s*/, '').trim();
             const type = msg.classList.contains('ai') ? 'ai' :
                         msg.classList.contains('user') ? 'user' : 'system';
             history.push({ type, text, time: new Date().toISOString() });
@@ -4523,9 +4526,5 @@ class UIController {
 // Initialize
 const app = new UIController();
 
-// 🆕 v1.6.3: 延迟显示推荐横幅
-setTimeout(() => {
-    if (app && typeof app.showRecommendedPersonalityBanner === 'function') {
-        app.showRecommendedPersonalityBanner();
-    }
-}, 1500);
+// 🐛 v1.8.58: 移除重复的推荐横幅调用，避免和 showHomepageRecommendation() 冲突
+// showRecommendedPersonalityBanner 已在 init() 中通过 showHomepageRecommendation() 调用
