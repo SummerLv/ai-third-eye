@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.60
+ * 版本: v1.8.61
+ *
+ * v1.8.61 更新:
+ * - 🐛 修复聊天历史加载时图标重复累积 bug
+ * - 🔧 loadChatHistory 移除所有 emoji 前缀，避免 addMessage 重复添加图标
+ * - 🔧 addMessage 检测文本是否已以 emoji 开头，避免重复添加
  *
  * v1.8.60 更新:
  * - 👗 新增「时尚顾问」人设 - 穿搭建议、风格搭配
@@ -3248,7 +3253,9 @@ class UIController {
                 const history = JSON.parse(saved);
                 // 只加载最近 10 条消息
                 history.slice(-10).forEach(msg => {
-                    this.addMessage(msg.type, msg.text, false);
+                    // 🐛 v1.8.61: 移除所有 emoji 前缀，避免 addMessage 重复添加图标
+                    let cleanText = msg.text.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}]+\s*/u, '').trim();
+                    this.addMessage(msg.type, cleanText, false, true); // skipSave=true 避免重复保存
                 });
             } catch (e) {
                 console.error('Failed to load chat history:', e);
@@ -3539,7 +3546,7 @@ class UIController {
         }
     }
 
-    addMessage(type, text, partial = false) {
+    addMessage(type, text, partial = false, skipSave = false) {
         const container = document.getElementById('messagesContainer');
 
         // 🆕 处理用户语音识别显示
@@ -3586,13 +3593,18 @@ class UIController {
             const msgEl = document.createElement('div');
             msgEl.className = `message ${type}`;
 
-            const icon = type === 'ai' ? '🤖' : type === 'user' ? '👤' : '📢';
+            // 🐛 v1.8.61: 检查文本是否已以 emoji 开头，避免重复添加图标
+            let displayText = text;
+            const hasEmojiPrefix = /^[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u.test(text);
+            if (!hasEmojiPrefix) {
+                displayText = `${icon} ${text}`;
+            }
 
             // 🆕 v1.5.5: AI 消息添加复制按钮
             if (type === 'ai') {
                 msgEl.innerHTML = `
                     <div class="message-content-wrapper">
-                        <p>${icon} ${text}</p>
+                        <p>${displayText}</p>
                         <button class="copy-btn" title="复制" onclick="this.closest('.message').classList.contains('message') && this.closest('.message').querySelector('p').textContent.substring(2)">📋</button>
                     </div>
                     <span class="message-time">${new Date().toLocaleTimeString()}</span>
@@ -3619,8 +3631,15 @@ class UIController {
                     };
                 }
             } else {
+                // 🐛 v1.8.61: 检查文本是否已以 emoji 开头
+                let displayText = text;
+                const hasEmojiPrefix = /^[\p{Emoji_Presentation}\p{Extended_Pictographic}]/u.test(text);
+                if (!hasEmojiPrefix) {
+                    const icon = type === 'ai' ? '🤖' : type === 'user' ? '👤' : '📢';
+                    displayText = `${icon} ${text}`;
+                }
                 msgEl.innerHTML = `
-                    <p>${icon} ${text}</p>
+                    <p>${displayText}</p>
                     <span class="message-time">${new Date().toLocaleTimeString()}</span>
                 `;
             }
@@ -3647,9 +3666,11 @@ class UIController {
         }
 
         // 🆕 保存对话历史(非 partial 消息)
-        if (!partial) {
+        // 🐛 v1.8.61: 添加 skipSave 参数，loadChatHistory 时不重复保存
+        if (!partial && !skipSave) {
             this.saveChatHistory();
         }
+    }
     }
 
     updateStatus(status, text) {

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.61] - 2026-05-02
+
+### Fixed
+- 🐛 修复聊天历史加载时图标重复累积 bug
+- 🔧 loadChatHistory 移除所有 emoji 前缀，避免 addMessage 重复添加图标
+- 🔧 addMessage 检测文本是否已以 emoji 开头，避免重复添加
+- 🔧 添加 skipSave 参数，loadChatHistory 时不重复保存
+
+---
+
 ## [v1.8.60] - 2026-05-02
 
 ### Added
