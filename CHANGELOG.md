@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.42] - 2026-05-01
+
+### Fixed
+- 🐛 修复语音命令对象末尾缺少逗号导致 JavaScript 语法错误
+- 🔧 自动化Review检测并修复代码结构问题
+
+---
+
 ## [v1.8.41] - 2026-05-01
 
 ### Added

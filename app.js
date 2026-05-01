@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.41
+ * 版本: v1.8.42
+ *
+ * v1.8.42 更新:
+ * - 🐛 修复语音命令对象末尾缺少逗号导致 JavaScript 语法错误
+ * - 🔧 自动化Review检测并修复代码结构问题
  *
  * v1.8.41 更新:
  * - 💰 新增「记账助手」人设 - 开支记录，预算提醒
@@ -289,7 +293,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.41';
+const APP_VERSION = 'v1.8.42';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1027,7 +1031,7 @@ class UIController {
             '预算': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
             '超预算了吗': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
             '账单': { action: 'showBills', desc: '查看账单', icon: '📋' },
-            '开支情况': { action: 'showBills', desc: '查看账单', icon: '📋' }
+            '开支情况': { action: 'showBills', desc: '查看账单', icon: '📋' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
