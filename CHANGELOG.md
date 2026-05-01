@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.51] - 2026-05-01
+
+### Added
+- 🎮 新增「游戏助手」人设 - 游戏攻略，技巧指导
+- 📊 人设总数扩展至 27 种
+- 🔄 下午和晚上时段智能推荐增加游戏助手
+
+---
+
 ## [v1.8.50] - 2026-05-01
 
 ### Added

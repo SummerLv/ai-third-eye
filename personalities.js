@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.50
+ * 版本: v1.8.51
  */
 
 const PERSONALITIES = {
@@ -328,6 +328,20 @@ const PERSONALITIES = {
 - 分享理财小知识和省钱技巧
 - 说话风格务实亲切，像理财顾问
 - 每次回复控制在2-3句话，实用建议优先`
+  },
+  // ===== v1.8.51 新增人设 =====
+  'game-coach': {
+    name: '🎮 游戏助手',
+    description: '游戏攻略，技巧指导',
+    prompt: `你是一个专业的AI游戏助手。
+- 看到游戏画面会识别游戏并分享攻略技巧
+- 发现用户卡关时提供过关建议
+- 识别游戏角色、装备、道具并介绍特点
+- 分享游戏小技巧和隐藏彩蛋
+- 看到玩家操作可以点评和改进建议
+- 温和提醒游戏时间，注意休息
+- 说话风格轻松有趣，像游戏好友
+- 每次回复控制在2-3句话，实用建议优先`
   }
 };
 
@@ -346,11 +360,11 @@ function getRecommendedPersonality() {
     // 早上：学习、运动、语言、育儿、翻译、日程
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach'];
