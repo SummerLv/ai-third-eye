@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.37] - 2026-05-01
+
+### Fixed
+- 🐛 自动化Review修复 app.js 头部版本注释不一致（v1.8.34→v1.8.37）
+- 🔧 同步所有文件版本号至 v1.8.37
+- 📝 更新 README.md 添加 v1.8.37 变更记录
+
+---
+
 ## [v1.8.36] - 2026-05-01
 
 ### Fixed
