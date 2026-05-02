@@ -1,6 +1,9 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.87
+ * 版本: v1.8.88
+ *
+ * v1.8.88 更新:
+ * - 🐛 修复 APP_VERSION 常量版本号不一致 (v1.8.86→v1.8.87)
  *
  * v1.8.87 更新:
  * - 🐛 修复关于面板人设数量显示错误（44→46）
@@ -482,7 +485,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.87';
+const APP_VERSION = 'v1.8.88';
 
 class MiniCPMClient {
     constructor(options = {}) {
