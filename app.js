@@ -8,7 +8,7 @@
  *
  * v1.8.67 更新:
  * - 🌅 新增问候语语音命令(9个关键词): 早安/早上好/午安/下午好/晚上好/晚安
- * - 📊 语音命令关键词扩展至 160 个
+ * - 📊 语音命令关键词扩展至 164 个
  *
  * v1.8.66 更新:
  * - 🐛 修复 index.html 版本徽章显示不一致 (v1.8.64→v1.8.65)
@@ -1819,7 +1819,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">31种人设 | 155个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">31种人设 | 164个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
