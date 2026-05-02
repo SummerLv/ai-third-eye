@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.71] - 2026-05-02
+
+### Fixed
+- 🔧 修复语音关键词数量统计错误（171→172）
+- 🔧 同步 README.md 和关于面板关键词数量显示
+- 📊 确认语音命令关键词准确数量为 172 个
+
+### Technical
+- 📷 同步所有文件版本号至 v1.8.71
+
 ## [v1.8.70] - 2026-05-02
 
 ### Added
