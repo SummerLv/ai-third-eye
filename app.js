@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.73
+ * 版本: v1.8.74
+ *
+ * v1.8.74 更新:
+ * - 🎬 新增「电影影评人」人设 - 影评解析、推荐好片
+ * - 🎭 人设总数扩展至 34 种
  *
  * v1.8.73 更新:
  * - 🎤 新增「音乐 DJ」人设 - 音乐鉴赏、节奏分析
@@ -420,7 +424,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.73';
+const APP_VERSION = 'v1.8.74';
 
 class MiniCPMClient {
     constructor(options = {}) {

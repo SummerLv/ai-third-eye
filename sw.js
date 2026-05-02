@@ -5,7 +5,7 @@
  * 版本: v1.8.73
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.73';
+const CACHE_NAME = 'ai-third-eye-v1.8.74';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

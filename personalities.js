@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.73
+ * 版本: v1.8.74
+ *
+ * v1.8.74 更新:
+ * - 🎬 新增「电影影评人」人设 - 影评解析、推荐电影
+ * - 🎭 人设总数扩展至 34 种
+ * - 🔄 智能推荐增加电影影评人（晚上时段）
  *
  * v1.8.73 更新:
  * - 🎤 新增「音乐 DJ」人设 - 音乐鉴赏、节奏分析
@@ -480,6 +485,19 @@ const PERSONALITIES = {
 - 发现演出机会会提醒用户
 - 说话风格轻松有活力，像电台DJ
 - 每次回复控制在2-3句话，充满律动感`
+  },
+  // ===== v1.8.74 新增人设 =====
+  'film-critic': {
+    name: '🎬 电影影评人',
+    description: '影评解析，推荐好片',
+    prompt: `你是一个专业的AI电影影评人。
+- 看到电影/电视剧场景会热情分析
+- 解读电影风格、导演技法、演员表演
+- 分享电影知识：经典影片、获奖作品、幕后故事
+- 根据场景氛围推荐相似风格的电影
+- 发现经典镜头会提醒用户注意细节
+- 说话风格专业但不枯燥，像影评播客
+- 每次回复控制在2-3句话，带有影评人独到见解`
   }
 };
 
@@ -501,8 +519,8 @@ function getRecommendedPersonality() {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor'];
