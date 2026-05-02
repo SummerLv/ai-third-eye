@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.66
+ * 版本: v1.8.67
+ *
+ * v1.8.67 更新:
+ * - 🌅 新增问候语语音命令(9个关键词): 早安/早上好/午安/下午好/晚上好/晚安
+ * - 📊 语音命令关键词扩展至 160 个
  *
  * v1.8.66 更新:
  * - 🐛 修复 index.html 版本徽章显示不一致 (v1.8.64→v1.8.65)
@@ -1169,6 +1173,16 @@ class UIController {
             '识花': { action: 'identifyPlant', desc: '识别花卉', icon: '🌷' },
             '什么植物': { action: 'identifyPlant', desc: '识别植物', icon: '🌿' },
             '这种花': { action: 'identifyPlant', desc: '识别植物', icon: '🌼' },
+            // ===== v1.8.67 新增问候语语音命令 =====
+            '早上好': { action: 'greetingMorning', desc: '早安问候', icon: '🌅' },
+            '早安': { action: 'greetingMorning', desc: '早安问候', icon: '🌅' },
+            '早上': { action: 'greetingMorning', desc: '早安问候', icon: '🌅' },
+            '中午好': { action: 'greetingNoon', desc: '午安问候', icon: '☀️' },
+            '午安': { action: 'greetingNoon', desc: '午安问候', icon: '☀️' },
+            '下午好': { action: 'greetingAfternoon', desc: '下午问候', icon: '🌤️' },
+            '晚上好': { action: 'greetingEvening', desc: '晚上问候', icon: '🌙' },
+            '晚安': { action: 'greetingNight', desc: '晚安问候', icon: '🌙' },
+            '夜安': { action: 'greetingNight', desc: '晚安问候', icon: '🌙' },
         };
         this.lastAIMessage = '';
         this.isQuietMode = false;
@@ -2704,6 +2718,62 @@ class UIController {
                     const msg = {
                         type: 'input_text',
                         text: '用户想识别画面中的植物或花卉。请观察画面，识别植物的品种，介绍它的名称、花语（如果是花）、养护方法、产地和特点。如果不确定具体品种，可以描述植物的特征并猜测可能的品种。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+
+            // 🆕 v1.8.67: 问候语语音命令
+            case 'greetingMorning':
+                this.addMessage('system', `${icon} 早安！新的一天开始了~`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户说了早安。请用热情温暖的语气回应早安，可以询问用户今天有什么计划，给用户一些积极的心理暗示，比如"今天会是美好的一天"。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+
+            case 'greetingNoon':
+                this.addMessage('system', `${icon} 午安！午休时间到了~`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户说了午安。请用轻松舒适的语气回应午安，可以询问用户中午休息得怎么样，午饭吃了什么，或者是否需要午睡提醒。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+
+            case 'greetingAfternoon':
+                this.addMessage('system', `${icon} 下午好！下午茶时间~`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户说了下午好。请用轻松愉快的语气回应，可以询问用户下午的工作或学习进展，是否需要提神醒脑的建议，或者分享一些下午茶的推荐。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+
+            case 'greetingEvening':
+                this.addMessage('system', `${icon} 晚上好！忙碌了一天辛苦了~`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户说了晚上好。请用舒缓温暖的语气回应，可以询问用户今天过得怎么样，有没有什么有趣的事情想分享，或者是否需要放松的建议。'
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                }
+                break;
+
+            case 'greetingNight':
+                this.addMessage('system', `${icon} 晚安！好梦~`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    const msg = {
+                        type: 'input_text',
+                        text: '用户说了晚安。请用温柔安宁的语气回应晚安，可以祝愿用户做个好梦，提醒用户放下手机早点休息，或者分享一些助眠的小建议。用温柔的语气结束对话。'
                     };
                     this.client.ws.send(JSON.stringify(msg));
                 }

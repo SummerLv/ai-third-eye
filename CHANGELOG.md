@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.67] - 2026-05-02
+
+### Added
+- 🌅 新增问候语语音命令(9个关键词): 早安/早上好/中午好/午安/下午好/晚上好/晚安/夜安
+- 📊 语音命令关键词扩展至 160 个
+
+### Technical
+- 🔧 同步所有文件版本号至 v1.8.67
+
 ## [v1.8.66] - 2026-05-02
 
 ### Fixed
