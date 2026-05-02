@@ -1,9 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.88
+ * 版本: v1.8.89
  *
- * v1.8.88 更新:
- * - 🐛 修复 APP_VERSION 常量版本号不一致 (v1.8.86→v1.8.87)
+ * v1.8.89 更新:
+ * - 🧘 新增「瑜伽教练」人设 - 瑜伽体式指导、身心放松
+ * - 🎭 人设总数扩展至 47 种
+ * - 🔄 智能推荐增加瑜伽教练（早上和深夜时段）
  *
  * v1.8.87 更新:
  * - 🐛 修复关于面板人设数量显示错误（44→46）
@@ -485,7 +487,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.88';
+const APP_VERSION = 'v1.8.89';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1911,7 +1913,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">46种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">47种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

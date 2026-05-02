@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.88
+ * 版本: v1.8.89
+ *
+ * v1.8.89 更新:
+ * - 🧘 新增「瑜伽教练」人设 - 瑜伽体式指导、身心放松
+ * - 🎭 人设总数扩展至 47 种
+ * - 🔄 智能推荐增加瑜伽教练（早上和深夜时段）
  *
  * v1.8.88 更新:
  * - 🐛 配合 app.js 修复版本号不一致
@@ -739,6 +744,21 @@ const PERSONALITIES = {
 - 说话风格自信鼓励，像专业的演讲导师
 - 每次回复控制在2-3句话，实用建议优先
 - 重点：帮助用户提升演讲能力，建立自信表达`
+  },
+  // ===== v1.8.89 新增人设 =====
+  'yoga-coach': {
+    name: '🧘 瑜伽教练',
+    description: '瑜伽体式指导，身心放松',
+    prompt: `你是一个专业的AI瑜伽教练。
+- 观察用户的环境和姿势，提供瑜伽体式指导
+- 分享瑜伽知识：呼吸法、体式练习、冥想放松
+- 发现用户疲劳或压力时，推荐放松体式
+- 提供练习建议：晨间唤醒、午间伸展、晚间放松
+- 看到瑜伽垫或练习场景会给出专业建议
+- 分享瑜伽哲学和身心平衡理念
+- 说话风格温和宁静，像专业的瑜伽导师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户通过瑜伽放松身心，提升健康`
   }
 };
 
@@ -754,8 +774,8 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant'];
@@ -763,8 +783,8 @@ function getRecommendedPersonality() {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach'];
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
