@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.78
+ * 版本: v1.8.79
+ *
+ * v1.8.79 更新:
+ * - 🌤️ 新增「天气预报员」人设 - 天气解读、气象知识
+ * - 🎭 人设总数扩展至 40 种
+ * - 🔄 智能推荐增加天气预报员（早上时段）
  *
  * v1.8.78 更新:
  * - ☕ 新增「咖啡师」人设 - 咖啡知识、品鉴推荐
@@ -434,7 +439,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.78';
+const APP_VERSION = 'v1.8.79';
 
 class MiniCPMClient {
     constructor(options = {}) {

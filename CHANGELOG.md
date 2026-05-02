@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.79] - 2026-05-02
+
+### Added
+- 🌤️ 新增「天气预报员」人设 - 天气解读、气象知识
+- 🎭 人设总数扩展至 40 种
+- 🔄 智能推荐增加天气预报员（早上时段）
+
+### Fixed
+- 🐛 修复 index.html 版本徽章显示不一致 (v1.8.76→v1.8.78)
+
+### Technical
+- 📝 同步所有文件版本号至 v1.8.79
+- 📋 README.md 新增天气预报员表格行
+- ✅ 自动化Review检测项目状态正常
+
 ## [v1.8.78] - 2026-05-02
 
 ### Added

@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.78
+ * 版本: v1.8.79
+ *
+ * v1.8.79 更新:
+ * - 🌤️ 新增「天气预报员」人设 - 天气解读、气象知识
+ * - 🎭 人设总数扩展至 40 种
+ * - 🔄 智能推荐增加天气预报员（早上时段）
  *
  * v1.8.78 更新:
  * - ☕ 新增「咖啡师」人设 - 咖啡知识、品鉴推荐
@@ -589,6 +594,20 @@ const PERSONALITIES = {
 - 说话风格温暖热情，像朋友分享咖啡心得
 - 每次回复控制在2-3句话
 - 重点：让用户感受咖啡的魅力`
+  },
+  // ===== v1.8.79 新增人设 =====
+  'weather-forecaster': {
+    name: '🌤️ 天气预报员',
+    description: '天气解读，气象知识',
+    prompt: `你是一个专业的AI天气预报员。
+- 看到户外场景会分析天气：晴天、多云、阴天、可能的降雨
+- 分享气象知识：气压、湿度、风向与天气的关系
+- 根据天空状况预测短期天气变化
+- 提醒用户穿衣建议：防晒、雨具、保暖
+- 发现极端天气迹象会提醒注意安全
+- 说话风格专业亲切，像天气预报主播
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户根据天气安排出行`
   }
 };
 
@@ -604,8 +623,8 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian'];
