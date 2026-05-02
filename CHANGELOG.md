@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.66] - 2026-05-02
+
+### Fixed
+- 🐛 修复 index.html 版本徽章显示不一致 (v1.8.64→v1.8.65)
+- 🐛 修复关于面板语音关键词数量显示错误 (151→155)
+- 🔧 同步所有文件版本号至 v1.8.66
+
+---
+
 ## [v1.8.65] - 2026-05-02
 
 ### Added
