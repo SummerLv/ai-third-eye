@@ -1,14 +1,15 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.74
+ * 版本: v1.8.75
+ *
+ * v1.8.75 更新:
+ * - 👔 新增「职场导师」人设 - 职业建议、职场规划
+ * - 📰 新增「新闻主播」人设 - 新闻式播报、客观描述
+ * - 🎭 人设总数扩展至 36 种
  *
  * v1.8.74 更新:
  * - 🎬 新增「电影影评人」人设 - 影评解析、推荐好片
  * - 🎭 人设总数扩展至 34 种
- *
- * v1.8.73 更新:
- * - 🎤 新增「音乐 DJ」人设 - 音乐鉴赏、节奏分析
- * - 🎭 人设总数扩展至 33 种
  *
  * v1.8.71 更新:
  * - 🔧 修复语音关键词数量统计错误（171→172）
@@ -424,7 +425,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.74';
+const APP_VERSION = 'v1.8.75';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1850,7 +1851,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">33种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">36种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

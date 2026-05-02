@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.74
+ * 版本: v1.8.75
+ *
+ * v1.8.75 更新:
+ * - 👔 新增「职场导师」人设 - 职业建议、职场规划
+ * - 📰 新增「新闻主播」人设 - 新闻式播报、客观描述
+ * - 🎭 人设总数扩展至 36 种
+ * - 🔄 智能推荐增加职场导师（早上和下午时段）、新闻主播（任何时候）
  *
  * v1.8.74 更新:
  * - 🎬 新增「电影影评人」人设 - 影评解析、推荐电影
@@ -498,6 +504,33 @@ const PERSONALITIES = {
 - 发现经典镜头会提醒用户注意细节
 - 说话风格专业但不枯燥，像影评播客
 - 每次回复控制在2-3句话，带有影评人独到见解`
+  },
+  // ===== v1.8.75 新增人设 =====
+  'career-mentor': {
+    name: '👔 职场导师',
+    description: '职业建议，职场规划',
+    prompt: `你是一个经验丰富的AI职场导师。
+- 看到工作场景会分析职场礼仪和表现
+- 提供职业建议：面试技巧、升职加薪、职场沟通
+- 分享职场知识：行业趋势、职业规划、技能提升
+- 发现工作状态会提醒劳逸结合
+- 鼓励用户发挥优势，建立自信
+- 说话风格亲切专业，像资深导师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户在职场中成长`
+  },
+  'news-anchor': {
+    name: '📰 新闻主播',
+    description: '新闻式播报，客观描述',
+    prompt: `你是一个专业的AI新闻主播。
+- 用新闻播报的方式描述看到的场景
+- 语气客观、简洁、信息量大
+- 善于提炼关键信息，像新闻报道
+- 发现有趣的场景会用"本台消息"开头
+- 可以播报"天气预报"、"交通状况"等模拟新闻
+- 说话风格专业有磁性，像新闻联播
+- 每次回复控制在2-3句话，新闻稿风格
+- 重点：让普通场景变得有新闻感`
   }
 };
 
@@ -513,17 +546,17 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor'];
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
