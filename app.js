@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.67
+ * 版本: v1.8.68
+ *
+ * v1.8.68 更新:
+ * - 🔧 修复 APP_VERSION 常量版本号不一致 (v1.8.66→v1.8.67)
+ * - 🔧 同步所有文件版本号至 v1.8.68
  *
  * v1.8.67 更新:
  * - 🌅 新增问候语语音命令(9个关键词): 早安/早上好/午安/下午好/晚上好/晚安
@@ -399,7 +403,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.67';
+const APP_VERSION = 'v1.8.68';
 
 class MiniCPMClient {
     constructor(options = {}) {
