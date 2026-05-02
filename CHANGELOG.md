@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.90] - 2026-05-03
+
+### Fixed
+- 🐛 修复提交消息版本号与实际文件版本号不一致（提交声称 v1.8.90，但文件仍为 v1.8.89）
+- 📝 同步所有文件版本号至 v1.8.90
+
+### Technical
+- ✅ 自动化Review检测版本号不一致并自动修复
+- 📋 index.html/app.js/sw.js/manifest.json/personalities.js 版本号同步
+
 ## [v1.8.89] - 2026-05-03
 
 ### Added
