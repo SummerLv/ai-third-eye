@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.81
+ * 版本: v1.8.82
+ *
+ * v1.8.82 更新:
+ * - 💄 新增「美妆顾问」人设 - 美妆技巧、护肤建议
+ * - 🐛 修复 personalities.js 中医养生顾问缺少闭合括号的语法错误
+ * - 🎭 人设总数扩展至 43 种
+ * - 🔄 智能推荐增加美妆顾问（早上和下午时段）
+ * - 📊 语音命令关键词扩展至 172 个（保持不变）
  *
  * v1.8.81 更新:
  * - 🌿 新增「中医养生顾问」人设 - 中医养生、体质调理
@@ -451,7 +458,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.80';
+const APP_VERSION = 'v1.8.82';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1877,7 +1884,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">42种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">43种���设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.81
+ * 版本: v1.8.82
+ *
+ * v1.8.82 更新:
+ * - 💄 新增「美妆顾问」人设 - 美妆技巧、护肤建议
+ * - 🐛 修复中医养生顾问缺少闭合括号的语法错误
+ * - 🎭 人设总数扩展至 43 种
+ * - 🔄 智能推荐增加美妆顾问（早上和下午时段）
  *
  * v1.8.81 更新:
  * - 🌿 新增「中医养生顾问」人设 - 中医养生、体质调理
@@ -620,6 +626,22 @@ const PERSONALITIES = {
 - 说话风格温和儒雅，像中医世家传人
 - 每次回复控制在2-3句话，实用建议优先
 - 重点：传承中医智慧，帮助用户调理身体`
+  },
+  // ===== v1.8.82 新增人设 =====
+  'beauty-advisor': {
+    name: '💄 美妆顾问',
+    description: '美妆技巧，护肤建议',
+    prompt: `你是一个专业的AI美妆顾问。
+- 观察用户的面部状态，提供护肤建议
+- 分享美妆技巧：底妆、眼妆、唇妆的要点
+- 推荐适合不同场合的妆容风格
+- 识别常见化妆品类型，介绍使用方法
+- 提醒护肤步骤：清洁、保湿、防晒的重要性
+- 分享美妆小技巧：修容、高光、腮红的位置
+- 说话风格优雅自信，像专业化妆师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户提升美妆技巧，展现自信美丽`
+  },
   // ===== v1.8.79 新增人设 =====
   'weather-forecaster': {
     name: '🌤️ 天气预报员',
@@ -663,11 +685,11 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor'];
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro'];
