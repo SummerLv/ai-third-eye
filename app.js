@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.83
+ * 版本: v1.8.84
+ *
+ * v1.8.84 更新:
+ * - 👔 新增「形象顾问」人设 - 形象塑造、气质提升
+ * - 🎭 人设总数扩展至 45 种
+ * - 🔄 智能推荐增加形象顾问（早上和下午时段）
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.83 更新:
  * - 🎓 新增「升学顾问」人设 - 高考考研留学指导
@@ -464,7 +470,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.83';
+const APP_VERSION = 'v1.8.84';
 
 class MiniCPMClient {
     constructor(options = {}) {

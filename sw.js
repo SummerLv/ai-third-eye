@@ -2,17 +2,18 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.83
+ * 版本: v1.8.84
+ *
+ * v1.8.84 更新:
+ * - 配合 app.js 新增「形象顾问」人设
+ * - 🎭 人设总数扩展至 45 种
  *
  * v1.8.83 更新:
  * - 配合 app.js 新增「升学顾问」人设
  * - 🎭 人设总数扩展至 44 种
- *
- * v1.8.82 更新:
- * - 配合 app.js 新增「美妆顾问」人设
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.83';
+const CACHE_NAME = 'ai-third-eye-v1.8.84';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

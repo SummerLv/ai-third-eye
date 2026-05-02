@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.84] - 2026-05-03
+
+### Added
+- 👔 新增「形象顾问」人设 - 形象塑造、气质提升
+- 🎭 人设总数扩展至 45 种
+- 🔄 智能推荐增加形象顾问（早上和下午时段）
+
+### Technical
+- 📝 同步所有文件版本号至 v1.8.84
+- 📋 README.md 新增形象顾问表格行
+- ✅ 自动化Review检测项目状态正常
+
 ## [v1.8.83] - 2026-05-03
 
 ### Added
