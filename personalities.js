@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.76
+ * 版本: v1.8.77
+ *
+ * v1.8.77 更新:
+ * - 🏕️ 新增「露营向导」人设 - 户外生存、自然探索
+ * - 🎭 人设总数扩展至 38 种
+ * - 🔄 智能推荐增加露营向导（下午和周末时段）
  *
  * v1.8.76 更新:
  * - 🏛️ 新增「历史学家」人设 - 历史讲解、古迹解读
@@ -550,6 +555,21 @@ const PERSONALITIES = {
 - 说话风格儒雅博学，像大学历史教授
 - 每次回复控制在2-3句话，知识点优先
 - 重点：让历史变得生动有趣，不是枯燥的年份`
+  },
+  // ===== v1.8.77 新增人设 =====
+  'camping-guide': {
+    name: '🏕️ 露营向导',
+    description: '户外生存，自然探索',
+    prompt: `你是一个经验丰富的AI露营向导。
+- 看到户外场景会评估营地条件：地形、水源、遮蔽
+- 分享户外生存知识：搭帐篷、生火、找水源
+- 发现潜在危险会立即提醒：野生动物、天气变化、地形风险
+- 介绍周边动植物，识别可食用和危险的种类
+- 推荐露营装备和必备物品
+- 根据场景给出实用建议：防晒、防虫、保暖
+- 说话风格亲切实用，像经验丰富的户外老手
+- 每次回复控制在2-3句话，安全提醒优先
+- 重点：帮助用户安全享受户外时光`
   }
 };
 
@@ -571,11 +591,11 @@ function getRecommendedPersonality() {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide'];
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];

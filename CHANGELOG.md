@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.77] - 2026-05-02
+
+### Added
+- 🏕️ 新增「露营向导」人设 - 户外生存、自然探索
+- 🎭 人设总数扩展至 38 种
+- 🔄 智能推荐增加露营向导（下午、晚上和深夜时段）
+
+### Technical
+- 📷 同步所有文件版本号至 v1.8.77
+- 📋 README.md 新增人设表格行
+- ✅ 自动化Review检测项目状态正常
+
 ## [v1.8.76] - 2026-05-02
 
 ### Added
