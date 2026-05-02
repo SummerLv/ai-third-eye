@@ -416,7 +416,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.70';
+const APP_VERSION = 'v1.8.71';
 
 class MiniCPMClient {
     constructor(options = {}) {
