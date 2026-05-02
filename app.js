@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.90
+ * 版本: v1.8.91
  *
  * v1.8.89 更新:
  * - 🧘 新增「瑜伽教练」人设 - 瑜伽体式指导、身心放松
@@ -487,7 +487,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.90';
+const APP_VERSION = 'v1.8.91';
 
 class MiniCPMClient {
     constructor(options = {}) {
