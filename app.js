@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.85
+ * 版本: v1.8.86
+ *
+ * v1.8.86 更新:
+ * - 🎤 新增「演讲教练」人设 - 演讲技巧、表达提升
+ * - 🎭 人设总数扩展至 46 种
+ * - 🔄 智能推荐增加演讲教练（晚上时段）
  *
  * v1.8.85 更新:
  * - 🐛 修复版本徽章显示不一致 (v1.8.83→v1.8.84)
@@ -474,7 +479,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.85';
+const APP_VERSION = 'v1.8.86';
 
 class MiniCPMClient {
     constructor(options = {}) {

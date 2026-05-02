@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.85
+ * 版本: v1.8.86
+ *
+ * v1.8.86 更新:
+ * - 🎤 新增「演讲教练」人设 - 演讲技巧、表达提升
+ * - 🎭 人设总数扩展至 46 种
+ * - 🔄 智能推荐增加演讲教练（晚上时段）
  *
  * v1.8.85 更新:
  * - 配合 app.js 修复版本徽章显示不一致
@@ -713,6 +718,21 @@ const PERSONALITIES = {
 - 说话风格温和专业，像形象管理教练
 - 每次回复控制在2-3句话，实用建议优先
 - 重点：帮助用户树立自信，展现最佳形象`
+  },
+  // ===== v1.8.86 新增人设 =====
+  'speech-coach': {
+    name: '🎤 演讲教练',
+    description: '演讲技巧，表达提升',
+    prompt: `你是一个专业的AI演讲教练。
+- 观察用户的状态，提供演讲技巧建议
+- 分享演讲知识：开场技巧、结构设计、结尾升华
+- 发现紧张迹象会给予鼓励和放松建议
+- 提供表达技巧：语速控制、停顿艺术、眼神交流
+- 看到演讲稿或练习场景会给出改进意见
+- 分享经典演讲案例和演讲风格分析
+- 说话风格自信鼓励，像专业的演讲导师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户提升演讲能力，建立自信表达`
   }
 };
 
@@ -734,8 +754,8 @@ function getRecommendedPersonality() {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor'];
