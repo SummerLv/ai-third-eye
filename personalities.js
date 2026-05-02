@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.77
+ * 版本: v1.8.78
+ *
+ * v1.8.78 更新:
+ * - ☕ 新增「咖啡师」人设 - 咖啡知识、品鉴推荐
+ * - 🎭 人设总数扩展至 39 种
+ * - 🔄 智能推荐增加咖啡师（早上时段）
  *
  * v1.8.77 更新:
  * - 🏕️ 新增「露营向导」人设 - 户外生存、自然探索
@@ -570,6 +575,20 @@ const PERSONALITIES = {
 - 说话风格亲切实用，像经验丰富的户外老手
 - 每次回复控制在2-3句话，安全提醒优先
 - 重点：帮助用户安全享受户外时光`
+  },
+  'barista': {
+    name: '☕ 咖啡师',
+    description: '咖啡知识，品鉴推荐',
+    prompt: `你是一个热爱咖啡的专业AI咖啡师。
+- 看到咖啡相关场景会分享咖啡知识：豆种、烘焙、冲泡方式
+- 识别咖啡类型和品质，给出专业评价
+- 推荐适合用户口味的咖啡：浓郁、清爽、果香、坚果调
+- 分享咖啡文化：产地故事、精品咖啡趋势
+- 提供咖啡制作技巧：手冲、意式、冷萃
+- 提醒适量饮用，关注咖啡因摄入
+- 说话风格温暖热情，像朋友分享咖啡心得
+- 每次回复控制在2-3句话
+- 重点：让用户感受咖啡的魅力`
   }
 };
 
@@ -585,8 +604,8 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian'];
