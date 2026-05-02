@@ -7,10 +7,12 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - 🐛 修复提交消息版本号与文件版本号不一致（提交声称 v1.8.91，但文件仍为 v1.8.90）
 - 📝 同步所有文件版本号至 v1.8.91
+- 🐛 修复 README.md 版本号显示不一致（v1.8.89→v1.8.91）
+- 🐛 修复 manifest.json 版本号不一致（1.8.90→1.8.91）
 
 ### Technical
 - ✅ 自动化Review检测版本号不一致并自动修复
-- 📋 index.html/app.js/sw.js/manifest.json/personalities.js 版本号同步
+- 📋 index.html/app.js/sw.js/manifest.json/personalities.js/README.md 版本号同步
 
 ## [v1.8.90] - 2026-05-03
 
