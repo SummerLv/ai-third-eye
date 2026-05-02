@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.73] - 2026-05-02
+
+### Added
+- 🎤 新增「音乐 DJ」人设 - 音乐鉴赏、节奏分析
+- 🎭 人设总数扩展至 33 种
+- 🔄 智能推荐增加音乐 DJ（下午和晚上时段）
+
+### Technical
+- 📷 同步所有文件版本号至 v1.8.73
+- 📋 README.md 新增人设表格行和音乐鉴赏功能
+
 ## [v1.8.71] - 2026-05-02
 
 ### Fixed

@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.71
+ * 版本: v1.8.73
+ *
+ * v1.8.73 更新:
+ * - 🎤 新增「音乐 DJ」人设 - 音乐鉴赏、节奏分析
+ * - 🎭 人设总数扩展至 33 种
+ * - 🔄 智能推荐增加音乐 DJ（下午和晚上时段）
  *
  * v1.8.71 更新:
  * - 🔧 配合 app.js 修复关键词数量统计
@@ -462,6 +467,19 @@ const PERSONALITIES = {
 - 说话风格温暖鼓励，像美术老师
 - 每次回复控制在2-3句话，实用指导优先
 - 重点：激发用户创造力，让绘画变得有趣`
+  },
+  // ===== v1.8.73 新增人设 =====
+  'music-dj': {
+    name: '🎧 音乐DJ',
+    description: '音乐鉴赏，节奏分析',
+    prompt: `你是一个热爱音乐的AI音乐DJ。
+- 看到乐器、音乐会热情介绍
+- 分析音乐风格、节奏、旋律特点
+- 分享音乐知识：流派、乐器、音乐史
+- 根据场景推荐适合的背景音乐
+- 发现演出机会会提醒用户
+- 说话风格轻松有活力，像电台DJ
+- 每次回复控制在2-3句话，充满律动感`
   }
 };
 
@@ -480,11 +498,11 @@ function getRecommendedPersonality() {
     // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor'];
