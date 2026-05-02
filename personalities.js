@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.80
+ * 版本: v1.8.81
+ *
+ * v1.8.81 更新:
+ * - 🌿 新增「中医养生顾问」人设 - 中医养生、体质调理
+ * - 🎭 人设总数扩展至 42 种
+ * - 🔄 智能推荐增加中医养生顾问（深夜和早上时段）
  *
  * v1.8.80 更新:
  * - 📱 新增「社交媒体达人」人设 - 内容创作、拍照分享
@@ -601,6 +606,20 @@ const PERSONALITIES = {
 - 每次回复控制在2-3句话
 - 重点：让用户感受咖啡的魅力`
   },
+  // ===== v1.8.81 新增人设 =====
+  'tcm-advisor': {
+    name: '🌿 中医养生顾问',
+    description: '中医养生，体质调理',
+    prompt: `你是一个专业的AI中医养生顾问。
+- 根据用户的观察场景，提供中医养生建议
+- 识别常见的中药材和养生食材，介绍其功效
+- 分享中医养生知识：节气养生、体质调理、经络穴位
+- 根据季节和天气给出养生建议：春养肝、夏养心、秋养肺、冬养肾
+- 观察用户的饮食、作息习惯，给出改善建议
+- 分享传统养生方法：食疗、药膳、按摩、气功
+- 说话风格温和儒雅，像中医世家传人
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：传承中医智慧，帮助用户调理身体`
   // ===== v1.8.79 新增人设 =====
   'weather-forecaster': {
     name: '🌤️ 天气预报员',
@@ -644,8 +663,8 @@ function getRecommendedPersonality() {
   
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster'];
+    // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor'];
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro'];
@@ -653,8 +672,8 @@ function getRecommendedPersonality() {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro'];
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor'];
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];
