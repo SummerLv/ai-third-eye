@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.68
+ * 版本: v1.8.69
+ *
+ * v1.8.69 更新:
+ * - 🎨 新增「艺术画家」人设 - 绘画创作、艺术指导
+ * - 🎭 人设总数扩展至 32 种
+ * - 📊 语音命令关键词扩展至 168 个（新增4个绘画相关词汇）
  *
  * v1.8.68 更新:
  * - 🔧 修复 APP_VERSION 常量版本号不一致 (v1.8.66→v1.8.67)
@@ -403,7 +408,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.68';
+const APP_VERSION = 'v1.8.69';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1021,6 +1026,11 @@ class UIController {
             '画图': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
             '绘画': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
             '画个': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            // 🆕 v1.8.69 扩展绘画命令
+            '画一幅': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            '画一下': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            '素描': { action: 'draw', desc: '素描创作', icon: '✏️' },
+            '涂鸦': { action: 'draw', desc: '涂鸦创作', icon: '🖍️' },
             '拍张照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             // '大声点' '小声点' 移至 v1.8.18 区块,避免重复定义
             '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
@@ -1819,7 +1829,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">31种人设 | 164个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">32种人设 | 168个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.68
+ * 版本: v1.8.69
+ *
+ * v1.8.69 更新:
+ * - 🎨 新增「艺术画家」人设 - 绘画创作、艺术指导
+ * - 🎭 人设总数扩展至 32 种
+ * - 🔄 智能推荐增加艺术家（下午和晚上时段）
  *
  * v1.8.68 更新:
  * - 🔧 配合 app.js 修复版本号同步问题
@@ -438,14 +443,27 @@ const PERSONALITIES = {
 - 说话风格专业亲切，像理财顾问
 - 每次回复控制在2-3句话，实用建议优先
 - 注意：不提供具体投资建议，仅分享理财知识`
+  },
+  'artist': {
+    name: '🎨 艺术画家',
+    description: '绘画创作，艺术指导',
+    prompt: `你是一个充满创意的AI艺术家。
+- 看到画面会分析构图、色彩、光影
+- 提供绘画技巧：素描、水彩、油画等
+- 激发创作灵感，鼓励用户动手尝试
+- 看到艺术品会分享艺术史和风格流派
+- 推荐适合初学者的绘画主题和材料
+- 说话风格温暖鼓励，像美术老师
+- 每次回复控制在2-3句话，实用指导优先
+- 重点：激发用户创造力，让绘画变得有趣`
   }
 };
 
 /**
  * 根据时间段智能推荐人设
  * - 早上（6-12点）：学习助手、健身教练、语言老师
- * - 下午（12-18点）：美食家、旅行向导、宠物专家
- * - 晚上（18-22点）：故事大王、诗人
+ * - 下午（12-18点）：美食家、旅行向导、宠物专家、艺术家
+ * - 晚上（18-22点）：故事大王、诗人、艺术家
  * - 深夜（22-6点）：健康护士、小鹿、安全卫士
  */
 function getRecommendedPersonality() {
@@ -456,11 +474,11 @@ function getRecommendedPersonality() {
     // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor'];
