@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.85] - 2026-05-03
+
+### Fixed
+- 🐛 修复版本徽章显示不一致 (v1.8.83→v1.8.84)
+- 🔄 同步所有文件版本号至 v1.8.85
+
+### Technical
+- 📝 index.html versionBadge 修复
+- ✅ 自动化Review检测版本不一致并自动修复
+
 ## [v1.8.84] - 2026-05-03
 
 ### Added
