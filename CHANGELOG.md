@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.65] - 2026-05-02
+
+### Added
+- 🎨 新增 AI 绘画语音命令 - 画画/画图/绘画/画个
+- 🔧 优化语音命令处理逻辑，支持关键词前缀匹配
+- 📊 语音命令关键词扩展至 155 个
+
+### Changed
+- 🔧 executeVoiceCommand 新增 draw 命令处理
+- 🔧 所有文件版本号同步至 v1.8.65
+
+---
+
 ## [v1.8.64] - 2026-05-02
 
 - 🐛 修复理财顾问与记账助手 emoji 重复 (💰→💹)

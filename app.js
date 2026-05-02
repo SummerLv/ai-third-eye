@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.64
+ * 版本: v1.8.65
+ *
+ * v1.8.65 更新:
+ * - 🎨 新增 AI 绘画语音命令 - 画画/画图/绘画/画个
+ * - 🔧 优化语音命令处理逻辑，支持关键词前缀匹配
+ *
+ * v1.8.64 更新:
+ * - 🐛 修复理财顾问与记账助手 emoji 重复 (💰→💹)
  *
  * v1.8.64 更新:
  * - 🐛 修复理财顾问与记账助手 emoji 重复 (💰→💹)
@@ -384,7 +391,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.64';
+const APP_VERSION = 'v1.8.65';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -997,6 +1004,11 @@ class UIController {
             // 🆕 v1.5.1 新增语音命令
             '截图': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             '拍照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
+            // 🆕 v1.8.65 新增AI绘画命令
+            '画画': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            '画图': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            '绘画': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
+            '画个': { action: 'draw', desc: 'AI绘画创作', icon: '🎨' },
             '拍张照': { action: 'screenshot', desc: '截图保存', icon: '📸' },
             // '大声点' '小声点' 移至 v1.8.18 区块,避免重复定义
             '慢一点': { action: 'slower', desc: '请求慢点说', icon: '🐢' },
@@ -2692,6 +2704,23 @@ class UIController {
                     this.client.ws.send(JSON.stringify(msg));
                 }
                 break;
+
+            // 🆕 v1.8.65: AI绘画命令
+            case 'draw':
+                this.addMessage('system', `${icon} AI绘画功能已启动！请告诉我你想画什么...`);
+                if (this.client && this.client.ws && this.client.ws.readyState === WebSocket.OPEN) {
+                    // 提取绘画关键词
+                    const drawKeyword = keyword || '画画';
+                    const drawSubject = drawKeyword.replace(/^画(画|图|绘画|个)?/, '').trim() || '一幅美丽的画';
+                    
+                    const msg = {
+                        type: 'input_text',
+                        text: `用户想要绘画创作。请用生动有趣的语言描述一幅关于「${drawSubject}」的画面，就像你在为这幅画创作文字描述。可以加入色彩、构图、风格的建议，让画面更有想象力。用符合你人设的语气来描述。`
+                    };
+                    this.client.ws.send(JSON.stringify(msg));
+                    this.addMessage('system', `${icon} 正在创作「${drawSubject}」...`);
+                }
+                break;
         }
     }
 
@@ -3678,7 +3707,6 @@ class UIController {
         if (!partial && !skipSave) {
             this.saveChatHistory();
         }
-    }
     }
 
     updateStatus(status, text) {
