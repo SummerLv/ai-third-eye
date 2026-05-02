@@ -1,7 +1,7 @@
 {
   "name": "AI 第三只眼",
   "short_name": "AI第三只眼",
-  "version": "1.8.69",
+  "version": "1.8.70",
   "description": "MiniCPM-o 4.5 实时视觉助手 - 边看边听边说，AI 主动提醒",
   "start_url": "/ai-third-eye/",
   "display": "standalone",

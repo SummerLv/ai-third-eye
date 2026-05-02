@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.70] - 2026-05-02
+
+### Added
+- 💰 新增「比价」语音命令 - 比较价格、哪个划算、性价比
+- 📊 语音命令关键词扩展至 171 个（新增4个比价相关词汇）
+
+### Technical
+- 🔧 触发已有的 priceCompare action（之前缺少语音关键词）
+- 📷 同步所有文件版本号至 v1.8.70
+
 ## [v1.8.69] - 2026-05-02
 
 ### Added

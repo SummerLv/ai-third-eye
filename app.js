@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.69
+ * 版本: v1.8.70
+ *
+ * v1.8.70 更新:
+ * - 💰 新增「比价」语音命令 - 比较价格/哪个划算/性价比（触发 priceCompare action）
+ * - 📊 语音命令关键词扩展至 171 个
  *
  * v1.8.69 更新:
  * - 🎨 新增「艺术画家」人设 - 绘画创作、艺术指导
@@ -408,7 +412,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.69';
+const APP_VERSION = 'v1.8.70';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1157,6 +1161,11 @@ class UIController {
             '超预算了吗': { action: 'checkBudget', desc: '预算提醒', icon: '📊' },
             '账单': { action: 'showBills', desc: '查看账单', icon: '📋' },
             '开支情况': { action: 'showBills', desc: '查看账单', icon: '📋' },
+            // ===== v1.8.70 新增比价语音命令 =====
+            '比价': { action: 'priceCompare', desc: '比较价格性价比', icon: '💰' },
+            '比较价格': { action: 'priceCompare', desc: '比较价格性价比', icon: '💰' },
+            '哪个划算': { action: 'priceCompare', desc: '比较价格性价比', icon: '📊' },
+            '性价比': { action: 'priceCompare', desc: '比较价格性价比', icon: '💡' },
             // ===== v1.8.43 新增运动打卡语音命令 =====
             '打卡': { action: 'checkIn', desc: '运动打卡', icon: '✅' },
             '健身打卡': { action: 'checkIn', desc: '运动打卡', icon: '✅' },
@@ -1829,7 +1838,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">32种人设 | 168个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">32种人设 | 171个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
