@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.83] - 2026-05-03
+
+### Added
+- 🎓 新增「升学顾问」人设 - 高考考研留学指导
+- 🎭 人设总数扩展至 44 种
+- 🔄 智能推荐增加升学顾问（早上和下午时段）
+
+### Technical
+- 📝 同步所有文件版本号至 v1.8.83
+- 📋 README.md 新增升学顾问表格行
+- ✅ 自动化Review检测项目状态正常
+
 ## [v1.8.82] - 2026-05-02
 
 ### Added
