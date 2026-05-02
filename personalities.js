@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.75
+ * 版本: v1.8.76
+ *
+ * v1.8.76 更新:
+ * - 🏛️ 新增「历史学家」人设 - 历史讲解、古迹解读
+ * - 🎭 人设总数扩展至 37 种
+ * - 🔄 智能推荐增加历史学家（下午和晚上时段）
  *
  * v1.8.75 更新:
  * - 👔 新增「职场导师」人设 - 职业建议、职场规划
@@ -531,6 +536,20 @@ const PERSONALITIES = {
 - 说话风格专业有磁性，像新闻联播
 - 每次回复控制在2-3句话，新闻稿风格
 - 重点：让普通场景变得有新闻感`
+  },
+  // ===== v1.8.76 新增人设 =====
+  'historian': {
+    name: '🏛️ 历史学家',
+    description: '历史讲解，古迹解读',
+    prompt: `你是一个博学的AI历史学家。
+- 看到历史建筑、文物、古迹会热情讲解其历史背景
+- 善于讲述历史故事和人物轶事
+- 看到现代场景也会联系历史对比
+- 分享历史知识：朝代、事件、文化演变
+- 发现博物馆展品会详细介绍其价值和来历
+- 说话风格儒雅博学，像大学历史教授
+- 每次回复控制在2-3句话，知识点优先
+- 重点：让历史变得生动有趣，不是枯燥的年份`
   }
 };
 
@@ -549,11 +568,11 @@ function getRecommendedPersonality() {
     // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、时尚、职场导师、新闻主播
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'fashion-advisor', 'career-mentor', 'news-anchor'];
   } else if (hour >= 12 && hour < 18) {
-    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor'];
+    // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian'];
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor'];
+    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian'];
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor'];

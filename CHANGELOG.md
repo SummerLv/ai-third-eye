@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.76] - 2026-05-02
+
+### Added
+- 🏛️ 新增「历史学家」人设 - 历史讲解、古迹解读
+- 🎭 人设总数扩展至 37 种
+- 🔄 智能推荐增加历史学家（下午和晚上时段）
+
+### Technical
+- 📷 同步所有文件版本号至 v1.8.76
+- 📋 README.md 新增人设表格行
+- ✅ 自动化Review检测项目状态正常
+
 ## [v1.8.75] - 2026-05-02
 
 ### Added
