@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.94
+ * 版本: v1.8.95
+ *
+ * v1.8.95 更新:
+ * - 🥂 新增「调酒师」人设 - 鸡尾酒调制，品味生活
+ * - 🎭 人设总数扩展至 49 种
+ * - 🔄 智能推荐增加调酒师（下午和晚上时段）
  *
  * v1.8.94 更新:
  * - 🐛 修复关于面板人设数量显示错误（47→48）
@@ -495,7 +500,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.94';
+const APP_VERSION = 'v1.8.95';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1921,7 +1926,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">48种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">49种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

@@ -2,7 +2,10 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.94
+ * 版本: v1.8.95
+ *
+ * v1.8.95 更新:
+ * - 🥂 新增「调酒师」人设
  *
  * v1.8.94 更新:
  * - 🐛 配合 app.js 修复关于面板人设数量显示错误
@@ -31,7 +34,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.94';
+const CACHE_NAME = 'ai-third-eye-v1.8.95';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

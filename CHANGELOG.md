@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.95] - 2026-05-03
+
+### Added
+- 🥂 新增「调酒师」人设 - 鸡尾酒调制，品味生活
+- 🎭 人设总数扩展至 49 种
+- 🔄 智能推荐增加调酒师（下午和晚上时段）
+
+### Fixed
+- 🐛 修复 README.md 面试官名称不一致（「面试官」→「靶场面试官」，与代码一致）
+
+### Technical
+- ✅ 自动化Review检测并修复文档不一致
+- 📝 同步所有文件版本号至 v1.8.95
+
 ## [v1.8.93] - 2026-05-03
 
 ### Fixed
