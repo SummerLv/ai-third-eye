@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.113] - 2026-05-03
+
+### Improved
+- 🎨 替换占位图片为实际项目图标
+  - README.md Preview 使用项目实际图标 (icon-512.png)
+  - manifest.json screenshots 使用本地图标替代 placeholder.com
+  - 移除外部 placeholder.com 依赖，资源本地化
+
+### Technical
+- 🤖 自动化Review检测并修复图片资源依赖问题
+- 📦 资源本地化，减少外部依赖
+- 📝 同步所有文件版本号至 v1.8.113
+
 ## [v1.8.112] - 2026-05-03
 
 ### Fixed
