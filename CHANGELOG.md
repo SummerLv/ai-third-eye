@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.122] - 2026-05-04
+
+### Fixed
+- 🐛 修复 index.html 版本徽章显示不一致 (v1.8.118→v1.8.121)
+  - index.html 第 610 行版本徽章显示为 v1.8.118，与实际版本 v1.8.121 不一致
+  - 自动化 Review 检测并同步修复
+
+### Technical
+- 🤖 自动化Review检测到版本号不一致
+- 📝 同步所有文件版本号至 v1.8.122
+
 ## [v1.8.121] - 2026-05-04
 
 ### Added
