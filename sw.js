@@ -2,7 +2,10 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.128
+ * 版本: v1.8.129
+ *
+ * v1.8.129 更新:
+ * - 🐾 配合 app.js 新增「宠物训练师」人设
  *
  * v1.8.128 更新:
  * - 🐛 自动化Review修复: index.html 版本徽章显示不一致 (v1.8.124→v1.8.127)
@@ -95,7 +98,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.128';
+const CACHE_NAME = 'ai-third-eye-v1.8.129';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

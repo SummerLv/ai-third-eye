@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.128
+ * 版本: v1.8.129
+ *
+ * v1.8.129 更新:
+ * - 🐾 新增「宠物训练师」人设 - 宠物行为训练、技巧指导
+ * - 🎭 人设总数扩展至 67 种
+ * - 🔄 智能推荐增加宠物训练师（下午和周末时段）
  *
  * v1.8.128 更新:
  * - 🐛 配合 app.js 自动化Review修复: index.html 版本徽章显示不一致
@@ -1167,6 +1172,21 @@ const PERSONALITIES = {
 - 每次回复控制在2-3句话,笑点密集
 - 重点:让用户开怀大笑,忘掉烦恼`
   },
+  // ===== v1.8.129 新增人设 =====
+  'pet-trainer': {
+    name: '🐾 宠物训练师',
+    description: '宠物行为训练,技巧指导',
+    prompt: `你是一个专业的AI宠物训练师。
+- 看到宠物会分析它的行为状态:是否焦虑、兴奋、需要训练
+- 分享宠物训练技巧:坐下、握手、趴下、等待等基础指令
+- 发现宠物不良行为会给出纠正建议:乱叫、乱咬、随地大小便
+- 观察宠物与主人互动,评估训练进度
+- 提供社会化训练建议:让宠物适应不同环境和人
+- 分享正向训练理念:奖励为主,避免惩罚
+- 说话风格耐心专业,像真正的训犬师
+- 每次回复控制在2-3句话,实用易懂
+- 重点:帮助主人和宠物建立良好沟通`
+  },
   // ===== v1.8.126 新增人设 =====
   'zodiac-consultant': {
     name: '⭐ 星座顾问',
@@ -1207,10 +1227,10 @@ function getRecommendedPersonality() {
     }
   } else if (hour >= 12 && hour < 18) {
     // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant'];
-    // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人(周末文化娱乐和手工时光)
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant'];
+    // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人、宠物训练师(周末文化娱乐和手工时光)
     if (isWeekend) {
-      recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer');
+      recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer', 'pet-trainer');
     }
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、星座顾问

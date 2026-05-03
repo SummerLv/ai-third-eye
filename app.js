@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.128
+ * 版本: v1.8.129
+ *
+ * v1.8.129 更新:
+ * - 🐾 新增「宠物训练师」人设 - 宠物行为训练、技巧指导
+ * - 🎭 人设总数扩展至 67 种
+ * - 🔄 智能推荐增加宠物训练师（下午和周末时段）
+ * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.128 更新:
  * - 🐛 自动化Review修复: index.html 版本徽章显示不一致 (v1.8.124→v1.8.127)
@@ -10,7 +16,7 @@
  * - 🐛 修复 README.md 人设数量标题未同步 (65→66)
  * - 📝 补充 CHANGELOG.md v1.8.126 更新日志
  * - 🔧 版本号同步至 v1.8.127
- * - 🎭 人设总数保持 66 种
+ * - 🎭 人设总数扩展至 67 种
  * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.126 更新:
@@ -631,7 +637,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.128';
+const APP_VERSION = 'v1.8.129';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2057,7 +2063,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">66种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">67种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
