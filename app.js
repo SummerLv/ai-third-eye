@@ -1,6 +1,14 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.108
+ * 版本: v1.8.109
+ *
+ * v1.8.109 更新:
+ * - 🐛 自动化Review修复: 版本号同步
+ * - 🔧 修复 app.js APP_VERSION 不一致 (v1.8.105→v1.8.108)
+ * - 🔧 修复 sw.js CACHE_NAME 不一致 (v1.8.107→v1.8.108)
+ * - 🔧 修复 index.html versionBadge 不一致 (v1.8.106→v1.8.108)
+ * - 🎭 人设总数保�� 56 种（不变）
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.108 更新:
  * - 🌟 新增「天文爱好者」人设 - 观星指导,星座解读
@@ -554,7 +562,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.108';
+const APP_VERSION = 'v1.8.109';
 
 class MiniCPMClient {
     constructor(options = {}) {
