@@ -1,6 +1,10 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.129
+ * 版本: v1.8.130
+ *
+ * v1.8.130 更新:
+ * - 🐛 自动化Review修复: README 开发日志缺少 v1.8.129 记录
+ * - 📝 同步所有文件版本号至 v1.8.130
  *
  * v1.8.129 更新:
  * - 🐾 新增「宠物训练师」人设 - 宠物行为训练、技巧指导
@@ -637,7 +641,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.129';
+const APP_VERSION = 'v1.8.130';
 
 class MiniCPMClient {
     constructor(options = {}) {

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.130] - 2026-05-04
+
+### Fixed
+- 🐛 修复 README.md 开发日志缺少 v1.8.129 记录
+  - README.md 最新开发日志显示 v1.8.128，缺少 v1.8.129
+  - 自动化 Review 检测并补充 v1.8.129 记录
+
+### Technical
+- 📝 同步所有文件版本号至 v1.8.130
+
 ## [v1.8.129] - 2026-05-04
 
 ### Added
