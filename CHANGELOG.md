@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.120] - 2026-05-04
+
+### Fixed
+- 🐛 修复关于面板人设数量显示错误 (59→61)
+  - app.js 关于面板显示 "59种人设"，实际 personalities.js 有 61 种人设定义
+
+### Technical
+- 🤖 自动化Review检测并修复人设数量显示不一致
+- 📝 同步所有文件版本号至 v1.8.120
+
 ## [v1.8.119] - 2026-05-04
 
 ### Added
