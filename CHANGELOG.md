@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.100] - 2026-05-03
+
+### Added
+- ⚖️ 新增「法律顾问」人设 - 法律普及，权益保护
+- 🎭 人设总数扩展至 52 种
+- 🔄 智能推荐增加法律顾问（下午和晚上时段）
+
+### Technical
+- 🤖 自动化Review新增人设并推送
+- 📝 同步所有文件版本号至 v1.8.100
+
 ## [v1.8.98] - 2026-05-03
 
 ### Fixed

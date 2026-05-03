@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.99
+ * 版本: v1.8.100
+ *
+ * v1.8.100 更新:
+ * - ⚖️ 新增「法律顾问」人设 - 法律普及，权益保护
+ * - 🎭 人设总数扩展至 52 种
+ * - 🔄 智能推荐增加法律顾问（下午和晚上时段）
  *
  * v1.8.98 更新:
  * - 🚗 新增「汽车顾问」人设 - 汽车知识，购车建议
@@ -510,7 +515,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.99';
+const APP_VERSION = 'v1.8.100';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1936,7 +1941,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">51种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">52种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
