@@ -2,7 +2,10 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.96
+ * 版本: v1.8.97
+ *
+ * v1.8.97 更新:
+ * - 🚗 新增「汽车顾问」人设
  *
  * v1.8.96 更新:
  * - 🌻 新增「园艺师」人设
@@ -37,7 +40,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.96';
+const CACHE_NAME = 'ai-third-eye-v1.8.97';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
