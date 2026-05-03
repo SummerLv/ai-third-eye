@@ -1,13 +1,16 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.101
+ * 版本: v1.8.102
  *
- * v1.8.101 更新:
- * - 📅 新增周末时段智能推荐 - 露营向导周末全天推荐
- * - 🔧 实现周末判断逻辑，完善时段推荐系统
+ * v1.8.102 更新:
+ * - 🎉 扩展周末时段推荐人设 - 让周末体验更丰富
+ * - 周末早上：露营向导、段子手、园艺师
+ * - 周末下午：电影影评人、演讲教练、气氛组
+ * - 周末晚上：段子手、气氛组、游戏助手
+ * - 周末深夜：小鹿、故事大王
  * - 🎭 人设总数保持 52 种
  *
- * v1.8.100 更新:
+ * v1.8.101 更新:
  * - ⚖️ 新增「法律顾问」人设 - 法律普及，权益保护
  * - 🎭 人设总数扩展至 52 种
  * - 🔄 智能推荐增加法律顾问（下午和晚上时段）
@@ -887,23 +890,31 @@ function getRecommendedPersonality() {
   if (hour >= 6 && hour < 12) {
     // 早上：学习、运动、语言、育儿、翻译、日程、阅读、植物、园艺、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练
     recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach'];
-    // 周末早上增加露营向导
+    // 周末早上增加露营向导、段子手、园艺师（周末休闲放松）
     if (isWeekend) {
-      recommendedKeys.push('camping-guide');
+      recommendedKeys.push('camping-guide', 'comedian', 'gardener');
     }
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide'];
+    // 周末下午增加电影影评人、演讲教练、气氛组（周末文化娱乐）
+    if (isWeekend) {
+      recommendedKeys.push('film-critic', 'speech-coach', 'coach');
+    }
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor'];
-    // 周末晚上增加游戏助手（周末放松娱乐）
+    // 周末晚上增加段子手、气氛组、游戏助手（周末欢乐氛围）
     if (isWeekend) {
-      recommendedKeys.push('game-coach');
+      recommendedKeys.push('comedian', 'coach', 'game-coach');
     }
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练
     recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach'];
+    // 周末深夜增加小鹿、故事大王（周末温馨陪伴）
+    if (isWeekend) {
+      recommendedKeys.push('little-deer', 'storyteller');
+    }
   }
   
   const randomKey = recommendedKeys[Math.floor(Math.random() * recommendedKeys.length)];

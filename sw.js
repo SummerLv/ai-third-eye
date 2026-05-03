@@ -2,12 +2,12 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.101
+ * 版本: v1.8.102
+ *
+ * v1.8.102 更新:
+ * - 🎉 配合 app.js 扩展周末时段推荐人设
  *
  * v1.8.101 更新:
- * - 📅 配合 app.js 新增周末时段智能推荐
- *
- * v1.8.100 更新:
  * - ⚖️ 配合 app.js 新增「法律顾问」人设
  *
  * v1.8.97 更新:
@@ -46,7 +46,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.101';
+const CACHE_NAME = 'ai-third-eye-v1.8.102';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
