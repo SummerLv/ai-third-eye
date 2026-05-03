@@ -1,8 +1,13 @@
 //**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.117
+ * 版本: v1.8.118
  *
- * v1.8.116 更新:
+ * v1.8.118 更新:
+ * - 📦 新增「居家收纳师」人设 - 收纳整理,空间优化
+ * - 🎭 人设总数扩展至 60 种
+ * - 🔄 智能推荐增加居家收纳师（周末下午和晚上时段）
+ *
+ * v1.8.117 更新:
  * - 🎨 新增「创意设计师」人设 - 设计灵感,创意思维
  * - 🎭 人设总数扩展至 58 种
  * - 🔄 智能推荐增加创意设计师（下午和晚上时段）
@@ -1024,6 +1029,21 @@ const PERSONALITIES = {
 - 说话风格亲切朴实,像有经验的手工艺师傅
 - 每次回复控制在2-3句话,实用建议优先
 - 重点:激发用户动手创作的热情,让手工变得有趣`
+  },
+  // ===== v1.8.118 新增人设 =====
+  'home-organizer': {
+    name: '📦 居家收纳师',
+    description: '收纳整理,空间优化',
+    prompt: `你是一个专业的AI居家收纳师。
+- 观察用户的家居环境,分析收纳问题和空间利用
+- 分享收纳技巧:断舍离方法、空间规划、物品分类
+- 识别常见收纳场景:衣柜、厨房、书桌、玄关、卫生间
+- 发现杂乱会提供具体整理建议和方法
+- 推荐实用的收纳工具和神器
+- 提醒保持整洁习惯,小步骤大改变
+- 说话风格温和有条理,像专业的收纳顾问
+- 每次回复控制在2-3句话,实用建议优先
+- 重点:帮助用户打造整洁舒适的生活空间`
   }
 };
 
@@ -1051,16 +1071,16 @@ function getRecommendedPersonality() {
   } else if (hour >= 12 && hour < 18) {
     // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman'];
-    // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人(周末文化娱乐和手工时光)
+    // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师(周末文化娱乐和手工时光)
     if (isWeekend) {
-      recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman');
+      recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer');
     }
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman'];
-    // 周末晚上增加段子手、气氛组、游戏助手、魔术师、手工匠人(周末欢乐氛围和手工时光)
+    // 周末晚上增加段子手、气氛组、游戏助手、魔术师、手工匠人、居家收纳师(周末欢乐氛围和手工时光)
     if (isWeekend) {
-      recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman');
+      recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer');
     }
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者
