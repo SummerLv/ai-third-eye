@@ -1,6 +1,6 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.98
+ * 版本: v1.8.99
  *
  * v1.8.98 更新:
  * - 🚗 新增「汽车顾问」人设 - 汽车知识，购车建议
@@ -510,7 +510,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.96';
+const APP_VERSION = 'v1.8.99';
 
 class MiniCPMClient {
     constructor(options = {}) {
