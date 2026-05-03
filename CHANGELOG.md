@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.107] - 2026-05-03
+
+### Fixed
+- 🐛 自动化Review修复: 补充缺失的心理调节师人设定义
+  - `stress-relief-coach` 在推荐列表中被引用但未定义
+  - 人设实际只有 54 个而非声明的 55 个
+  - 现已添加完整人设定义,总数修复为 55 种
+
+### Technical
+- 🤖 自动化Review检测发现人设引用缺失问题
+- 📝 同步所有文件版本号至 v1.8.107
+
 ## [v1.8.106] - 2026-05-03
 
 ### Added
