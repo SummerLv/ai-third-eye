@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.93] - 2026-05-03
+
+### Fixed
+- 🐛 修复关于面板人设数量显示错误 (47→48)
+
+### Technical
+- ✅ 自动化Review检测并修复版本号不一致
+
+## [v1.8.92] - 2026-05-03
+
+### Added
+- 🍵 新增「茶艺师」人设 - 茶道文化，品茶养生
+- 🎭 人设总数扩展至 48 种
+- 🔄 智能推荐增加茶艺师（下午和晚上时段）
+
+### Technical
+- ✅ 自动化Review新增人设并推送
+
 ## [v1.8.91] - 2026-05-03
 
 ### Fixed
