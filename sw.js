@@ -58,7 +58,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.107';
+const CACHE_NAME = 'ai-third-eye-v1.8.108';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
