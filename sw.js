@@ -2,7 +2,10 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.111
+ * 版本: v1.8.112
+ *
+ * v1.8.112 更新:
+ * - 📝 配合 app.js 修复 README 人设表格缺少天文爱好者
  *
  * v1.8.111 更新:
  * - 🐛 配合 app.js 修复天文爱好者人设 prompt 模板字符串语法错误
@@ -61,7 +64,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.111';
+const CACHE_NAME = 'ai-third-eye-v1.8.112';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

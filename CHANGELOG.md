@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.112] - 2026-05-03
+
+### Fixed
+- 📝 自动化Review修复: README人设表格补充天文爱好者
+  - README.md 人设表格缺少「天文爱好者」人设（共56种）
+  - 实际 personalities.js 有56种人设，但 README 表格只展示55种
+  - 已补充天文爱好者到表格，确保文档与代码一致
+
+### Technical
+- 🤖 自动化Review检测发现 README 人设表格缺失问题
+- 📝 同步所有文件版本号至 v1.8.112
+
 ## [v1.8.111] - 2026-05-03
 
 ### Fixed
