@@ -2,7 +2,13 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.114
+ * 版本: v1.8.115
+ *
+ * v1.8.115 更新:
+ * - 🏃‍♂️ 配合 app.js 新增「运动康复师」人设
+ *
+ * v1.8.114 更新:
+ * - 🔧 同步所有文件版本号
  *
  * v1.8.113 更新:
  * - 🎨 配合 app.js 替换占位图片为实际项目图标
@@ -67,7 +73,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.114';
+const CACHE_NAME = 'ai-third-eye-v1.8.115';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

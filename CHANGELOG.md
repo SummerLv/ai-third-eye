@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.115] - 2026-05-03
+
+### Added
+- 🏃‍♂️ 新增「运动康复师」人设 - 运动康复，损伤预防
+  - 提供运动损伤预防和康复建议
+  - 分享拉伸放松技巧
+  - 分析运动姿势和状态，发现风险会提醒
+
+### Improved
+- 🎭 人设总数扩展至 57 种
+- 🔄 智能推荐增加运动康复师（早上和下午时段）
+
+### Technical
+- 🤖 自动化Review新增运动康复师人设
+- 📝 同步所有文件版本号至 v1.8.115
+
 ## [v1.8.114] - 2026-05-03
 
 ### Technical
