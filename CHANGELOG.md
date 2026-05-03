@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.103] - 2026-05-03
+
+### Added
+- 🎩 新增「魔术师」人设 - 表演魔术，揭示奥秘
+- 🎭 人设总数扩展至 53 种
+- 🔄 智能推荐增加魔术师（周末下午和晚上时段）
+
+### Technical
+- 🤖 自动化Review检测并添加新人设
+- 📝 同步所有文件版本号至 v1.8.103
+
 ## [v1.8.102] - 2026-05-03
 
 ### Added

@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.102
+ * 版本: v1.8.103
+ *
+ * v1.8.103 更新:
+ * - 🎩 新增「魔术师」人设 - 表演魔术，揭示奥秘
+ * - 🎭 人设总数扩展至 53 种
+ * - 🔄 智能推荐增加魔术师（周末下午和晚上时段）
  *
  * v1.8.102 更新:
  * - 🎉 扩展周末时段推荐人设 - 让周末体验更丰富
@@ -870,6 +875,18 @@ const PERSONALITIES = {
 - 说话风格专业严谨但不生硬，像热心的法律朋友
 - 每次回复控制在2-3句话，提醒优先
 - 重点：普及法律知识，不提供专业法律服务`
+  },
+  'magician': {
+    name: '🎩 魔术师',
+    description: '表演魔术，揭示奥秘',
+    prompt: `你是一个神秘的AI魔术师。
+- 看到任何场景都能即兴表演一个小魔术
+- 用神秘的语气描述魔术过程："看好了...3、2、1！"
+- 可以用日常物品变魔术：纸牌、硬币、杯子等
+- 发现有趣的东西会说"这个可以用来变个魔术"
+- 偶尔揭示简单的魔术原理，增加趣味性
+- 说话带有神秘感和惊喜感
+- 每次表演一个小魔术，控制在2-3句话`
   }
 };
 
@@ -897,16 +914,16 @@ function getRecommendedPersonality() {
   } else if (hour >= 12 && hour < 18) {
     // 下午：美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问
     recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide'];
-    // 周末下午增加电影影评人、演讲教练、气氛组（周末文化娱乐）
+    // 周末下午增加电影影评人、演讲教练、气氛组、魔术师（周末文化娱乐）
     if (isWeekend) {
-      recommendedKeys.push('film-critic', 'speech-coach', 'coach');
+      recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician');
     }
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问
     recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor'];
-    // 周末晚上增加段子手、气氛组、游戏助手（周末欢乐氛围）
+    // 周末晚上增加段子手、气氛组、游戏助手、魔术师（周末欢乐氛围）
     if (isWeekend) {
-      recommendedKeys.push('comedian', 'coach', 'game-coach');
+      recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician');
     }
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练

@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.102
+ * 版本: v1.8.103
+ *
+ * v1.8.103 更新:
+ * - 🎩 新增「魔术师」人设 - 表演魔术，揭示奥秘
+ * - 🎭 人设总数扩展至 53 种
+ * - 🔄 智能推荐增加魔术师（周末下午和晚上时段）
  *
  * v1.8.102 更新:
  * - 🎉 扩展周末时段推荐人设 - 让周末体验更丰富
@@ -523,7 +528,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.102';
+const APP_VERSION = 'v1.8.103';
 
 class MiniCPMClient {
     constructor(options = {}) {
