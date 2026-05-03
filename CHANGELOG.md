@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.101] - 2026-05-03
+
+### Added
+- 📅 新增周末时段智能推荐 - 露营向导周末全天推荐
+- 🔧 实现周末判断逻辑，时段显示增加周末标识
+
+### Technical
+- 🤖 自动化Review检测并修复版本号不一致
+- 📝 人设总数保持 52 种
+- 📝 同步所有文件版本号至 v1.8.101
+
 ## [v1.8.100] - 2026-05-03
 
 ### Added
