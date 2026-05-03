@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.124
+ * 版本: v1.8.125
+ *
+ * v1.8.125 更新:
+ * - 🎭 新增「脱口秀演员」人设 - 幽默吐槽,搞笑段子
+ * - 🎭 人设总数扩展至 65 种
+ * - 🔄 智能推荐增加脱口秀演员（下午/晚上/深夜时段）
+ * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.124 更新:
  * - 🎬 新增「短视频达人」人设 - 短视频创作、拍摄剪辑技巧
@@ -607,7 +613,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.124';
+const APP_VERSION = 'v1.8.125';
 
 class MiniCPMClient {
     constructor(options = {}) {
