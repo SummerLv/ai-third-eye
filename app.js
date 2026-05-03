@@ -1,43 +1,17 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.120
+ * 版本: v1.8.121
+ *
+ * v1.8.121 更新:
+ * - 🎯 新增「求职顾问」人设 - 面试技巧、简历优化、职业规划
+ * - 🎭 人设总数扩展至 62 种
+ * - 🔄 智能推荐增加求职顾问（下午和晚上时段）
+ * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.120 更新:
  * - 🐛 自动化Review修复: 关于面板人设数量显示错误 (59→61)
  * - 🎭 人设总数保持 61 种
  * - 📊 语音命令关键词保持 172 个
- *
- * v1.8.119 更新:
- * - 📱 新增「数码达人」人设 - 数码评测、选购建议
- * - 🎭 人设总数扩展至 61 种
- * - 🔄 智能推荐增加数码达人（下午和晚上时段）
- * - 🐛 修复 APP_VERSION 版本号不同步问题
- *
- * v1.8.118 更新:
- * - 📦 新增「居家收纳师」人设 - 收纳整理,空间优化
- * - 🎭 人设总数扩展至 60 种
- * - 🔄 智能推荐增加居家收纳师（周末下午和晚上时段）
- *
- * v1.8.117 更新:
- * - 🔧 新增「手工匠人」人设 - 手工制作,DIY技巧
- * - 🎭 人设总数扩展至 59 种
- * - 🔄 智能推荐增加手工匠人（周末下午和晚上时段）
- *
- * v1.8.116 更新:
- * - 🎨 新增「创意设计师」人设 - 设计灵感,创意思维
- * - 🎭 人设总数扩展至 58 种
- * - 🔄 智能推荐增加创意设计师（下午和晚上时段）
- *
- * v1.8.115 更新:
- * - 🏃‍♂️ 新增「运动康复师」人设 - 运动康复，损伤预防
- * - 🎭 人设总数扩展至 57 种
- * - 🔄 智能推荐增加运动康复师（早上和下午时段）
- *
- * v1.8.114 更新:
- * - 🎨 替换占位图片为实际项目图标 - README/manifest截图使用真实图标
- * - 📦 移除 placeholder.com 外部依赖，图片资源本地化
- * - 🎭 人设总数保持 56 种（不变）
- * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.112 更新:
  * - 📝 自动化Review修复: README人设表格补充天文爱好者
@@ -617,7 +591,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.120';
+const APP_VERSION = 'v1.8.121';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2043,7 +2017,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">61种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">62种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
