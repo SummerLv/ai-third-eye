@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.96] - 2026-05-03
+
+### Added
+- 🌻 新增「园艺师」人设 - 种植技巧，花草养护
+- 🎭 人设总数扩展至 50 种
+- 🔄 智能推荐增加园艺师（早上和下午时段）
+
+### Technical
+- ✅ 自动化Review新增人设并推送
+- 📝 同步所有文件版本号至 v1.8.96
+
 ## [v1.8.95] - 2026-05-03
 
 ### Added
