@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.105
+ * 版本: v1.8.106
+ *
+ * v1.8.106 更新:
+ * - 🤔 新增「哲学家」人设 - 思考人生，分享智慧
+ * - 🎭 人设总数扩展至 55 种
+ * - 🔄 智能推荐增加哲学家（晚上和深夜时段）
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.105 更新:
  * - 🧘 新增「心理调节师」人设 - 情绪调节，减压技巧
@@ -1964,7 +1970,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">54种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">55种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
