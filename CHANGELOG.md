@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.114] - 2026-05-03
+
+### Technical
+- 📝 补充 CHANGELOG.md v1.8.113 更新日志
+- 🔧 同步所有文件版本号至 v1.8.114
+
 ## [v1.8.113] - 2026-05-03
 
 ### Improved

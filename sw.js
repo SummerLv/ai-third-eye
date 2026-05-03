@@ -2,7 +2,7 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.113
+ * 版本: v1.8.114
  *
  * v1.8.113 更新:
  * - 🎨 配合 app.js 替换占位图片为实际项目图标
@@ -67,7 +67,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.113';
+const CACHE_NAME = 'ai-third-eye-v1.8.114';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
