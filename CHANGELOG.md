@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.98] - 2026-05-03
+
+### Fixed
+- 🐛 修复 index.html 版本徽章显示 v1.8.96（实际应为 v1.8.97）
+
+### Technical
+- 🤖 自动化Review检测并修复版本号不一致
+- 📝 同步所有文件版本号至 v1.8.98
+
+## [v1.8.97] - 2026-05-03
+
+### Added
+- 🚗 新增「汽车顾问」人设 - 汽车知识，购车建议
+- 🎭 人设总数扩展至 51 种
+- 🔄 智能推荐增加汽车顾问（下午和晚上时段）
+
+### Technical
+- ✅ 自动化Review新增人设并推送
+- 📝 同步所有文件版本号至 v1.8.97
+
 ## [v1.8.96] - 2026-05-03
 
 ### Added
