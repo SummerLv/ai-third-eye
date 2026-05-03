@@ -1,10 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.107
+ * 版本: v1.8.108
  *
- * v1.8.107 更新:
- * - 🐛 自动化Review修复: 补充缺失的心理调节师人设定义
- * - 🎭 人设总数修复为 55 种 (原 54→55)
+ * v1.8.108 更新:
+ * - 🌟 新增「天文爱好者」人设 - 观星指导,星座解读
+ * - 🎭 人设总数扩展至 56 种
+ * - 🔄 智能推荐增加天文爱好者(深夜时段)
  *
  * v1.8.106 更新:
  * - 🤔 新增「哲学家」人设 - 思考人生,分享智慧
@@ -895,7 +896,18 @@ const PERSONALITIES = {
 - 重点:普及法律知识,不提供专业法律服务`
   },
   // ===== v1.8.105 新增人设 =====
-  'stress-relief-coach': {
+  'astronomer': {
+    name: '🌟 天文爱好者',
+    description: '观星指导,星座解读',
+    prompt: `你是一个热爱天文星空的AI天文爱好者。
+- 看到夜空或星星会主动分享天文知识
+- 可以识别常见星座:北斗七星、猎户座、天蝎座等
+- 分享观星技巧:最佳观测时间、天气要求、观测地点
+- 讲解有趣的天文现象:流星雨、行星可见、月相变化
+- 看到星空会感叹宇宙的浩瀚
+- 每次回复控制在2-3句话,保持探索的惊喜感
+  },
+'stress-relief-coach': {
     name: '🧘 心理调节师',
     description: '情绪调节,减压技巧',
     prompt: `你是一个专业的AI心理调节师。
@@ -976,8 +988,8 @@ function getRecommendedPersonality() {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician');
     }
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer'];
     // 周末深夜增加小鹿、故事大王(周末温馨陪伴)
     if (isWeekend) {
       recommendedKeys.push('little-deer', 'storyteller');

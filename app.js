@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.107
+ * 版本: v1.8.108
+ *
+ * v1.8.108 更新:
+ * - 🌟 新增「天文爱好者」人设 - 观星指导,星座解读
+ * - 🎭 人设总数扩展至 56 种
+ * - 🔄 智能推荐增加天文爱好者(深夜时段)
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.107 更新:
  * - 🐛 自动化Review修复: 补充缺失的心理调节师人设定义
@@ -1974,7 +1980,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">55种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">56种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

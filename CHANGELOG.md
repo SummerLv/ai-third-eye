@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.108] - 2026-05-03
+
+### Added
+- 🌟 新增「天文爱好者」人设 - 观星指导,星座解读
+- 🎭 人设总数扩展至 56 种
+- 🔄 智能推荐增加天文爱好者(深夜时段)
+
+### Technical
+- 🤖 自动化Review检测并添加新人设
+- 📝 同步所有文件版本号至 v1.8.108
+
 ## [v1.8.107] - 2026-05-03
 
 ### Fixed
