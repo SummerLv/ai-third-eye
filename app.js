@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.118
+ * 版本: v1.8.119
+ *
+ * v1.8.119 更新:
+ * - 📱 新增「数码达人」人设 - 数码评测、选购建议
+ * - 🎭 人设总数扩展至 61 种
+ * - 🔄 智能推荐增加数码达人（下午和晚上时段）
+ * - 🐛 修复 APP_VERSION 版本号不同步问题
  *
  * v1.8.118 更新:
  * - 📦 新增「居家收纳师」人设 - 收纳整理,空间优化
@@ -606,7 +612,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.116';
+const APP_VERSION = 'v1.8.119';
 
 class MiniCPMClient {
     constructor(options = {}) {
