@@ -6,7 +6,7 @@
 
 ![Demo](https://img.shields.io/badge/MiniCPM--o-4.5-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 
-![Preview](https://via.placeholder.com/800x400?text=AI+第三只眼+Preview)
+![Preview](icons/icon-512.png)
 
 ## ✨ 功能特性
 
@@ -19,7 +19,9 @@
 - **音乐鉴赏** - 🎧 音乐DJ人设，分析音乐风格和节奏
 - **气象服务** - 🌤️ 天气预报员人设，解读天气变化
 
-### 🎭 56种趣味人设 (v1.8.112) + 自定义人设 (v1.8.112)
+### 🎭 56种趣味人设 (v1.8.113) + 自定义人设 (v1.8.112)
+
+💡 **v1.8.113 自动化Review改进** - 🎨替换占位图片为实际项目图标，移除placeholder.com外部依赖
 
 💡 **v1.8.112 自动化Review修复** - 📝README人设表格补充天文爱好者（56种人设完整展示）
 
