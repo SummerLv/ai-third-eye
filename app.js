@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.100
+ * 版本: v1.8.101
+ *
+ * v1.8.101 更新:
+ * - 📅 新增周末时段智能推荐 - 露营向导周末全天推荐
+ * - 🔧 实现周末判断逻辑，时段显示增加周末标识
+ * - 🎭 人设总数保持 52 种
  *
  * v1.8.100 更新:
  * - ⚖️ 新增「法律顾问」人设 - 法律普及，权益保护
@@ -515,7 +520,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.100';
+const APP_VERSION = 'v1.8.101';
 
 class MiniCPMClient {
     constructor(options = {}) {
