@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.104] - 2026-05-03
+
+### Fixed
+- 🐛 修复关于面板人设数量显示错误 (52→53)
+
+### Technical
+- 🤖 自动化Review检测并修复版本同步问题
+- 📝 同步所有文件版本号至 v1.8.104
+
 ## [v1.8.103] - 2026-05-03
 
 ### Added
