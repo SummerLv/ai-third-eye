@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.109
+ * 版本: v1.8.110
+ *
+ * v1.8.110 更新:
+ * - 🐛 自动化Review修复: 心理调节师人设缩进格式
+ * - 🔧 修复 'stress-relief-coach' 缩进缺失导致对象格式不一致
+ * - 🎭 人设总数修复为 56 种 (原计数 55→56)
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.109 更新:
  * - 🐛 自动化Review修复: 版本号同步
@@ -562,7 +568,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.109';
+const APP_VERSION = 'v1.8.110';
 
 class MiniCPMClient {
     constructor(options = {}) {
