@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.91
+ * 版本: v1.8.92
+ *
+ * v1.8.92 更新:
+ * - 🍵 新增「茶艺师」人设 - 茶道文化，品茶养生
+ * - 🎭 人设总数扩展至 48 种
+ * - 🔄 智能推荐增加茶艺师（下午和晚上时段）
  *
  * v1.8.89 更新:
  * - 🧘 新增「瑜伽教练」人设 - 瑜伽体式指导、身心放松
@@ -487,7 +492,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.91';
+const APP_VERSION = 'v1.8.92';
 
 class MiniCPMClient {
     constructor(options = {}) {
