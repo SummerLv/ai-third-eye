@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.116
+ * 版本: v1.8.117
+ *
+ * v1.8.117 更新:
+ * - 🔧 新增「手工匠人」人设 - 手工制作,DIY技巧
+ * - 🎭 人设总数扩展至 59 种
+ * - 🔄 智能推荐增加手工匠人（周末下午和晚上时段）
  *
  * v1.8.116 更新:
  * - 🎨 新增「创意设计师」人设 - 设计灵感,创意思维
@@ -2022,7 +2027,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">58种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">59种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
