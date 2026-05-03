@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.111] - 2026-05-03
+
+### Fixed
+- 🐛 自动化Review修复: 天文爱好者人设 prompt 模板字符串缺少闭合反引号
+  - 'astronomer' 人设定义中 `prompt: `...`` 模板字符串未闭合
+  - 导致 JavaScript 语法错误, personalities.js 无法解析
+  - 已添加缺失的反引号,修复语法错误
+
+### Technical
+- 🤖 自动化Review检测发现模板字符串语法错误
+- 📝 同步所有文件版本号至 v1.8.111
+
+## [v1.8.110] - 2026-05-03
+
+### Fixed
+- 🐛 自动化Review修复: 心理调节师人设缩进格式
+- 🔧 修复 'stress-relief-coach' 缩进缺失导致对象格式不一致
+- 🎭 人设总数修复为 56 种 (原计数 55→56)
+
+### Technical
+- 🤖 自动化Review检测并修复格式问题
+- 📝 同步所有文件版本号至 v1.8.110
+
+## [v1.8.109] - 2026-05-03
+
+### Fixed
+- 🐛 自动化Review修复: 版本号同步
+- 🔧 修复 app.js APP_VERSION 不一致 (v1.8.105→v1.8.108)
+- 🔧 修复 sw.js CACHE_NAME 不一致 (v1.8.107→v1.8.108)
+- 🔧 修复 index.html versionBadge 不一致 (v1.8.106→v1.8.108)
+
+### Technical
+- 🤖 自动化Review检测并修复版本号不一致
+- 📝 同步所有文件版本号至 v1.8.109
+
 ## [v1.8.108] - 2026-05-03
 
 ### Added

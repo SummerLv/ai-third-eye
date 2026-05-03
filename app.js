@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.110
+ * 版本: v1.8.111
+ *
+ * v1.8.111 更新:
+ * - 🐛 自动化Review修复: 天文爱好者人设 prompt 模板字符串缺少闭合反引号
+ * - 🔧 修复 JavaScript 语法错误导致 personalities.js 解析失败
+ * - 🎭 人设总数保持 56 种（不变）
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.110 更新:
  * - 🐛 自动化Review修复: 心理调节师人设缩进格式
@@ -568,7 +574,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.110';
+const APP_VERSION = 'v1.8.111';
 
 class MiniCPMClient {
     constructor(options = {}) {
