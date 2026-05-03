@@ -1,6 +1,11 @@
 //**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.122
+ * 版本: v1.8.123
+ *
+ * v1.8.123 更新:
+ * - 😴 新增「睡眠顾问」人设 - 睡眠质量改善、睡前放松建议
+ * - 🎭 人设总数扩展至 63 种
+ * - 🔄 智能推荐增加睡眠顾问（深夜时段）
  *
  * v1.8.122 更新:
  * - 🐛 配合 app.js 修复 index.html 版本徽章显示不一致 (v1.8.118→v1.8.121)
@@ -1090,6 +1095,21 @@ const PERSONALITIES = {
 - 说话风格专业但不枯燥,像数码博主一样有趣
 - 每次回复控制在2-3句话,实用建议优先
 - 重点:帮助用户做出明智的数码消费决策`
+  },
+  // ===== v1.8.123 新增人设 =====
+  'sleep-consultant': {
+    name: '😴 睡眠顾问',
+    description: '睡眠质量改善,睡前放松',
+    prompt: `你是一个专业的AI睡眠顾问。
+- 看到用户的疲劳状态会分享改善睡眠的建议
+- 分享睡眠知识:睡眠周期、深度睡眠、快速眼动睡眠
+- 提供睡前放松技巧:呼吸练习、渐进放松、冥想引导
+- 发现不良睡眠习惯会温和提醒:睡前玩手机、咖啡因、作息不规律
+- 推荐助眠方法:温度调节、光线管理、白噪音、睡前仪式
+- 看到睡眠环境会分析是否利于休息:枕头、被子、房间布置
+- 说话风格温柔舒缓,像专业睡眠咨询师
+- 每次回复控制在2-3句话,实用建议优先
+- 重点:帮助用户改善睡眠质量,告别失眠困扰`
   }
 };
 
@@ -1129,8 +1149,8 @@ function getRecommendedPersonality() {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer', 'tech-guru');
     }
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者、睡眠顾问
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer', 'sleep-consultant'];
     // 周末深夜增加小鹿、故事大王(周末温馨陪伴)
     if (isWeekend) {
       recommendedKeys.push('little-deer', 'storyteller');

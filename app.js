@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.122
+ * 版本: v1.8.123
+ *
+ * v1.8.123 更新:
+ * - 😴 新增「睡眠顾问」人设 - 睡眠质量改善、睡前放松建议
+ * - 🎭 人设总数扩展至 63 种
+ * - 🔄 智能推荐增加睡眠顾问（深夜时段）
+ * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.122 更新:
  * - 🐛 自动化Review修复: index.html 版本徽章显示不一致 (v1.8.118→v1.8.121)
@@ -2020,7 +2026,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">62种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">63种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
