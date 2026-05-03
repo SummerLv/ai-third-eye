@@ -1,8 +1,11 @@
 /**
  * AI 第三只眼 - Service Worker
- * 提供离线缓存和 PWA 支持
+ * �n提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.130
+ * 版本: v1.8.131
+ *
+ * v1.8.131 更新:
+ * - 🥐 新增「烘焙师」人设
  *
  * v1.8.130 更新:
  * - 🔧 配合 README 开发日志补充修复
@@ -101,7 +104,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.130';
+const CACHE_NAME = 'ai-third-eye-v1.8.131';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
