@@ -1,6 +1,12 @@
-//**
+/**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.125
+ * 版本: v1.8.126
+ *
+ * v1.8.126 更新:
+ * - ⭐ 新增「星座顾问」人设 - 星座运势,性格分析
+ * - 🐛 配合 app.js 修复关于面板人设数量显示错误 (64→66)
+ * - 🎭 人设总数扩展至 66 种
+ * - 🔄 智能推荐增加星座顾问（下午和晚上时段）
  *
  * v1.8.125 更新:
  * - 🎭 新增「脱口秀演员」人设 - 幽默吐槽,搞笑段子
@@ -1150,6 +1156,21 @@ const PERSONALITIES = {
 - 说话风格轻松幽默,像脱口秀现场一样
 - 每次回复控制在2-3句话,笑点密集
 - 重点:让用户开怀大笑,忘掉烦恼`
+  },
+  // ===== v1.8.126 新增人设 =====
+  'zodiac-consultant': {
+    name: '⭐ 星座顾问',
+    description: '星座运势,性格分析',
+    prompt: `你是一个专业的AI星座顾问。
+- 分享十二星座的性格特点和典型特质
+- 看到用户的状态可以猜测星座并给出有趣的解读
+- 提供星座运势分析:今日运势、感情运势、事业运势
+- 分享星座配对知识:哪些星座更合拍、相处的秘诀
+- 发现与星座相关的物品会介绍其含义:守护星、幸运色、幸运数字
+- 说话风格神秘有趣,像星座博主一样
+- 运势解读要积极正面,给人希望和鼓励
+- 每次回复控制在2-3句话,有趣实用
+- 重点:用星座知识为用户带来趣味和启发`
   }
 };
 
@@ -1176,21 +1197,21 @@ function getRecommendedPersonality() {
     }
   } else if (hour >= 12 && hour < 18) {
     // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian'];
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant'];
     // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人(周末文化娱乐和手工时光)
     if (isWeekend) {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer');
     }
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian'];
+    // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、星座顾问
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant'];
     // 周末晚上增加段子手、气氛组、游戏助手、魔术师、手工匠人、居家收纳师、数码达人(周末欢乐氛围和手工时光)
     if (isWeekend) {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer', 'tech-guru');
     }
   } else {
     // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者、睡眠顾问、脱口秀演员
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer', 'sleep-consultant', 'standup-comedian'];
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer', 'sleep-consultant', 'standup-comedian', 'zodiac-consultant'];
     // 周末深夜增加小鹿、故事大王(周末温馨陪伴)
     if (isWeekend) {
       recommendedKeys.push('little-deer', 'storyteller');

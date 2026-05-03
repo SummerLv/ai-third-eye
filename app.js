@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.125
+ * 版本: v1.8.126
+ *
+ * v1.8.126 更新:
+ * - ⭐ 新增「星座顾问」人设 - 星座运势,性格分析
+ * - 🐛 修复关于面板人设数量显示错误 (64→66)
+ * - 🎭 人设总数扩展至 66 种
+ * - 🔄 智能推荐增加星座顾问（下午和晚上时段）
+ * - 📊 语音命令关键词保持 172 个
  *
  * v1.8.125 更新:
  * - 🎭 新增「脱口秀演员」人设 - 幽默吐槽,搞笑段子
@@ -613,7 +620,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.125';
+const APP_VERSION = 'v1.8.126';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2039,7 +2046,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">64种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">66种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>

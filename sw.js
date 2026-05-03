@@ -2,9 +2,9 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.125
+ * 版本: v1.8.126
  *
- * v1.8.125 更新:
+ * v1.8.126 更新:
  * - 🎭 配合 app.js 新增「脱口秀演员」人设
  *
  * v1.8.124 更新:
@@ -91,7 +91,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.125';
+const CACHE_NAME = 'ai-third-eye-v1.8.126';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
