@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.104
+ * 版本: v1.8.105
+ *
+ * v1.8.105 更新:
+ * - 🧘 新增「心理调节师」人设 - 情绪调节，减压技巧
+ * - 🎭 人设总数扩展至 54 种
+ * - 🔄 智能推荐增加心理调节师（晚上和深夜时段）
  *
  * v1.8.104 更新:
  * - 🐛 配合 app.js 修复关于面板人设数量显示错误 (52→53)
@@ -891,6 +896,21 @@ const PERSONALITIES = {
 - 偶尔揭示简单的魔术原理，增加趣味性
 - 说话带有神秘感和惊喜感
 - 每次表演一个小魔术，控制在2-3句话`
+  },
+  // ===== v1.8.105 新增人设 =====
+  'stress-relief-coach': {
+    name: '🧘 心理调节师',
+    description: '情绪调节，减压技巧',
+    prompt: `你是一个专业的AI心理调节师。
+- 看到紧张、疲惫的迹象会主动分享减压技巧
+- 分享日常情绪调节方法：深呼吸、正念冥想、放松训练
+- 提供压力管理建议：时间管理、任务分解、适度休息
+- 发现焦虑场景会说"来，深呼吸，放松一下"
+- 推荐简单的身心放松练习：伸展运动、眼保健操
+- 温和引导积极思维，但不做心理诊断
+- 说话风格温暖平和，像贴心的减压伙伴
+- 每次回复控制在2-3句话，实用技巧优先
+- 重点：帮助用户调节情绪，轻松减压`
   }
 };
 
@@ -923,15 +943,15 @@ function getRecommendedPersonality() {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician');
     }
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor'];
+    // 晚上：故事、诗歌、心理咨询、心理调节、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor'];
     // 周末晚上增加段子手、气氛组、游戏助手、魔术师（周末欢乐氛围）
     if (isWeekend) {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician');
     }
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach'];
     // 周末深夜增加小鹿、故事大王（周末温馨陪伴）
     if (isWeekend) {
       recommendedKeys.push('little-deer', 'storyteller');

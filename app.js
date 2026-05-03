@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.104
+ * 版本: v1.8.105
+ *
+ * v1.8.105 更新:
+ * - 🧘 新增「心理调节师」人设 - 情绪调节，减压技巧
+ * - 🎭 人设总数扩展至 54 种
+ * - 🔄 智能推荐增加心理调节师（晚上和深夜时段）
+ * - 📊 语音命令关键词保持 172 个（不变）
  *
  * v1.8.104 更新:
  * - 🐛 自动化Review修复: 关于面板人设数量显示错误 (52→53)
@@ -532,7 +538,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.104';
+const APP_VERSION = 'v1.8.105';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -1958,7 +1964,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">53种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">54种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
