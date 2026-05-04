@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.140] - 2026-05-04
+
+### Added
+- 📈 新增「舆情分析师」人设 - 社交媒体热点、舆情走向分析
+- 🎭 人设总数扩展至 74 种
+- 🔄 智能推荐增加舆情分析师（下午和晚上时段）
+
+### Fixed
+- 📝 同步所有文件版本号至 v1.8.140
+
 ## [v1.8.139] - 2026-05-04
 
 ### Added
