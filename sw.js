@@ -2,7 +2,11 @@
  * AI 第三只眼 - Service Worker
  * �n提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.137
+ * 版本: v1.8.138
+ *
+ * v1.8.138 更新:
+ * - 🐛 自动化Review修复: 关于面板人设数量显示不一致 (70→71)
+ * - 📝 同步所有文件版本号至 v1.8.138
  *
  * v1.8.137 更新:
  * - 🤖 新增「AI教练」人设 - AI知识学习、技术指导
@@ -120,7 +124,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.137';
+const CACHE_NAME = 'ai-third-eye-v1.8.138';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
