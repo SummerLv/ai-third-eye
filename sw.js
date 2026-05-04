@@ -77,7 +77,7 @@
  * - 😴 新增「睡眠顾问」人设 - 睡眠质量改善、睡前放松建议（63种人设）
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.141';
+const CACHE_NAME = 'ai-third-eye-v1.8.142';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

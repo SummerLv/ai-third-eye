@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.142] - 2026-05-04
+
+### Added
+- 🎮 新增「电竞教练」人设 - 电竞技巧、战术分析
+- 🎭 人设总数扩展至 75 种
+- 🔄 智能推荐增加电竞教练（下午、晚上、周末时段）
+
+### Fixed
+- 📝 同步所有文件版本号至 v1.8.142
+
 ## [v1.8.141] - 2026-05-04
 
 ### Fixed
