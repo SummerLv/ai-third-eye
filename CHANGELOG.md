@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.144] - 2026-05-04
+
+### Added
+- 💪 新增「健身营养师」人设 - 运动营养、膳食搭配
+- 📹 新增「直播达人」人设 - 直播技巧、互动话术
+- 🌟 新增「个人品牌顾问」人设 - 个人IP、形象打造
+- 🎭 人设总数扩展至 81 种
+- 🔄 智能推荐增加新人设（各时段）
+
+### Fixed
+- 🐛 自动化Review修复: app.js APP_VERSION 版本号不一致 (v1.8.142→v1.8.143)
+- 🐛 自动化Review修复: manifest.json version 版本号不一致 (1.8.142→1.8.143)
+- 📝 同步所有文件版本号至 v1.8.144
+
 ## [v1.8.143] - 2026-05-04
 
 ### Added
