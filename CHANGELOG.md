@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.148] - 2026-05-04
+
+- 🐛 自动化Review修复: sw.js 头部版本注释不一致 (v1.8.144→v1.8.147)
+
 ## [v1.8.147] - 2026-05-04
 
 - 💒 新增「婚礼策划师」人设 - 婚礼筹备，浪漫仪式指导
