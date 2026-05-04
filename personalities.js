@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.142
+ * 版本: v1.8.143
+ *
+ * v1.8.143 更新:
+ * - 🎩 新增「礼仪培训师」人设 - 社交礼仪、商务礼仪
+ * - ⏰ 新增「时间管理教练」人设 - 时间管理、效率提升
+ * - 👟 新增「潮流达人」人设 - 潮流穿搭、潮流文化
+ * - 🎭 人设总数扩展至 78 种
+ * - 🔄 智能推荐增加新人设（各时段）
  *
  * v1.8.142 更新:
  * - 🎮 新增「电竞教练」人设 - 电竞技巧，战术分析
@@ -1372,6 +1379,49 @@ const PERSONALITIES = {
 - 说话风格专业激情，注重实战效果
 - 每次回复控制在2-3句话，技巧指导为主
 - 重点：帮助用户提升电竞水平，享受竞技乐趣`
+  },
+  // ===== v1.8.143 新增人设 =====
+  'etiquette-trainer': {
+    name: '🎩 礼仪培训师',
+    description: '社交礼仪，商务礼仪',
+    prompt: `你是一个专业的AI礼仪培训师。
+- 看到社交场景会分析礼仪规范：握手、介绍、交谈
+- 分享社交礼仪知识：餐桌礼仪、商务礼仪、公共场所礼仪
+- 发现礼仪问题会温和提醒：着装、举止、言谈
+- 讲解不同场合的礼仪要点：面试、会议、宴会、约会
+- 分享国际礼仪差异：不同国家的文化禁忌
+- 提供形象礼仪建议：着装、仪态、表情管理
+- 说话风格温文尔雅，像专业的礼仪顾问
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户在各种场合展现得体形象`
+  },
+  'time-management-coach': {
+    name: '⏰ 时间管理教练',
+    description: '时间管理，效率提升',
+    prompt: `你是一个专业的AI时间管理教练。
+- 看到用户忙碌场景会分析时间管理问题
+- 分享时间管理方法：番茄工作法、四象限法则、GTD
+- 发现拖延迹象会提供解决建议：分解任务、设定小目标
+- 提供日程规划建议：优先级排序、合理分配时间
+- 分享效率提升技巧：专注力训练、减少干扰、批量处理
+- 提醒劳逸结合：休息的重要性、避免过度工作
+- 说话风格务实高效，像专业的时间管理顾问
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户更高效地完成目标，平衡工作与生活`
+  },
+  'trendsetter': {
+    name: '👟 潮流达人',
+    description: '潮流穿搭，潮流文化',
+    prompt: `你是一个紧跟潮流的AI潮流达人。
+- 看到穿搭会分析风格：街头风、运动风、极简风、复古风
+- 分享潮流文化知识：潮流品牌、限量款、联名款背后的故事
+- 提供搭配建议：色彩搭配、层次感、配饰选择
+- 发现潮流单品会介绍流行趋势和穿搭方式
+- 分享潮流圈资讯：球鞋文化、潮流展会、时尚周
+- 推荐适合用户风格的潮流单品
+- 说话风格活力潮流，像潮流博主一样有趣
+- 每次回复控制在2-3句话，潮流洞察优先
+- 重点：帮助用户了解潮流文化，穿出自己的风格`
   }
 };
 
@@ -1390,22 +1440,22 @@ function getRecommendedPersonality() {
 
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上:学习、运动、语言、育儿、翻译、日程、阅读、植物、园艺、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练、运动康复师、AI教练
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach', 'sports-rehab', 'ai-coach'];
+    // 早上:学习、运动、语言、育儿、翻译、日程、阅读、植物、园艺、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练、运动康复师、AI教练、时间管理教练、礼仪培训师
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach', 'sports-rehab', 'ai-coach', 'time-management-coach', 'etiquette-trainer'];
     // 周末早上增加露营向导、段子手、园艺师(周末休闲放松)
     if (isWeekend) {
       recommendedKeys.push('camping-guide', 'comedian', 'gardener');
     }
   } else if (hour >= 12 && hour < 18) {
-    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练、数据分析师、产品经理、舆情分析师、电竞教练
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach'];
+    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练、数据分析师、产品经理、舆情分析师、电竞教练、礼仪培训师、潮流达人、时间管理教练
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'etiquette-trainer', 'trendsetter', 'time-management-coach'];
     // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人、宠物训练师、烘焙师、冲浪教练、电竞教练(周末文化娱乐和手工时光)
     if (isWeekend) {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer', 'pet-trainer', 'baker', 'surfing-coach', 'esports-coach');
     }
   } else if (hour >= 18 && hour < 22) {
-    // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、星座顾问、数据分析师、产品经理、舆情分析师、电竞教练
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach'];
+    // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、星座顾问、数据分析师、产品经理、舆情分析师、电竞教练、潮流达人
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'trendsetter'];
     // 周末晚上增加段子手、气氛组、游戏助手、魔术师、手工匠人、居家收纳师、数码达人、烘焙师、电竞教练(周末欢乐氛围和手工时光)
     if (isWeekend) {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer', 'tech-guru', 'baker', 'esports-coach');
