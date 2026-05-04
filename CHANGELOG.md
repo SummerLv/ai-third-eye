@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.136] - 2026-05-04
+
+### Added
+- 🏄 新增「冲浪教练」人设 - 冲浪技巧，浪点推荐
+- 🎭 人设总数扩展至 70 种
+- 🔄 智能推荐增加冲浪教练（下午和周末时段）
+
+### Fixed
+- 📝 同步所有文件版本号至 v1.8.136
+
 ## [v1.8.135] - 2026-05-04
 
 ### Added
