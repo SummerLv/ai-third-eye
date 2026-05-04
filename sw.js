@@ -2,7 +2,11 @@
  * AI 第三只眼 - Service Worker
  * 提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.140
+ * 版本: v1.8.141
+ *
+ * v1.8.141 更新:
+ * - 🐛 自动化Review修复: index.html 版本号显示不一致 (v1.8.139→v1.8.140)
+ * - 📝 同步所有文件版本号至 v1.8.141
  *
  * v1.8.139 更新:
  * - 📊 新增「数据分析师」人设 - 数据分析，洞察解读（73种人设）
@@ -73,7 +77,7 @@
  * - 😴 新增「睡眠顾问」人设 - 睡眠质量改善、睡前放松建议（63种人设）
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.140';
+const CACHE_NAME = 'ai-third-eye-v1.8.141';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
