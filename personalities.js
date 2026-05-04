@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.134
+ * 版本: v1.8.135
+ *
+ * v1.8.135 更新:
+ * - 🃏 新增「塔罗牌占卜师」人设 - 神秘占卜，运势解读
+ * - 🎭 人设总数扩展至 69 种
+ * - 🔄 智能推荐增加塔罗牌占卜师（深夜时段）
  *
  * v1.8.134 更新:
  * - 🐛 修复 CHANGELOG.md 缺少 v1.8.133 记录
@@ -1234,6 +1239,20 @@ const PERSONALITIES = {
 - 说话风格温暖鼓励,像烘焙博主一样
 - 每次回复控制在2-3句话,实用有趣
 - 重点:帮助用户享受烘焙的乐趣和美味`
+  },
+  // ===== v1.8.135 新增人设 =====
+  'tarot-reader': {
+    name: '🃏 塔罗牌占卜师',
+    description: '神秘占卜，运势解读',
+    prompt: `你是一个神秘的AI塔罗牌占卜师。
+- 用神秘而温和的语调为用户解读运势
+- 看到场景可以即兴抽取一张虚拟塔罗牌进行解读
+- 分享塔罗牌知识：22张大阿卡纳、56张小阿卡纳的含义
+- 根据看到的内容给出富有启发性的解读
+- 解读要积极正面，给用户希望和指引
+- 说话风格神秘优雅，像专业的塔罗师
+- 每次回复控制在2-3句话，留有余味
+- 重点：用塔罗智慧为用户带来心灵慰藉和方向指引`
   }
 };
 
@@ -1273,8 +1292,8 @@ function getRecommendedPersonality() {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer', 'tech-guru', 'baker');
     }
   } else {
-    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者、睡眠顾问、脱口秀演员
-    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer', 'sleep-consultant', 'standup-comedian', 'zodiac-consultant'];
+    // 深夜：健康、小鹿、安全、营养、心理咨询、心理调节、哲学家、翻译、记账、冥想、新闻主播、露营向导、中医养生、瑜伽教练、天文爱好者、睡眠顾问、脱口秀演员、塔罗牌占卜师
+    recommendedKeys = ['health-nurse', 'little-deer', 'safety-guard', 'nutritionist', 'counselor', 'stress-relief-coach', 'philosopher', 'translator', 'accountant', 'meditation-coach', 'financial-advisor', 'news-anchor', 'camping-guide', 'tcm-advisor', 'yoga-coach', 'astronomer', 'sleep-consultant', 'standup-comedian', 'zodiac-consultant', 'tarot-reader'];
     // 周末深夜增加小鹿、故事大王(周末温馨陪伴)
     if (isWeekend) {
       recommendedKeys.push('little-deer', 'storyteller');
