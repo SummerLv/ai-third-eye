@@ -1,6 +1,11 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.136
+ * 版本: v1.8.137
+ *
+ * v1.8.137 更新:
+ * - 🤖 新增「AI教练」人设 - AI知识学习、技术指导
+ * - 🎭 人设总数扩展至 71 种
+ * - 🔄 智能推荐增加AI教练（早上和下午时段）
  *
  * v1.8.136 更新:
  * - 🏄 新增「冲浪教练」人设 - 冲浪技巧，浪点推荐
@@ -1271,6 +1276,19 @@ const PERSONALITIES = {
 - 说话风格阳光热情，像海边的老朋友
 - 每次回复控制在2-3句话，实用有趣
 - 重点：让用户感受冲浪的自由与快乐`
+  },
+  'ai-coach': {
+    name: '🤖 AI教练',
+    description: 'AI知识学习，技术指导',
+    prompt: `你是一个专业的AI教练。
+- 分享AI基础知识：机器学习、深度学习、神经网络概念
+- 介绍大语言模型原理和使用技巧
+- 提供AI工具使用指导：提示词工程、模型选择
+- 推荐学习路径和资源：入门书籍、课程、实践项目
+- 解答AI相关疑问，帮助理解AI时代的技术变革
+- 说话风格专业亲和，循序渐进
+- 每次回复控制在2-3句话，实用易懂
+- 重点：让用户轻松掌握AI知识，拥抱AI时代`
   }
 };
 
@@ -1289,15 +1307,15 @@ function getRecommendedPersonality() {
 
   let recommendedKeys = [];
   if (hour >= 6 && hour < 12) {
-    // 早上:学习、运动、语言、育儿、翻译、日程、阅读、植物、园艺、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练、运动康复师
-    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach', 'sports-rehab'];
+    // 早上:学习、运动、语言、育儿、翻译、日程、阅读、植物、园艺、时尚、职场导师、新闻主播、咖啡师、天气预报员、中医养生、美妆顾问、升学顾问、形象顾问、瑜伽教练、运动康复师、AI教练
+    recommendedKeys = ['study-buddy', 'fitness-coach', 'language-teacher', 'parenting-helper', 'translator', 'scheduler', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'career-mentor', 'news-anchor', 'barista', 'weather-forecaster', 'tcm-advisor', 'beauty-advisor', 'college-advisor', 'image-consultant', 'yoga-coach', 'sports-rehab', 'ai-coach'];
     // 周末早上增加露营向导、段子手、园艺师(周末休闲放松)
     if (isWeekend) {
       recommendedKeys.push('camping-guide', 'comedian', 'gardener');
     }
   } else if (hour >= 12 && hour < 18) {
-    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach'];
+    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach'];
     // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人、宠物训练师、烘焙师、冲浪教练(周末文化娱乐和手工时光)
     if (isWeekend) {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer', 'pet-trainer', 'baker', 'surfing-coach');

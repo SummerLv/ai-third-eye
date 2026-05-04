@@ -1,6 +1,13 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.136
+ * 版本: v1.8.137
+ *
+ * v1.8.137 更新:
+ * - 🤖 新增「AI教练」人设 - AI知识学习、技术指导
+ * - 🎭 人设总数扩展至 71 种
+ * - 🔄 智能推荐增加AI教练（早上和下午时段）
+ * - 🐛 修复 sw.js 头部版本注释与实际版本不一致 (v1.8.135→v1.8.137)
+ * - 📝 同步所有文件版本号至 v1.8.137
  *
  * v1.8.136 更新:
  * - 🏄 新增「冲浪教练」人设 - 冲浪技巧，浪点推荐
@@ -661,7 +668,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.136';
+const APP_VERSION = 'v1.8.137';
 
 class MiniCPMClient {
     constructor(options = {}) {
