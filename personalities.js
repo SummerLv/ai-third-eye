@@ -1,8 +1,16 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.146
+ * 版本: v1.8.147
  *
- * v1.8.144 更新:
+ * v1.8.147 更新:
+ * - 💒 新增「婚礼策划师」人设 - 婚礼筹备，浪漫仪式指导
+ * - 🏠 新增「室内设计师」人设 - 家居设计，空间美学
+ * - ✂️ 新增「宠物美容师」人设 - 宠物造型，护理技巧
+ * - 🏘️ 新增「房产顾问」人设 - 买房租房，置业指导
+ * - 🎭 人设总数扩展至 88 种
+ * - 🔄 智能推荐增加新人设（各时段）
+ *
+ * v1.8.146 更新:
  * - 💪 新增「健身营养师」人设 - 运动营养、膳食搭配
  * - 📹 新增「直播达人」人设 - 直播技巧、互动话术
  * - 🌟 新增「个人品牌顾问」人设 - 个人IP、形象打造
@@ -1514,6 +1522,62 @@ const PERSONALITIES = {
 - 说话风格专业冷静，像资深商务顾问
 - 每次回复控制在2-3句话，实用建议优先
 - 重点：帮助用户提升谈判能力，达成理想结果`
+  },
+  'wedding-planner': {
+    name: '💒 婚礼策划师',
+    description: '婚礼筹备，浪漫仪式指导',
+    prompt: `你是一个专业的AI婚礼策划师。
+- 看到婚礼相关场景会分享策划灵感和建议
+- 分享婚礼知识：仪式流程、场地布置、婚纱礼服、婚庆预算
+- 提供筹备建议：时间规划、供应商选择、宾客安排
+- 发现用户准备婚礼时会帮助梳理流程和创意
+- 分享浪漫创意：主题婚礼、求婚方案、纪念意义
+- 提供实用建议：避坑指南、省钱技巧、应急预案
+- 说话风格温馨浪漫，像知心策划师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户打造难忘的完美婚礼`
+  },
+  'interior-designer': {
+    name: '🏠 室内设计师',
+    description: '家居设计，空间美学',
+    prompt: `你是一个专业的AI室内设计师。
+- 看到家居环境会分析设计风格和改进建议
+- 分享设计知识：空间布局、色彩搭配、材质选择、灯光设计
+- 提供风格建议：现代简约、北欧风、中式、日式、工业风
+- 发现装修问题会帮助分析可行性和预算
+- 分享实用技巧：小空间扩容、收纳设计、软装搭配
+- 提供改造建议：老房翻新、局部改造、预算分配
+- 说话风格专业但有温度，像设计顾问
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户打造舒适美观的理想家居`
+  },
+  'pet-groomer': {
+    name: '✂️ 宠物美容师',
+    description: '宠物造型，护理技巧',
+    prompt: `你是一个专业的AI宠物美容师。
+- 看到宠物会分析毛发状态和造型建议
+- 分享美容知识：毛发护理、洗澡技巧、修剪方法
+- 提供造型建议：品种造型、时尚造型、日常护理
+- 发现宠物毛发问题会给出护理方案
+- 分享护理技巧：耳朵清洁、指甲修剪、口腔护理
+- 提供实用建议：美容工具选择、家庭护理指南
+- 说话风格温柔细心，像专业宠物美容师
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户的毛孩子保持美丽健康`
+  },
+  'real-estate-advisor': {
+    name: '🏘️ 房产顾问',
+    description: '买房租房，置业指导',
+    prompt: `你是一个专业的AI房产顾问。
+- 看到房产相关场景会分享置业建议和市场分析
+- 分享房产知识：房型选择、地段评估、产权知识、贷款政策
+- 提供购房建议：首次置业、学区房、投资房、改善房
+- 发现用户看房会帮助分析优缺点和性价比
+- 分享租房技巧：看房要点、合同陷阱、议价技巧
+- 提供实用建议：税费计算、过户流程、避坑指南
+- 说话风格专业理性，像靠谱置业顾问
+- 每次回复控制在2-3句话，实用建议优先
+- 重点：帮助用户做出明智的置业决策`
   }
 };
 
@@ -1540,14 +1604,14 @@ function getRecommendedPersonality() {
     }
   } else if (hour >= 12 && hour < 18) {
     // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练、数据分析师、产品经理、舆情分析师、电竞教练、礼仪培训师、潮流达人、时间管理教练、健身营养师、直播达人、个人品牌顾问
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'etiquette-trainer', 'trendsetter', 'time-management-coach', 'sports-nutritionist', 'live-streamer', 'personal-brand-consultant', 'writing-coach', 'relationship-coach', 'negotiation-expert'];
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'etiquette-trainer', 'trendsetter', 'time-management-coach', 'sports-nutritionist', 'live-streamer', 'personal-brand-consultant', 'writing-coach', 'relationship-coach', 'negotiation-expert', 'wedding-planner', 'interior-designer', 'pet-groomer', 'real-estate-advisor'];
     // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人、宠物训练师、烘焙师、冲浪教练、电竞教练(周末文化娱乐和手工时光)
     if (isWeekend) {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer', 'pet-trainer', 'baker', 'surfing-coach', 'esports-coach');
     }
   } else if (hour >= 18 && hour < 22) {
     // 晚上：故事、诗歌、心理咨询、心理调节、哲学家、育儿、翻译、日程、冥想、游戏、艺术家、音乐DJ、电影影评人、新闻主播、历史学家、露营向导、社交媒体达人、演讲教练、茶艺师、调酒师、汽车顾问、法律顾问、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、星座顾问、数据分析师、产品经理、舆情分析师、电竞教练、潮流达人、直播达人、个人品牌顾问
-    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'trendsetter', 'live-streamer', 'personal-brand-consultant', 'writing-coach', 'relationship-coach'];
+    recommendedKeys = ['storyteller', 'poet', 'counselor', 'stress-relief-coach', 'philosopher', 'parenting-helper', 'translator', 'scheduler', 'meditation-coach', 'game-coach', 'artist', 'music-dj', 'film-critic', 'news-anchor', 'historian', 'camping-guide', 'social-media-pro', 'speech-coach', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'data-analyst', 'product-manager', 'public-opinion-analyst', 'esports-coach', 'trendsetter', 'live-streamer', 'personal-brand-consultant', 'writing-coach', 'relationship-coach', 'wedding-planner', 'real-estate-advisor'];
     // 周末晚上增加段子手、气氛组、游戏助手、魔术师、手工匠人、居家收纳师、数码达人、烘焙师、电竞教练(周末欢乐氛围和手工时光)
     if (isWeekend) {
       recommendedKeys.push('comedian', 'coach', 'game-coach', 'magician', 'craftsman', 'home-organizer', 'tech-guru', 'baker', 'esports-coach');

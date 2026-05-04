@@ -1,8 +1,17 @@
 /**
  * AI 第三只眼 - MiniCPM-o 4.5 Realtime API Client
- * 版本: v1.8.146
+ * 版本: v1.8.147
  *
- * v1.8.144 更新:
+ * v1.8.147 更新:
+ * - 💒 新增「婚礼策划师」人设 - 婚礼筹备，浪漫仪式指导
+ * - 🏠 新增「室内设计师」人设 - 家居设计，空间美学
+ * - ✂️ 新增「宠物美容师」人设 - 宠物造型，护理技巧
+ * - 🏘️ 新增「房产顾问」人设 - 买房租房，置业指导
+ * - 🎭 人设总数扩展至 88 种
+ * - 🔄 智能推荐增加新人设（各时段）
+ * - 🐛 自动化Review修复: app.js APP_VERSION 版本号不一致 (v1.8.144→v1.8.146)
+ *
+ * v1.8.146 更新:
  * - 💪 新增「健身营养师」人设 - 运动营养、膳食搭配
  * - 📹 新增「直播达人」人设 - 直播技巧、互动话术
  * - 🌟 新增「个人品牌顾问」人设 - 个人IP、形象打造
@@ -708,7 +717,7 @@
  * - manifest 添加版本号
  */
 
-const APP_VERSION = 'v1.8.144';
+const APP_VERSION = 'v1.8.147';
 
 class MiniCPMClient {
     constructor(options = {}) {
@@ -2134,7 +2143,7 @@ class UIController {
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
                     <span style="background:rgba(0,212,255,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">实时视觉</span>
                     <span style="background:rgba(0,255,136,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">全双工对话</span>
-                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">84种人设 | 172个语音关键词</span>
+                    <span style="background:rgba(255,165,0,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">88种人设 | 172个语音关键词</span>
                     <span style="background:rgba(255,107,107,0.2);padding:4px 8px;border-radius:4px;font-size:12px;">PWA支持</span>
                 </div>
             </div>
