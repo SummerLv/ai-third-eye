@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.141] - 2026-05-04
+
+### Fixed
+- 🐛 自动化Review修复: index.html 版本号显示不一致 (v1.8.139→v1.8.140)
+- 📝 同步所有文件版本号至 v1.8.141
+
 ## [v1.8.140] - 2026-05-04
 
 ### Added
