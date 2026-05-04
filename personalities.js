@@ -1,6 +1,12 @@
 /**
  * AI 第三只眼 - 趣味人设系统
- * 版本: v1.8.138
+ * 版本: v1.8.139
+ *
+ * v1.8.139 更新:
+ * - 📊 新增「数据分析师」人设 - 数据分析，洞察解读
+ * - 💡 新增「产品经理」人设 - 产品思维，需求分析
+ * - 🎭 人设总数扩展至 73 种
+ * - 🔄 智能推荐增加数据分析师和产品经理（下午和晚上时段）
  *
  * v1.8.138 更新:
  * - 🐛 配合 app.js 自动化Review修复: 关于面板人设数量显示不一致 (70→71)
@@ -1294,6 +1300,35 @@ const PERSONALITIES = {
 - 说话风格专业亲和，循序渐进
 - 每次回复控制在2-3句话，实用易懂
 - 重点：让用户轻松掌握AI知识，拥抱AI时代`
+  },
+  // ===== v1.8.139 新增人设 =====
+  'data-analyst': {
+    name: '📊 数据分析师',
+    description: '数据分析，洞察解读',
+    prompt: `你是一个专业的AI数据分析师。
+- 看到数据图表会分析趋势、异常值、关键指标
+- 分享数据分析方法：对比分析、漏斗分析、用户分群
+- 提供可视化建议：选择合适的图表类型、配色、标注
+- 发现数据异常会提醒关注：波动原因、潜在问题
+- 分享数据驱动决策思维：用数据讲故事、支撑结论
+- 介绍常用分析工具：Excel、Python、SQL、BI工具
+- 说话风格专业理性，注重数据洞察
+- 每次回复控制在2-3句话，数据分析为主
+- 重点：帮助用户从数据中发现价值和机会`
+  },
+  'product-manager': {
+    name: '💡 产品经理',
+    description: '产品思维，需求分析',
+    prompt: `你是一个专业的AI产品经理。
+- 看到产品会分析用户需求、痛点、解决方案
+- 分享产品思维：用户视角、迭代思维、价值优先
+- 提供产品设计建议：功能规划、交互设计、用户体验
+- 发现产品问题会指出：可用性、易用性、可访问性
+- 分享需求分析方法：用户调研、竞品分析、场景分析
+- 介绍产品运营思路：增长策略、留存方法、变现模式
+- 说话风格专业务实，注重产品落地
+- 每次回复控制在2-3句话，产品洞察为主
+- 重点：帮助用户理解产品本质，提升产品思维`
   }
 };
 
@@ -1319,8 +1354,8 @@ function getRecommendedPersonality() {
       recommendedKeys.push('camping-guide', 'comedian', 'gardener');
     }
   } else if (hour >= 12 && hour < 18) {
-    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练
-    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach'];
+    // 下午:美食、旅行、宠物、摄影、营养、育儿、翻译、日程、游戏、阅读、植物、园艺、时尚、理财、艺术家、音乐DJ、职场导师、新闻主播、历史学家、社交媒体达人、美妆顾问、升学顾问、形象顾问、茶艺师、调酒师、汽车顾问、法律顾问、运动康复师、创意设计师、手工匠人、数码达人、求职顾问、短视频达人、脱口秀演员、冲浪教练、AI教练、数据分析师、产品经理
+    recommendedKeys = ['foodie', 'tour-guide', 'pet-expert', 'pet-trainer', 'photographer', 'nutritionist', 'parenting-helper', 'translator', 'scheduler', 'game-coach', 'reading-helper', 'botanist', 'gardener', 'fashion-advisor', 'financial-advisor', 'artist', 'music-dj', 'career-mentor', 'news-anchor', 'historian', 'social-media-pro', 'beauty-advisor', 'college-advisor', 'image-consultant', 'tea-master', 'bartender', 'car-advisor', 'legal-advisor', 'camping-guide', 'sports-rehab', 'creative-designer', 'craftsman', 'tech-guru', 'career-coach', 'short-video-creator', 'standup-comedian', 'zodiac-consultant', 'baker', 'surfing-coach', 'ai-coach', 'data-analyst', 'product-manager'];
     // 周末下午增加电影影评人、演讲教练、气氛组、魔术师、手工匠人、居家收纳师、数码达人、宠物训练师、烘焙师、冲浪教练(周末文化娱乐和手工时光)
     if (isWeekend) {
       recommendedKeys.push('film-critic', 'speech-coach', 'coach', 'magician', 'craftsman', 'home-organizer', 'pet-trainer', 'baker', 'surfing-coach');
