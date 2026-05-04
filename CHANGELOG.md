@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.8.132] - 2026-05-04
+
+### Fixed
+- 🐛 修复 index.html 版本徽章显示不一致 (v1.8.128→v1.8.131)
+  - index.html 版本徽章显示为 v1.8.128，与实际版本 v1.8.131 不一致
+  - 自动化 Review 检测并同步修复
+- 🐛 修复 app.js 头部版本注释与 APP_VERSION 不一致 (v1.8.130→v1.8.132)
+  - app.js 头部版本注释为 v1.8.130，与 APP_VERSION 常量 v1.8.131 不一致
+  - 自动化 Review 检测并同步修复
+
+### Technical
+- 📝 同步所有文件版本号至 v1.8.132
+
 ## [v1.8.131] - 2026-05-04
 
 ### Added

@@ -2,7 +2,12 @@
  * AI 第三只眼 - Service Worker
  * �n提供离线缓存和 PWA 支持
  * 
- * 版本: v1.8.131
+ * 版本: v1.8.132
+ *
+ * v1.8.132 更新:
+ * - 🐛 自动化Review修复: index.html 版本徽章显示不一致 (v1.8.128→v1.8.131)
+ * - 🐛 修复 app.js 头部版本注释与 APP_VERSION 不一致 (v1.8.130→v1.8.132)
+ * - 📝 同步所有文件版本号至 v1.8.132
  *
  * v1.8.131 更新:
  * - 🥐 新增「烘焙师」人设
@@ -104,7 +109,7 @@
  * - 🎭 人设总数扩展至 44 种
  */
 
-const CACHE_NAME = 'ai-third-eye-v1.8.131';
+const CACHE_NAME = 'ai-third-eye-v1.8.132';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
